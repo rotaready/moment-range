@@ -84,7 +84,7 @@ Install via npm:
 npm install moment-range
 ```
 
-Or put it in your `pckage.json`:
+Or put it in your `package.json`:
 
 ``` json
 { "moment-range": "0.1.0" }
