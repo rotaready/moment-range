@@ -7,6 +7,8 @@ Fancy date ranges for [Moment.js][moment].
 Examples
 --------
 
+### Create
+
 Create a date range:
 
 ``` javascript
@@ -22,6 +24,8 @@ var start = moment("2011-04-15", "YYYY-MM-DD")
   , end   = moment("2011-11-27", "YYYY-MM-DD")
   , range = moment().range(start, end);
 ```
+
+### Contains / Within
 
 Check to see if your range contains a date/moment:
 
@@ -46,6 +50,27 @@ var start = new Date(2012, 4, 1)
 
 when.within(range); // true
 ```
+
+### Iterate
+
+Iterate over your date range by another range:
+
+``` javascript
+var start = new Date(2012, 2, 1)
+  , two   = new Date(2012, 2, 2)
+  , end   = new Date(2012, 2, 5)
+  , range1 = moment().range(start, end)
+  , range2 = moment().range(start, two) // One day
+  , acc = [];
+
+range1.by(range2, function(moment) {
+  // Do something with `moment`
+});
+
+acc.length == 5 // true
+```
+
+### Compare
 
 Compare range lengths or add them together with simple math:
 

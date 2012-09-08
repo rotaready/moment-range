@@ -1,6 +1,6 @@
 moment =
   if require?
-    require 'moment'
+    require "moment"
   else
     @moment
 
@@ -24,6 +24,21 @@ class DateRange
   *###
   contains: (moment) ->
     @start < moment < @end
+
+  ###*
+    * Iterate over the date range by a given date range, executing a function
+    * for each sub-range.
+    * @param {!DateRange}        range     Date range to be used for iteration.
+    * @param {!function(Moment)} hollaback Function to execute for each sub-range.
+    * @return {!boolean}
+  *###
+  by: (range, hollaback) ->
+    l = Math.round @ / range
+
+    for i in [0..l]
+      hollaback.call @, moment(@start.valueOf() + range.valueOf() * i)
+
+    @ # Chainability
 
   ###*
     * Date range in milliseconds. Allows basic coercion math of date ranges.
