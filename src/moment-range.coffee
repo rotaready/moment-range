@@ -28,13 +28,17 @@ class DateRange
   ###*
     * Iterate over the date range by a given date range, executing a function
     * for each sub-range.
-    * @param {!DateRange}        range     Date range to be used for iteration.
+    * @param {!DateRange|String}        range     Date range to be used for iteration or shorthand string (shorthands: http://momentjs.com/docs/#/manipulating/add/)
     * @param {!function(Moment)} hollaback Function to execute for each sub-range.
     * @return {!boolean}
   *###
   by: (range, hollaback) ->
-    l = Math.round @ / range
+    if typeof range is 'string'
+      start = moment()
+      end = moment(start).add range, 1
+      range = moment().range start, end
 
+    l = Math.round @ / range
     for i in [0..l]
       hollaback.call @, moment(@start.valueOf() + range.valueOf() * i)
 
