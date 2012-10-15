@@ -39,6 +39,8 @@ class DateRange
       range = moment().range start, end
 
     l = Math.round @ / range
+    return @ if l is Infinity
+
     for i in [0..l]
       hollaback.call @, moment(@start.valueOf() + range.valueOf() * i)
 
