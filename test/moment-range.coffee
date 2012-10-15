@@ -39,6 +39,20 @@ describe "DateRange", ->
       acc[3].date().should.eql 4
       acc[4].date().should.eql 5
 
+    it "should iterate correctly by shorthand string", ->
+      acc = []
+      dr1 = moment().range(new Date(2012, 2, 1), new Date(2012, 2, 5))
+      dr2 = 'days'
+
+      dr1.by dr2, (m) -> acc.push m
+
+      acc.length.should.eql 5
+      acc[0].date().should.eql 1
+      acc[1].date().should.eql 2
+      acc[2].date().should.eql 3
+      acc[3].date().should.eql 4
+      acc[4].date().should.eql 5
+
   describe "#contains()", ->
     it "should work with Date objects", ->
       dr = moment().range(d_1, d_2)
