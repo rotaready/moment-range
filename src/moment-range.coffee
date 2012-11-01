@@ -23,7 +23,7 @@ class DateRange
     * @return {!boolean}
   *###
   contains: (moment) ->
-    @start < moment < @end
+    @start <= moment <= @end
 
   ###*
     * Iterate over the date range by a given date range, executing a function
