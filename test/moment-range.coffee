@@ -5,8 +5,8 @@ describe "Moment", ->
   dr  = moment().range new Date(2011, 2, 5), new Date(2011, 5, 5)
   m_1 = moment("2011-04-15", "YYYY-MM-DD")
   m_2 = moment("2012-12-25", "YYYY-MM-DD")
-  m_start = moment("2011-02-05", "YYYY-MM-DD")
-  m_end = moment("2011-05-05", "YYYY-MM-DD")
+  m_start = moment("2011-03-05", "YYYY-MM-DD")
+  m_end   = moment("2011-06-05", "YYYY-MM-DD")
 
   describe "#range()", ->
     it "should return a DateRange"
@@ -16,7 +16,7 @@ describe "Moment", ->
       m_1.within(dr).should.be.true
       m_2.within(dr).should.be.false
 
-      // the ends should be within the range
+    it "should consider the edges to be within the range", ->
       m_start.within(dr).should.be.true
       m_end.within(dr).should.be.true
 
