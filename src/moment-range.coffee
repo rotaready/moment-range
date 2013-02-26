@@ -25,6 +25,21 @@ class DateRange
   contains: (moment) ->
     @start <= moment <= @end
 
+  # @private
+  _by_string: (interval, hollaback) ->
+    current = moment(@start)
+    while (@.contains(current))
+      hollaback.call(@, current.clone())
+      current.add(interval, 1)
+
+  # @private
+  _by_range: (range_interval, hollaback) ->
+    l = Math.round @ / range_interval
+    return @ if l is Infinity
+
+    for i in [0..l]
+      hollaback.call @, moment(@start.valueOf() + range_interval.valueOf() * i)
+
   ###*
     * Iterate over the date range by a given date range, executing a function
     * for each sub-range.
@@ -34,16 +49,9 @@ class DateRange
   *###
   by: (range, hollaback) ->
     if typeof range is 'string'
-      start = moment()
-      end = moment(start).add range, 1
-      range = moment().range start, end
-
-    l = Math.round @ / range
-    return @ if l is Infinity
-
-    for i in [0..l]
-      hollaback.call @, moment(@start.valueOf() + range.valueOf() * i)
-
+      @._by_string(range, hollaback)
+    else
+      @._by_range(range, hollaback)
     @ # Chainability
 
   ###*
