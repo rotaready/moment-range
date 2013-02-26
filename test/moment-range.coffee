@@ -70,6 +70,14 @@ describe "DateRange", ->
       dr.contains(m_3).should.be.true
       dr.contains(m_4).should.be.false
 
+  describe "#overlaps()", ->
+    it "should work with Moment objects", ->
+      dr_1 = moment().range(m_1, m_2)
+      dr_2 = moment().range(m_3, m_4)
+      dr_3 = moment().range(m_2, m_4)
+      dr_1.overlaps(dr_2).should.be.true
+      dr_1.overlaps(dr_3).should.be.false
+
   describe "#valueOf()", ->
     it "should be the value of the range in milliseconds", ->
       dr = moment().range(d_1, d_2)

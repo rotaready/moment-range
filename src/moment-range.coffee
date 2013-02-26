@@ -26,6 +26,14 @@ class DateRange
     @start <= moment <= @end
 
   ###*
+    * Determine if the current date range overlaps a given date range.
+    * @param {DateRange} range Date range to check.
+    * @return {!boolean}
+  *###
+  overlaps: (range) ->
+    @start < range.end and @end > range.start
+
+  ###*
     * Iterate over the date range by a given date range, executing a function
     * for each sub-range.
     * @param {!DateRange|String}        range     Date range to be used for iteration or shorthand string (shorthands: http://momentjs.com/docs/#/manipulating/add/)
