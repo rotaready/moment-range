@@ -88,7 +88,7 @@ describe "DateRange", ->
 
     it "should iterate correctly by month over a Date-contstructed range when leap years are involved", ->
       acc = []
-      dr1 = moment().range(new Date(2012, 1), new Date(2012, 3))
+      dr1 = moment().range(new Date(2012, 0), new Date(2012, 2)) # Don't forget, months are zero-indexed
       dr2 = 'months'
 
       dr1.by dr2, (m) -> acc.push m.format('YYYY-MM')
