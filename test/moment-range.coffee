@@ -59,6 +59,24 @@ describe "DateRange", ->
       acc[3].date().should.eql 4
       acc[4].date().should.eql 5
 
+    it "should iterate correctly by year when leap years are involved", ->
+      acc = []
+      dr1 = moment().range(new Date(2011, 1, 1), new Date(2013, 1, 1))
+      dr2 = 'years'
+
+      dr1.by dr2, (m) -> acc.push m.year()
+
+      acc.should.eql [2011, 2012, 2013]
+
+    it "should iterate correctly by year when leap years are involved", ->
+      acc = []
+      dr1 = moment().range(moment('2011', 'YYYY'), moment('2013', 'YYYY'))
+      dr2 = 'years'
+
+      dr1.by dr2, (m) -> acc.push m.year()
+
+      acc.should.eql [2011, 2012, 2013]
+
   describe "#contains()", ->
     it "should work with Date objects", ->
       dr = moment().range(d_1, d_2)
