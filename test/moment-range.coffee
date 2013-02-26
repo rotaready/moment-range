@@ -59,7 +59,7 @@ describe "DateRange", ->
       acc[3].date().should.eql 4
       acc[4].date().should.eql 5
 
-    it "should iterate correctly by year when leap years are involved", ->
+    it "should iterate correctly by year over a Date-constructed range when leap years are involved", ->
       acc = []
       dr1 = moment().range(new Date(2011, 1, 1), new Date(2013, 1, 1))
       dr2 = 'years'
@@ -68,7 +68,7 @@ describe "DateRange", ->
 
       acc.should.eql [2011, 2012, 2013]
 
-    it "should iterate correctly by year when leap years are involved", ->
+    it "should iterate correctly by year over a moment()-constructed range when leap years are involved", ->
       acc = []
       dr1 = moment().range(moment('2011', 'YYYY'), moment('2013', 'YYYY'))
       dr2 = 'years'
@@ -76,6 +76,24 @@ describe "DateRange", ->
       dr1.by dr2, (m) -> acc.push m.year()
 
       acc.should.eql [2011, 2012, 2013]
+
+    it "should iterate correctly by month over a moment()-constructed range when leap years are involved", ->
+      acc = []
+      dr1 = moment().range(moment('2012-01', 'YYYY-MM'), moment('2012-03', 'YYYY-MM'))
+      dr2 = 'months'
+
+      dr1.by dr2, (m) -> acc.push m.format('YYYY-MM')
+
+      acc.should.eql ['2012-01', '2012-02', '2012-03']
+
+    it "should iterate correctly by month over a Date-contstructed range when leap years are involved", ->
+      acc = []
+      dr1 = moment().range(new Date(2012, 1), new Date(2012, 3))
+      dr2 = 'months'
+
+      dr1.by dr2, (m) -> acc.push m.format('YYYY-MM')
+
+      acc.should.eql ['2012-01', '2012-02', '2012-03']
 
   describe "#contains()", ->
     it "should work with Date objects", ->
