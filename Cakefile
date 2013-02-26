@@ -6,7 +6,7 @@ responder = (err, stdout, stderr) ->
   console.error stderr if stderr
 
 task 'build', 'Build project from src/*.coffee to lib/*.js', ->
-  exec 'coffee --compile --output lib/ src/', responder
+  exec './node_modules/.bin/coffee --compile --output lib/ src/', responder
 
 task 'test', 'Run the test suite', ->
   exec './node_modules/.bin/mocha --compilers coffee:coffee-script --reporter spec --ui bdd --colors', responder
