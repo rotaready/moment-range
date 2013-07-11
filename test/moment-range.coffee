@@ -29,6 +29,30 @@ describe "DateRange", ->
   m_2 = moment("11-05-1996", "MM-DD-YYYY")
   m_3 = moment("08-12-1996", "MM-DD-YYYY")
   m_4 = moment("01-01-2012", "MM-DD-YYYY")
+  s_start = '08-12-1996'
+  s_end = '01-01-2012'
+
+  describe "constructor", ->
+    it "should allow initialization with date string", ->
+      dr = moment().range(s_start, s_end)
+      moment.isMoment(dr.start).should.be.true
+      moment.isMoment(dr.end).should.be.true
+      dr.start.should.equal moment(s_start)
+      dr.end.should.equal moment(s_end)
+
+    it "should allow initialization with Date object", ->
+      dr = moment().range(d_1, d_2)
+      moment.isMoment(dr.start).should.be.true
+      moment.isMoment(dr.end).should.be.true
+      dr.start.should.equal d_1
+      dr.end.should.equal d_2
+
+    it "should allow initialization with Moment object", ->
+      dr = moment().range(m_1, m_2)
+      moment.isMoment(dr.start).should.be.true
+      moment.isMoment(dr.end).should.be.true
+      dr.start.should.equal m_1
+      dr.end.should.equal m_2
 
   describe "#by()", ->
     it "should iterate correctly by range", ->
