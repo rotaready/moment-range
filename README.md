@@ -101,18 +101,25 @@ Simply include moment-range after moment.js:
 ```
 
 
-### Node
+### NPM
 
 Install via npm:
 
-``` javascript
+``` sh
 npm install moment-range
 ```
 
 Or put it in your `package.json`:
 
 ``` json
-{ "moment-range": "0.1.3" }
+{ "moment-range": "~1.0" }
+```
+
+
+### Bower
+
+``` sh
+bower install moment-range
 ```
 
 
