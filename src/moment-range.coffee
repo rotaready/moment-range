@@ -15,7 +15,9 @@ class DateRange
     * @param {(Moment|Date)} end   End of interval.
     * @constructor
   *###
-  constructor: (@start, @end) ->
+  constructor: (start, end) ->
+    @start =  moment(start)
+    @end = moment(end)
 
   ###*
     * Determine if the current interval contains a given moment/date.
