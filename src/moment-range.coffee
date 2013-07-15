@@ -1,5 +1,5 @@
 moment =
-  if require?
+  if require? and !require.amd
     require "moment"
   else
     @moment
