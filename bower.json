@@ -7,7 +7,7 @@
     "components"
   ]
 , "dependencies":
-  { "moment": "~1"
+  { "moment": ">= 1"
   }
 , "devDependencies":
   { "coffee-script": "~1.6"
