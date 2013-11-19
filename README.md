@@ -65,6 +65,7 @@ var start = new Date(2012, 2, 1)
 
 range1.by(range2, function(moment) {
   // Do something with `moment`
+  acc.push(moment);
 });
 
 acc.length == 5 // true
