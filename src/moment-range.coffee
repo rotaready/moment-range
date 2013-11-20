@@ -1,9 +1,3 @@
-moment =
-  if require? and !require.amd
-    require "moment"
-  else
-    @moment
-
 ###*
   * DateRange class to store ranges and query dates.
   * @typedef {!Object}
@@ -89,8 +83,3 @@ moment.fn.range = (start, end) ->
 *###
 moment.fn.within = (range) ->
   range.contains @_d
-
-# LOL CommonJS
-if module?.exports?
-  module.exports = moment
-

@@ -1,28 +1,35 @@
-{ "name":         "moment-range"
-, "description":  "Fancy date ranges for Moment.js"
-, "author":       "Gianni Chiappetta <gianni@runlevel6.org> (http://gf3.ca)"
-, "homepage":     "https://github.com/gf3/moment-range"
-, "bugs":         "https://github.com/gf3/moment-range/issues"
-, "main":         "./lib/moment-range"
-, "directories":  { "lib" : "./lib" }
-, "version":      "0.1.7"
-, "engines":
-  { "node": "*"
-  }
-, "dependencies":
-  { "moment": ">= 1"
-  }
-, "devDependencies":
-  { "coffee-script": "~1.6"
-  , "mocha":         "1.3.0"
-  , "should":        "0.6.3"
-  }
-, "repository":
-  { "type": "git"
-  , "url": "https://git@github.com/gf3/moment-range.git"
-  }
-, "license":
-  { "type": "Public Domain"
-  , "url": "https://github.com/gf3/moment-range/raw/master/UNLICENSE"
+{
+  "name": "moment-range",
+  "description": "Fancy date ranges for Moment.js",
+  "author": "Gianni Chiappetta <gianni@runlevel6.org> (http://gf3.ca)",
+  "homepage": "https://github.com/gf3/moment-range",
+  "bugs": "https://github.com/gf3/moment-range/issues",
+  "main": "./lib/moment-range",
+  "directories": {
+    "lib": "./lib"
+  },
+  "version": "0.1.7",
+  "engines": {
+    "node": "*"
+  },
+  "dependencies": {
+    "moment": ">= 1"
+  },
+  "devDependencies": {
+    "coffee-script": "~1",
+    "mocha": "1.3.0",
+    "should": "0.6.3",
+    "grunt": "~0.4.1",
+    "grunt-umd": "~1.3.0",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-mocha-test": "~0.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git@github.com/gf3/moment-range.git"
+  },
+  "license": {
+    "type": "Public Domain",
+    "url": "https://github.com/gf3/moment-range/raw/master/UNLICENSE"
   }
 }
