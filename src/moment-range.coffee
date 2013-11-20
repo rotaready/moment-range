@@ -71,6 +71,9 @@ class DateRange
   valueOf: ->
     @end - @start
 
+  toDate:->
+    [@start.toDate(),@end.toDate()]
+
 ###*
   * Build a date range.
   * @param {(Moment|Date)} start Start of range.
