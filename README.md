@@ -139,10 +139,10 @@ Install the dependencies:
 $ npm install
 ```
 
-Run the tests:
+Do all the things! (including the tests)
 
 ``` bash
-$ ./node_modules/.bin/cake test
+$ grunt
 ```
 
 
