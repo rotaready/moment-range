@@ -65,6 +65,13 @@ class DateRange
   valueOf: ->
     @end - @start
 
+  ###*
+    * Date range toDate
+    * @return  {!Array}
+  *###
+  toDate: ->
+    [@start.toDate(),@end.toDate()]
+
 ###*
   * Build a date range.
   * @param {(Moment|Date)} start Start of range.
@@ -73,7 +80,11 @@ class DateRange
   * @return {!DateRange}
 *###
 moment.fn.range = (start, end) ->
-  new DateRange start, end
+
+  if ['year','month','week','day','hour','minute','second'].indexOf(start) > -1
+    new DateRange moment(@).startOf(start), moment(@).endOf(start)
+  else
+    new DateRange start, end
 
 ###*
   * Check if the current moment is within a given date range.

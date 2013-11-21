@@ -11,6 +11,13 @@ describe "Moment", ->
   describe "#range()", ->
     it "should return a DateRange"
 
+  describe "#range() support unit", ->
+    it "should return a range by unit like year,month,week,day,minute,second", ->
+      dr = m_1.range("year")
+      dr.start.valueOf().should.equal moment(m_1).startOf("year").valueOf()
+      dr.end.valueOf().should.equal moment(m_1).endOf("year").valueOf()
+
+
   describe "#within()", ->
     it "should determine if the current moment is within a given range", ->
       m_1.within(dr).should.be.true
@@ -147,4 +154,12 @@ describe "DateRange", ->
       dr_1 = moment().range(d_4, d_2)
       dr_2 = moment().range(d_3, d_2)
       (dr_1 > dr_2).should.be.true
+
+  describe "#toDate()", ->
+    it "should be return a array like [dateObject,dateObject]", ->
+      dr = moment().range(d_1, d_2)
+      dr_todate = dr.toDate()
+      dr_todate.length.should.eql 2
+      dr_todate[0].valueOf().should.eql d_1.valueOf()
+      dr_todate[1].valueOf().should.eql d_2.valueOf()
 
