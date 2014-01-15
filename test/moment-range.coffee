@@ -11,12 +11,10 @@ describe "Moment", ->
   describe "#range()", ->
     it "should return a DateRange"
 
-  describe "#range() support unit", ->
-    it "should return a range by unit like year,month,week,day,minute,second", ->
+    it "should support string units like `year`, `month`, `week`, `day`, `minute`, `second`, etc...", ->
       dr = m_1.range("year")
       dr.start.valueOf().should.equal moment(m_1).startOf("year").valueOf()
       dr.end.valueOf().should.equal moment(m_1).endOf("year").valueOf()
-
 
   describe "#within()", ->
     it "should determine if the current moment is within a given range", ->
@@ -137,13 +135,22 @@ describe "DateRange", ->
       dr.contains(m_3).should.be.true
       dr.contains(m_4).should.be.false
 
+    it "should work with DateRange objects", ->
+      dr1 = moment().range(m_1, m_4)
+      dr2 = moment().range(m_3, m_2)
+      dr1.contains(dr2).should.be.true
+      dr2.contains(dr1).should.be.false
+
   describe "#overlaps()", ->
-    it "should work with Moment objects", ->
+    it "should work with DateRange objects", ->
       dr_1 = moment().range(m_1, m_2)
       dr_2 = moment().range(m_3, m_4)
       dr_3 = moment().range(m_2, m_4)
+      dr_4 = moment().range(m_1, m_3)
+
       dr_1.overlaps(dr_2).should.be.true
       dr_1.overlaps(dr_3).should.be.false
+      dr_4.overlaps(dr_3).should.be.false
 
   describe "#valueOf()", ->
     it "should be the value of the range in milliseconds", ->
@@ -156,7 +163,7 @@ describe "DateRange", ->
       (dr_1 > dr_2).should.be.true
 
   describe "#toDate()", ->
-    it "should be return a array like [dateObject,dateObject]", ->
+    it "should be return a array like [dateObject, dateObject]", ->
       dr = moment().range(d_1, d_2)
       dr_todate = dr.toDate()
       dr_todate.length.should.eql 2
