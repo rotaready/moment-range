@@ -30,12 +30,12 @@ var start = moment("2011-04-15", "YYYY-MM-DD")
 Check to see if your range contains a date/moment:
 
 ``` javascript
-var start       = new Date(2012, 4, 1)
-  , end         = new Date(2012, 4, 23)
-  , lol         = new Date(2012, 4, 15)
-  , wat         = new Date(2012, 2, 27)
-  , range       = moment().range(start, end)
-  , small_range = moment().range(new Date(2012, 4, 20), new Date(2012, 4, 21));
+var start  = new Date(2012, 4, 1)
+  , end    = new Date(2012, 4, 23)
+  , lol    = new Date(2012, 4, 15)
+  , wat    = new Date(2012, 2, 27)
+  , range  = moment().range(start, end)
+  , range2 = moment().range(lol, wat);
 
 range.contains(lol); // true
 range.contains(wat); // false
@@ -52,10 +52,10 @@ var start = new Date(2012, 4, 1)
 when.within(range); // true
 ```
 
-Does it completely overlap another range?
+Does it overlap another range?
 
 ``` javascript
-range.overlaps(small_range); // true
+range.overlaps(range2); // true
 ```
 
 ### Iterate
