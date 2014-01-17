@@ -131,7 +131,7 @@ npm install moment-range
 Or put it in your `package.json`:
 
 ``` json
-{ "moment-range": "~0.1" }
+{ "moment-range": "~1" }
 ```
 
 
@@ -148,13 +148,13 @@ Running Tests
 Clone this bad boy:
 
 ``` bash
-$ git clone https://git@github.com/gf3/moment-range.git
+git clone https://git@github.com/gf3/moment-range.git
 ```
 
 Install the dependencies:
 
 ``` bash
-$ npm install
+npm install
 ```
 
 Do all the things! (including the tests)
