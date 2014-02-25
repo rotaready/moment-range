@@ -49,12 +49,43 @@ class DateRange
     * @return {!boolean}
   *###
   overlaps: (range) ->
-    if @start < range.start < @end
-      true
-    else if range.start < @start < range.end
-      true
+    @intersect(range) != null
+
+  ###*
+    * Determine the intersecting periods from one or more date ranges.
+    * @param {!DateRange} other A date range to intersect with this one.
+    * @return {!DateRange|null}
+  *###
+  intersect: (other) ->
+    if @start <= other.start < @end < other.end
+      new DateRange(other.start, @end)
+    else if other.start < @start < other.end <= @end
+      new DateRange(@start, other.end)
+    else if other.start < @start < @end < other.end
+      @
+    else if @start <= other.start < other.end <= @end
+      other
     else
-      false
+      null
+
+  ###*
+    * Subtract one range from another.
+    * @param {!DateRange} other A date range to substract from this one.
+    * @return {!DateRange[]}
+  *###
+  subtract: (other) ->
+    if @intersect(other) == null
+      [@]
+    else if other.start <= @start < @end <= other.end
+      []
+    else if other.start <= @start < other.end < @end
+      [new DateRange(other.end, @end)]
+    else if @start < other.start < @end <= other.end
+      [new DateRange(@start, other.start)]
+    else if @start < other.start < other.end < @end
+      [new DateRange(@start, other.start),
+       new DateRange(other.end, @end)]
+
 
   ###*
     * Iterate over the date range by a given date range, executing a function
@@ -85,6 +116,14 @@ class DateRange
   *###
   toDate: ->
     [@start.toDate(), @end.toDate()]
+
+  ###*
+    * Determine if this date range is the same as another.
+    * @param {!DateRange} other Another date range to compare to.
+    * @return {!boolean}
+  *###
+  isSame: (other) ->
+    @start.isSame(other.start) and @end.isSame(other.end)
 
 ###*
   * Build a date range.
