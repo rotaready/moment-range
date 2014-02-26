@@ -25,7 +25,7 @@ var start = moment("2011-04-15", "YYYY-MM-DD")
   , range = moment().range(start, end);
 ```
 
-### Contains / Within / Overlaps
+### Contains / Within / Overlaps / Intersect / Subtract
 
 Check to see if your range contains a date/moment:
 
@@ -56,6 +56,18 @@ Does it overlap another range?
 
 ``` javascript
 range.overlaps(range2); // true
+```
+
+What are the intersecting ranges?
+
+``` javascript
+range.intersect(range2); // [moment().range(lol, end)]
+```
+
+Subtracting one range from another.
+
+``` javascript
+range.subtract(range2); // [moment().range(start, lol)]
 ```
 
 ### Iterate
@@ -102,6 +114,19 @@ r_2 > r_1 // true
 r_1 + r_2 // duration of both ranges in milliseconds
 
 Math.abs(r_1 - r_2); // difference of ranges in milliseconds
+```
+
+### Equality
+
+Check if two ranges are the same, i.e. their starts and ends are the same:
+
+``` javascript
+var r_1 = moment().range(new Date(2011, 2, 5), new Date(2011, 3, 15))
+  , r_2 = moment().range(new Date(2011, 2, 5), new Date(2011, 3, 15))
+  , r_3 = moment().range(new Date(2011, 3, 5), new Date(2011, 6, 15));
+
+r_1.isSame(r_2) // true
+r_2.isSame(r_3) // false
 ```
 
 

@@ -1,4 +1,4 @@
-require "should"
+should = require "should"
 moment = require "../lib/moment-range"
 
 describe "Moment", ->
@@ -151,6 +151,144 @@ describe "DateRange", ->
       dr_1.overlaps(dr_2).should.be.true
       dr_1.overlaps(dr_3).should.be.false
       dr_4.overlaps(dr_3).should.be.false
+
+  describe "#intersect()", ->
+    d_5 = new Date 2011, 2, 2
+    d_6 = new Date 2011, 4, 4
+    d_7 = new Date 2011, 6, 6
+    d_8 = new Date 2011, 8, 8
+
+    it "should work with [---{==]---} overlaps where (a=[], b={})", ->
+      dr_1 = moment().range(d_5, d_7)
+      dr_2 = moment().range(d_6, d_8)
+      dr_1.intersect(dr_2).isSame(moment().range(d_6, d_7)).should.be.true
+
+    it "should work with {---[==}---] overlaps where (a=[], b={})", ->
+      dr_1 = moment().range(d_6, d_8)
+      dr_2 = moment().range(d_5, d_7)
+      dr_1.intersect(dr_2).isSame(moment().range(d_6, d_7)).should.be.true
+
+    it "should work with [{===]---} overlaps where (a=[], b={})", ->
+      dr_1 = moment().range(d_5, d_6)
+      dr_2 = moment().range(d_5, d_7)
+      dr_1.intersect(dr_2).isSame(moment().range(d_5, d_6)).should.be.true
+
+    it "should work with {[===}---] overlaps where (a=[], b={})", ->
+      dr_1 = moment().range(d_5, d_7)
+      dr_2 = moment().range(d_5, d_6)
+      dr_1.intersect(dr_2).isSame(moment().range(d_5, d_6)).should.be.true
+
+    it "should work with [---{===]} overlaps where (a=[], b={})", ->
+      dr_1 = moment().range(d_5, d_7)
+      dr_2 = moment().range(d_6, d_7)
+      dr_1.intersect(dr_2).isSame(moment().range(d_6, d_7)).should.be.true
+
+    it "should work with {---[===}] overlaps where (a=[], b={})", ->
+      dr_1 = moment().range(d_6, d_7)
+      dr_2 = moment().range(d_5, d_7)
+      dr_1.intersect(dr_2).isSame(moment().range(d_6, d_7)).should.be.true
+
+    it "should work with [---] {---} overlaps where (a=[], b={})", ->
+      dr_1 = moment().range(d_5, d_6)
+      dr_2 = moment().range(d_7, d_8)
+      should.strictEqual(dr_1.intersect(dr_2), null)
+
+    it "should work with {---} [---] overlaps where (a=[], b={})", ->
+      dr_1 = moment().range(d_7, d_8)
+      dr_2 = moment().range(d_5, d_6)
+      should.strictEqual(dr_1.intersect(dr_2), null)
+
+    it "should work with [---]{---} overlaps where (a=[], b={})", ->
+      dr_1 = moment().range(d_5, d_6)
+      dr_2 = moment().range(d_6, d_7)
+      should.strictEqual(dr_1.intersect(dr_2), null)
+
+    it "should work with {---}[---] overlaps where (a=[], b={})", ->
+      dr_1 = moment().range(d_6, d_7)
+      dr_2 = moment().range(d_5, d_6)
+      should.strictEqual(dr_1.intersect(dr_2), null)
+
+    it "should work with {--[===]--} overlaps where (a=[], b={})", ->
+      dr_1 = moment().range(d_6, d_7)
+      dr_2 = moment().range(d_5, d_8)
+      dr_1.intersect(dr_2).isSame(dr_1).should.be.true
+
+    it "should work with [--{===}--] overlaps where (a=[], b={})", ->
+      dr_1 = moment().range(d_5, d_8)
+      dr_2 = moment().range(d_6, d_7)
+      dr_1.intersect(dr_2).isSame(dr_2).should.be.true
+
+    it "should work with [{===}] overlaps where (a=[], b={})", ->
+      dr_1 = moment().range(d_5, d_6)
+      dr_2 = moment().range(d_5, d_6)
+      dr_1.intersect(dr_2).isSame(dr_2).should.be.true
+
+  describe "#subtract()", ->
+    d_5 = new Date 2011, 2, 2
+    d_6 = new Date 2011, 4, 4
+    d_7 = new Date 2011, 6, 6
+    d_8 = new Date 2011, 8, 8
+
+    it "should turn [--{==}--] into (--)  (--) where (a=[], b={})", ->
+      dr_1 = moment().range(d_5, d_8)
+      dr_2 = moment().range(d_6, d_7)
+      dr_1.subtract(dr_2).should.eql [moment().range(d_5, d_6), moment().range(d_7, d_8)]
+
+    it "should turn {--[==]--} into () where (a=[], b={})", ->
+      dr_1 = moment().range(d_6, d_7)
+      dr_2 = moment().range(d_5, d_8)
+      dr_1.subtract(dr_2).should.eql []
+
+    it "should turn {[==]} into () where (a=[], b={})", ->
+      dr_1 = moment().range(d_5, d_6)
+      dr_2 = moment().range(d_5, d_6)
+      dr_1.subtract(dr_2).should.eql []
+
+    it "should turn [--{==]--} into (--) where (a=[], b={})", ->
+      dr_1 = moment().range(d_5, d_7)
+      dr_2 = moment().range(d_6, d_8)
+      dr_1.subtract(dr_2).should.eql [moment().range(d_5, d_6)]
+
+    it "should turn [--{==]} into (--) where (a=[], b={})", ->
+      dr_1 = moment().range(d_5, d_7)
+      dr_2 = moment().range(d_6, d_7)
+      dr_1.subtract(dr_2).should.eql [moment().range(d_5, d_6)]
+
+    it "should turn {--[==}--] into (--) where (a=[], b={})", ->
+      dr_1 = moment().range(d_6, d_8)
+      dr_2 = moment().range(d_5, d_7)
+      dr_1.subtract(dr_2).should.eql [moment().range(d_7, d_8)]
+
+    it "should turn {[==}--] into (--) where (a=[], b={})", ->
+      dr_1 = moment().range(d_6, d_8)
+      dr_2 = moment().range(d_6, d_7)
+      dr_1.subtract(dr_2).should.eql [moment().range(d_7, d_8)]
+
+    it "should turn [--] {--} into (--) where (a=[], b={})", ->
+      dr_1 = moment().range(d_5, d_6)
+      dr_2 = moment().range(d_7, d_8)
+      dr_1.subtract(dr_2).should.eql [dr_1]
+
+    it "should turn {--} [--] into (--) where (a=[], b={})", ->
+      dr_1 = moment().range(d_7, d_8)
+      dr_2 = moment().range(d_5, d_6)
+      dr_1.subtract(dr_2).should.eql [dr_1]
+
+  describe "#isSame()", ->
+    it "should return true if the start and end of both DateRange objects equal", ->
+      dr_1 = moment().range(d_1, d_2)
+      dr_2 = moment().range(d_1, d_2)
+      dr_1.isSame(dr_2).should.be.true
+
+    it "should return false if the starts differ between objects", ->
+      dr_1 = moment().range(d_1, d_3)
+      dr_2 = moment().range(d_2, d_3)
+      dr_1.isSame(dr_2).should.be.false
+
+    it "should return false if the ends differ between objects", ->
+      dr_1 = moment().range(d_1, d_2)
+      dr_2 = moment().range(d_1, d_3)
+      dr_1.isSame(dr_2).should.be.false
 
   describe "#valueOf()", ->
     it "should be the value of the range in milliseconds", ->
