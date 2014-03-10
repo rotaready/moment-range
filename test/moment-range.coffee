@@ -141,6 +141,12 @@ describe "DateRange", ->
       dr1.contains(dr2).should.be.true
       dr2.contains(dr1).should.be.false
 
+    it "should be an inclusive comparison", ->
+      dr1 = moment().range(m_1, m_4)
+      dr1.contains(m_1).should.be.true
+      dr1.contains(m_4).should.be.true
+      dr1.contains(dr1).should.be.true
+      
   describe "#overlaps()", ->
     it "should work with DateRange objects", ->
       dr_1 = moment().range(m_1, m_2)
