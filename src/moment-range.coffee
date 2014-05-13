@@ -20,7 +20,7 @@ class DateRange
   *###
   contains: (other) ->
     if other instanceof DateRange
-      @start < other.start and @end > other.end
+      @start <= other.start and @end >= other.end
     else
       @start <= other <= @end
 
