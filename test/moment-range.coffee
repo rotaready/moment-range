@@ -308,3 +308,8 @@ describe "DateRange", ->
       dr_todate[0].valueOf().should.eql d_1.valueOf()
       dr_todate[1].valueOf().should.eql d_2.valueOf()
 
+  describe "#diff()", ->
+    dr = moment().range(d_1, d_2)
+    dr.diff('months').should.equal 3
+    dr.diff('days').should.equal 92
+    dr.diff().should.equal 7945200000
