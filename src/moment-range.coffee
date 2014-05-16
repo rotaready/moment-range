@@ -131,9 +131,8 @@ class DateRange
     *   - To get the difference in another unit of measurement, pass that measurement as the second argument.
     * @return milliseconds if no measure is passed in, otherwise an increment of measure
   *###
-  diff: (measurement) ->
-    @end.diff(@start) unless measurement
-    @end.diff(@start, measurement)
+  diff: (unit = undefined) ->
+    @end.diff(@start, unit)
 
 ###*
   * Build a date range.
