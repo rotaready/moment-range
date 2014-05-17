@@ -125,6 +125,15 @@ class DateRange
   isSame: (other) ->
     @start.isSame(other.start) and @end.isSame(other.end)
 
+  ###*
+    * Return the difference of the end vs start.
+    *   - To get the difference in milliseconds, use range#diff
+    *   - To get the difference in another unit of measurement, pass that measurement as the second argument.
+    * @return milliseconds if no measure is passed in, otherwise an increment of measure
+  *###
+  diff: (unit = undefined) ->
+    @end.diff(@start, unit)
+
 ###*
   * Build a date range.
   * @param {(Moment|Date)} start Start of range.
