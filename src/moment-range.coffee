@@ -1,3 +1,12 @@
+INTERVALS =
+  year:   true
+  month:  true
+  week:   true
+  day:    true
+  hour:   true
+  minute: true
+  second: true
+
 ###*
   * DateRange class to store ranges and query dates.
   * @typedef {!Object}
@@ -142,7 +151,7 @@ class DateRange
   * @return {!DateRange}
 *###
 moment.fn.range = (start, end) ->
-  if ['year', 'month', 'week', 'day', 'hour', 'minute', 'second'].indexOf(start) > -1
+  if start of INTERVALS
     new DateRange(moment(@).startOf(start), moment(@).endOf(start))
   else
     new DateRange(start, end)
