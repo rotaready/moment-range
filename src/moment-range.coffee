@@ -148,6 +148,16 @@ moment.fn.range = (start, end) ->
     new DateRange(start, end)
 
 ###*
+  * Build a date range.
+  * @param {(Moment|Date)} start Start of range.
+  * @param {(Moment|Date)} end   End of range.
+  * @this {Moment}
+  * @return {!DateRange}
+*###
+moment.range = (start, end) ->
+  new DateRange(start, end)
+
+###*
   * Check if the current moment is within a given date range.
   * @param {!DateRange} range Date range to check.
   * @this {Moment}
