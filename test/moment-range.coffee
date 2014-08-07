@@ -59,6 +59,14 @@ describe 'DateRange', ->
       dr.start.should.equal m_1
       dr.end.should.equal m_2
 
+  describe '#clone()', ->
+    it 'should deep clone range', ->
+      dr1 = moment().range(s_start, s_end)
+      dr2 = dr1.clone()
+
+      dr2.start.add(2, 'days')
+      dr1.start.toDate().should.not.equal(dr2.start.toDate())
+
   describe '#by()', ->
     it 'should iterate correctly by range', ->
       acc = []

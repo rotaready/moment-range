@@ -25,6 +25,13 @@ class DateRange
     @end   = moment(end)
 
   ###*
+    * Deep clone range
+    * @return {!DateRange}
+  *###
+  clone: ->
+    moment().range(@start, @end)
+
+  ###*
     * Determine if the current interval contains a given moment/date/range.
     *
     * @param {(Moment|Date|DateRange)} other Date to check
