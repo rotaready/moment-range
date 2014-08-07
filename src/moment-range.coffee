@@ -40,7 +40,7 @@ class DateRange
     current = moment(@start)
     while @contains(current)
       hollaback.call(@, current.clone())
-      current.add(interval, 1)
+      current.add(1, interval)
 
   ###*
     * @private
