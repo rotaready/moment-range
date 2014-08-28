@@ -420,3 +420,8 @@ describe 'DateRange', ->
       dr.diff('months').should.equal 3
       dr.diff('days').should.equal 92
       dr.diff().should.equal 7948800000
+
+  describe "#center()", ->
+    it "should use momentjs' center method", ->
+      dr = moment.range(d_1, d_2)
+      dr.center().valueOf().should.equal 1303243200000
