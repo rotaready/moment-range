@@ -127,6 +127,14 @@ class DateRange
     @end - @start
 
   ###*
+    * Center date of the range.
+    * @return {!Moment}
+  *###
+  center: ->
+    center = @start + @diff()/2
+    moment(center)
+
+  ###*
     * Date range toDate
     * @return  {!Array}
   *###
