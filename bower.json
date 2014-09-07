@@ -1,11 +1,14 @@
 {
-  "name": "moment-range",
+  "name": "moment-range-fatisar",
   "version": "1.0.2",
   "main": "./lib/moment-range.js",
   "ignore": [
     "**/.*",
     "node_modules",
-    "components"
+    "components",
+    "bower_components",
+    "test",
+    "tests"
   ],
   "dependencies": {
     "moment": ">= 1"
@@ -18,5 +21,13 @@
     "grunt-umd": "~1.3.0",
     "grunt-contrib-coffee": "~0.7.0",
     "grunt-mocha-test": "~0.7.0"
-  }
+  },
+  "homepage": "https://github.com/fatisar/moment-range",
+  "authors": [
+    "daniel@knockrentals.com"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT"
 }
