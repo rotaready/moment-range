@@ -1,9 +1,9 @@
 {
-  "name": "moment-range-fatisar",
+  "name": "moment-range",
   "description": "Fancy date ranges for Moment.js",
   "author": "Gianni Chiappetta <gianni@runlevel6.org> (http://gf3.ca)",
-  "homepage": "https://github.com/fatisar/moment-range",
-  "bugs": "https://github.com/fatisar/moment-range/issues",
+  "homepage": "https://github.com/gf3/moment-range",
+  "bugs": "https://github.com/gf3/moment-range/issues",
   "main": "./lib/moment-range",
   "directories": {
     "lib": "./lib"
@@ -26,10 +26,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git@github.com/fatisar/moment-range.git"
+    "url": "https://git@github.com/gf3/moment-range.git"
   },
   "license": {
     "type": "Public Domain",
-    "url": "https://github.com/fatisar/moment-range/raw/master/UNLICENSE"
+    "url": "https://github.com/gf3/moment-range/raw/master/UNLICENSE"
   }
 }
