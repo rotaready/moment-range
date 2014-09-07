@@ -46,7 +46,7 @@ class DateRange
     * @private
   *###
   _by_range: (range_interval, hollaback) ->
-    l = Math.round(@ / range_interval)
+    l = Math.floor(@ / range_interval)
     return @ if l is Infinity
 
     for i in [0..l]
