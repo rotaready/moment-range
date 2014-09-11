@@ -23,6 +23,13 @@ class DateRange
     @end   = moment(end)
 
   ###*
+    * Deep clone range
+    * @return {!DateRange}
+  *###
+  clone: ->
+    moment().range(@start, @end)
+
+  ###*
     * Determine if the current interval contains a given moment/date/range.
     * @param {(Moment|Date|DateRange)} other Date to check.
     * @return {!boolean}
@@ -70,9 +77,9 @@ class DateRange
       new DateRange(other.start, @end)
     else if other.start < @start < other.end <= @end
       new DateRange(@start, other.end)
-    else if other.start < @start < @end < other.end
+    else if other.start < @start <= @end < other.end
       @
-    else if @start <= other.start < other.end <= @end
+    else if @start <= other.start <= other.end <= @end
       other
     else
       null
@@ -118,6 +125,14 @@ class DateRange
   *###
   valueOf: ->
     @end - @start
+
+  ###*
+    * Center date of the range.
+    * @return {!Moment}
+  *###
+  center: ->
+    center = @start + @diff()/2
+    moment(center)
 
   ###*
     * Date range toDate
