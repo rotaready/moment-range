@@ -77,9 +77,9 @@ class DateRange
       new DateRange(other.start, @end)
     else if other.start < @start < other.end <= @end
       new DateRange(@start, other.end)
-    else if other.start < @start < @end < other.end
+    else if other.start < @start <= @end < other.end
       @
-    else if @start <= other.start < other.end <= @end
+    else if @start <= other.start <= other.end <= @end
       other
     else
       null

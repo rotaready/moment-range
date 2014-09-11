@@ -237,6 +237,11 @@ describe "DateRange", ->
       dr_2 = moment.range(d_5, d_6)
       dr_1.intersect(dr_2).isSame(dr_2).should.be.true
 
+    it "should work with [--{}--] overlaps where (a=[], b={})", ->
+      dr_1 = moment.range(d_6, d_6)
+      dr_2 = moment.range(d_5, d_7)
+      dr_1.intersect(dr_2).isSame(dr_1).should.be.true
+
   describe "#subtract()", ->
     d_5 = new Date 2011, 2, 2
     d_6 = new Date 2011, 4, 4
