@@ -1,7 +1,19 @@
 {
   "name": "moment-range",
   "description": "Fancy date ranges for Moment.js",
-  "author": "Gianni Chiappetta <gianni@runlevel6.org> (http://gf3.ca)",
+  "author": "Gianni Chiappetta <gianni@runlevel6.org> (http://butt.zone)",
+  "contributors": [
+    "Adam Biggs <adam.biggs@lightmaker.com>",
+    "Matt Patterson <matt@reprocessed.org> (http://reprocessed.org/)",
+    "Stuart Kelly <stuart.leigh83@gmail.com>",
+    "Kevin Ross <kevin.ross@alienfast.com> (http://www.alienfast.com)",
+    "Scott Hovestadt <scott.hovestadt@gmail.com>",
+    "Nebel <nebel08@gmail.com>",
+    "Aristide Niyungeko <niyungeko@gmail.com>",
+    "Tymon Tobolski <i@teamon.eu> (http://teamon.eu)",
+    "Bradley Ayers <bradley.ayers@gmail.com>",
+    "Thomas Walpole <twalpole@gmail.com>"
+  ],
   "homepage": "https://github.com/gf3/moment-range",
   "bugs": "https://github.com/gf3/moment-range/issues",
   "main": "./lib/moment-range",
