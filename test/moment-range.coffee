@@ -76,6 +76,19 @@ describe 'DateRange', ->
       acc[3].utc().date().should.eql 4
       acc[4].utc().date().should.eql 5
 
+    it 'should iterate correctly by duration', ->
+      acc = []
+      d1 = new Date Date.UTC(2014, 9, 6, 0, 0)
+      d2 = new Date Date.UTC(2014, 9, 6, 23, 59)
+      dr1 = moment.range(d1, d2)
+      dr2 = moment.duration(15, 'minutes')
+
+      dr1.by dr2, (m) -> acc.push m
+
+      acc.length.should.eql 96
+      acc[0].minute().should.eql 0
+      acc[95].minute().should.eql 45
+
     it 'should iterate correctly by shorthand string', ->
       acc = []
       d1  = new Date Date.UTC(2012, 2, 1)
