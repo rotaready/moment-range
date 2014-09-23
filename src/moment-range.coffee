@@ -14,8 +14,10 @@ INTERVALS =
 class DateRange
   ###*
     * DateRange instance.
-    * @param {(Moment|Date)} start Start of interval.
-    * @param {(Moment|Date)} end   End of interval.
+    *
+    * @param {(Moment|Date)} start Start of interval
+    * @param {(Moment|Date)} end   End of interval
+    *
     * @constructor
   *###
   constructor: (start, end) ->
@@ -24,7 +26,9 @@ class DateRange
 
   ###*
     * Determine if the current interval contains a given moment/date/range.
-    * @param {(Moment|Date|DateRange)} other Date to check.
+    *
+    * @param {(Moment|Date|DateRange)} other Date to check
+    *
     * @return {!boolean}
   *###
   contains: (other) ->
@@ -54,7 +58,9 @@ class DateRange
 
   ###*
     * Determine if the current date range overlaps a given date range.
-    * @param {!DateRange} range Date range to check.
+    *
+    * @param {!DateRange} range Date range to check
+    *
     * @return {!boolean}
   *###
   overlaps: (range) ->
@@ -62,7 +68,9 @@ class DateRange
 
   ###*
     * Determine the intersecting periods from one or more date ranges.
-    * @param {!DateRange} other A date range to intersect with this one.
+    *
+    * @param {!DateRange} other A date range to intersect with this one
+    *
     * @return {!DateRange|null}
   *###
   intersect: (other) ->
@@ -79,7 +87,9 @@ class DateRange
 
   ###*
     * Subtract one range from another.
-    * @param {!DateRange} other A date range to substract from this one.
+    *
+    * @param {!DateRange} other A date range to substract from this one
+    *
     * @return {!DateRange[]}
   *###
   subtract: (other) ->
@@ -99,10 +109,12 @@ class DateRange
   ###*
     * Iterate over the date range by a given date range, executing a function
     * for each sub-range.
-    * @param {!DateRange|String} range     Date range to be used for iteration
-    *                                      or shorthand string (shorthands:
-    *                                      http://momentjs.com/docs/#/manipulating/add/)
-    * @param {!function(Moment)} hollaback Function to execute for each sub-range.
+    *
+    * @param {(!DateRange|String)} range     Date range to be used for iteration
+    *                                        or shorthand string (shorthands:
+    *                                        http://momentjs.com/docs/#/manipulating/add/)
+    * @param {!function(Moment)}   hollaback Function to execute for each sub-range
+    *
     * @return {!boolean}
   *###
   by: (range, hollaback) ->
@@ -114,6 +126,7 @@ class DateRange
 
   ###*
     * Date range in milliseconds. Allows basic coercion math of date ranges.
+    *
     * @return {!number}
   *###
   valueOf: ->
@@ -121,33 +134,42 @@ class DateRange
 
   ###*
     * Date range toDate
-    * @return  {!Array}
+    *
+    * @return {!Array}
   *###
   toDate: ->
     [@start.toDate(), @end.toDate()]
 
   ###*
     * Determine if this date range is the same as another.
-    * @param {!DateRange} other Another date range to compare to.
+    *
+    * @param {!DateRange} other Another date range to compare to
+    *
     * @return {!boolean}
   *###
   isSame: (other) ->
     @start.isSame(other.start) and @end.isSame(other.end)
 
   ###*
-    * Return the difference of the end vs start.
-    *   - To get the difference in milliseconds, use range#diff
-    *   - To get the difference in another unit of measurement, pass that measurement as the second argument.
-    * @return milliseconds if no measure is passed in, otherwise an increment of measure
+    * The difference of the end vs start.
+    *
+    * @param {number} unit Unit of difference, if no unit is passed in
+    *                      milliseconds are returned. E.g.: `"days"`,
+    *                      `"months"`, etc...
+    *
+    * @return {!number}
   *###
   diff: (unit = undefined) ->
     @end.diff(@start, unit)
 
 ###*
   * Build a date range.
-  * @param {(Moment|Date)} start Start of range.
-  * @param {(Moment|Date)} end   End of range.
+  *
+  * @param {(Moment|Date)} start Start of range
+  * @param {(Moment|Date)} end   End of range
+  *
   * @this {Moment}
+  *
   * @return {!DateRange}
 *###
 moment.fn.range = (start, end) ->
@@ -158,9 +180,12 @@ moment.fn.range = (start, end) ->
 
 ###*
   * Build a date range.
-  * @param {(Moment|Date)} start Start of range.
-  * @param {(Moment|Date)} end   End of range.
+  *
+  * @param {(Moment|Date)} start Start of range
+  * @param {(Moment|Date)} end   End of range
+  *
   * @this {Moment}
+  *
   * @return {!DateRange}
 *###
 moment.range = (start, end) ->
@@ -168,8 +193,11 @@ moment.range = (start, end) ->
 
 ###*
   * Check if the current moment is within a given date range.
-  * @param {!DateRange} range Date range to check.
+  *
+  * @param {!DateRange} range Date range to check
+  *
   * @this {Moment}
+  *
   * @return {!boolean}
 *###
 moment.fn.within = (range) ->
