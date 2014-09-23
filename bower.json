@@ -1,6 +1,6 @@
 {
   "name": "moment-range",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "main": "./lib/moment-range.js",
   "ignore": [
     "**/.*",
