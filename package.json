@@ -12,6 +12,10 @@
   "engines": {
     "node": "*"
   },
+  "scripts": {
+    "build": "grunt coffee umd",
+    "test": "grunt mochaTest"
+  },
   "dependencies": {
     "moment": ">= 1"
   },
