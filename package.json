@@ -26,7 +26,7 @@
     "node": "*"
   },
   "scripts": {
-    "build": "grunt coffee umd",
+    "build": "grunt coffee umd uglify",
     "test": "grunt mochaTest"
   },
   "dependencies": {
