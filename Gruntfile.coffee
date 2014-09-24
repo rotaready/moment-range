@@ -25,7 +25,6 @@ module.exports = (grunt) ->
       all:
         src: 'lib/moment-range.bare.js'
         dest: 'lib/moment-range.js'
-        amdModuleId: 'moment-range'
         globalAlias: 'moment'
         objectToExport: 'moment'
         deps:
