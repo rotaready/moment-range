@@ -1,6 +1,7 @@
 module.exports = (grunt) ->
 
   grunt.loadNpmTasks('grunt-contrib-coffee')
+  grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-mocha-test')
   grunt.loadNpmTasks('grunt-umd')
 
@@ -21,6 +22,11 @@ module.exports = (grunt) ->
           require: 'coffee-script'
         src: ['test/**/*.coffee']
 
+    uglify:
+      'moment-range':
+        files:
+          'lib/moment-range.min.js': ['lib/moment-range.js']
+          'lib/moment-range.bare.min.js': ['lib/moment-range.bare.js']
     umd:
       all:
         src: 'lib/moment-range.bare.js'
@@ -30,4 +36,4 @@ module.exports = (grunt) ->
         deps:
           default: ['moment']
 
-  grunt.registerTask('default', ['coffee', 'umd', 'mochaTest'])
+  grunt.registerTask('default', ['coffee', 'umd', 'uglify', 'mochaTest'])
