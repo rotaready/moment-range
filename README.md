@@ -173,6 +173,8 @@ Simply include moment-range after moment.js:
 <script src="/javascripts/moment-range.js"></script>
 ```
 
+Thanks to the fine people at [cdnjs][cdnjs], you can link to moment-range from the [cdnjs servers][cdnjs-moment-range].
+
 
 ### NPM
 
@@ -224,6 +226,8 @@ License
 
 moment-range is [UNLICENSED][unlicense].
 
+[cdnjs]: https://github.com/cdnjs/cdnjs
+[cdnjs-moment-range]: https://cdnjs.com/libraries/moment-range
 [moment]: http://momentjs.com/
 [node]: http://nodejs.org/
 [unlicense]: http://unlicense.org/
