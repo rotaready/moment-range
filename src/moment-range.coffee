@@ -85,6 +85,19 @@ class DateRange
     else
       null
 
+    ###*
+    * Merge date ranges if they intersect.
+    *
+    * @param {!DateRange} other A date range to add to this one
+    *
+    * @return {!DateRange|null}
+  *###
+  add: (other) ->
+    if @overlaps(other)
+      new DateRange( moment.min(@start, other.start), moment.max(@end, other.end)  )
+    else
+      null
+
   ###*
     * Subtract one range from another.
     *

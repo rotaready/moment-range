@@ -25,7 +25,7 @@ var end   = moment("2011-11-27", "YYYY-MM-DD");
 var range = moment().range(start, end);
 ```
 
-### Contains / Within / Overlaps / Intersect / Subtract
+### Contains / Within / Overlaps / Intersect / Add / Subtract
 
 Check to see if your range contains a date/moment:
 
@@ -33,7 +33,7 @@ Check to see if your range contains a date/moment:
 var start  = new Date(2012, 4, 1);
 var end    = new Date(2012, 4, 23);
 var lol    = new Date(2012, 4, 15);
-var wat    = new Date(2012, 2, 27);
+var wat    = new Date(2012, 4, 27);
 var range  = moment().range(start, end);
 var range2 = moment().range(lol, wat);
 
@@ -62,6 +62,15 @@ What are the intersecting ranges?
 
 ``` javascript
 range.intersect(range2); // [moment().range(lol, end)]
+```
+
+Add/combine/merge overlapping ranges.
+
+``` javascript
+range.add(range2); // [moment().range(start, wat)]
+
+var range3 = moment.range(new Date(2012, 3, 1), new Date(2012, 3, 15);
+range.add(range3); // [null]
 ```
 
 Subtracting one range from another.
