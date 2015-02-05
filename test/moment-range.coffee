@@ -250,6 +250,77 @@ describe 'DateRange', ->
       dr_2 = moment.range(d_5, d_6)
       dr_1.intersect(dr_2).isSame(dr_2).should.be.true
 
+  describe '#add()', ->
+    d_5 = new Date Date.UTC(2011, 2, 2)
+    d_6 = new Date Date.UTC(2011, 4, 4)
+    d_7 = new Date Date.UTC(2011, 6, 6)
+    d_8 = new Date Date.UTC(2011, 8, 8)
+
+    it 'should add ranges with [---{==]---} overlaps where (a=[], b={})', ->
+      dr_1 = moment.range(d_5, d_7)
+      dr_2 = moment.range(d_6, d_8)
+      dr_1.add(dr_2).isSame(moment.range(d_5, d_8)).should.be.true
+
+    it 'should add ranges with {---[==}---] overlaps where (a=[], b={})', ->
+      dr_1 = moment.range(d_6, d_8)
+      dr_2 = moment.range(d_5, d_7)
+      dr_1.add(dr_2).isSame(moment.range(d_5, d_8)).should.be.true
+
+    it 'should add ranges with [{===]---} overlaps where (a=[], b={})', ->
+      dr_1 = moment.range(d_5, d_6)
+      dr_2 = moment.range(d_5, d_7)
+      dr_1.add(dr_2).isSame(moment.range(d_5, d_7)).should.be.true
+
+    it 'should add ranges with {[===}---] overlaps where (a=[], b={})', ->
+      dr_1 = moment.range(d_5, d_7)
+      dr_2 = moment.range(d_5, d_6)
+      dr_1.add(dr_2).isSame(moment.range(d_5, d_7)).should.be.true
+
+    it 'should add ranges with [---{===]} overlaps where (a=[], b={})', ->
+      dr_1 = moment.range(d_5, d_7)
+      dr_2 = moment.range(d_6, d_7)
+      dr_1.add(dr_2).isSame(moment.range(d_5, d_7)).should.be.true
+
+    it 'should add ranges with {---[===}] overlaps where (a=[], b={})', ->
+      dr_1 = moment.range(d_6, d_7)
+      dr_2 = moment.range(d_5, d_7)
+      dr_1.add(dr_2).isSame(moment.range(d_5, d_7)).should.be.true
+
+    it 'should not add ranges with [---] {---} overlaps where (a=[], b={})', ->
+      dr_1 = moment.range(d_5, d_6)
+      dr_2 = moment.range(d_7, d_8)
+      should.strictEqual(dr_1.add(dr_2), null)
+
+    it 'should not add ranges with {---} [---] overlaps where (a=[], b={})', ->
+      dr_1 = moment.range(d_7, d_8)
+      dr_2 = moment.range(d_5, d_6)
+      should.strictEqual(dr_1.add(dr_2), null)
+
+    it 'should not add ranges with [---]{---} overlaps where (a=[], b={})', ->
+      dr_1 = moment.range(d_5, d_6)
+      dr_2 = moment.range(d_6, d_7)
+      should.strictEqual(dr_1.add(dr_2), null)
+
+    it 'should not add ranges with {---}[---] overlaps where (a=[], b={})', ->
+      dr_1 = moment.range(d_6, d_7)
+      dr_2 = moment.range(d_5, d_6)
+      should.strictEqual(dr_1.add(dr_2), null)
+
+    it 'should add ranges {--[===]--} overlaps where (a=[], b={})', ->
+      dr_1 = moment.range(d_6, d_7)
+      dr_2 = moment.range(d_5, d_8)
+      dr_1.add(dr_2).isSame(moment.range(d_5, d_8)).should.be.true
+
+    it 'should add ranges [--{===}--] overlaps where (a=[], b={})', ->
+      dr_1 = moment.range(d_5, d_8)
+      dr_2 = moment.range(d_6, d_7)
+      dr_1.add(dr_2).isSame(moment.range(d_5, d_8)).should.be.true
+
+    it 'should add ranges [{===}] overlaps where (a=[], b={})', ->
+      dr_1 = moment.range(d_5, d_6)
+      dr_2 = moment.range(d_5, d_6)
+      dr_1.add(dr_2).isSame(moment.range(d_5, d_6)).should.be.true
+
   describe '#subtract()', ->
     d_5 = new Date Date.UTC(2011, 2, 2)
     d_6 = new Date Date.UTC(2011, 4, 4)
