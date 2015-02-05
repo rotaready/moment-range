@@ -249,8 +249,8 @@ describe 'DateRange', ->
       dr_1 = moment.range(d_5, d_6)
       dr_2 = moment.range(d_5, d_6)
       dr_1.intersect(dr_2).isSame(dr_2).should.be.true
-      
-    describe '#add()', ->
+
+  describe '#add()', ->
     d_5 = new Date Date.UTC(2011, 2, 2)
     d_6 = new Date Date.UTC(2011, 4, 4)
     d_7 = new Date Date.UTC(2011, 6, 6)
