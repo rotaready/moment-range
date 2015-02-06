@@ -9,7 +9,10 @@ describe 'Moment', ->
   m_end   = moment('2011-06-05', 'YYYY-MM-DD')
 
   describe '#range()', ->
-    it 'should return a DateRange'
+    it 'should return a DateRange with start & end properties', ->
+      dr = moment.range(m_1, m_2)
+      dr.start.should.equal(m_1)
+      dr.end.should.equal(m_2)
 
     it 'should support string units like `year`, `month`, `week`, `day`, `minute`, `second`, etc...', ->
       dr = m_1.range('year')
@@ -428,5 +431,7 @@ describe 'DateRange', ->
 
   describe '#center()', ->
     it 'should use momentjs’ center method', ->
+      d_1 = new Date Date.UTC(2011, 2, 5)
+      d_2 = new Date Date.UTC(2011, 3, 5)
       dr = moment.range(d_1, d_2)
-      dr.center().valueOf().should.equal 1303243200000
+      dr.center().valueOf().should.equal 1300622400000
