@@ -129,7 +129,7 @@ describe 'DateRange', ->
       dr1 = moment.range(moment('2011', 'YYYY'), moment('2013', 'YYYY'))
       dr2 = 'years'
 
-      dr1.by dr2, (m) -> acc.push(m.utc().year())
+      dr1.by dr2, (m) -> acc.push(m.year())
 
       acc.should.eql [2011, 2012, 2013]
 
