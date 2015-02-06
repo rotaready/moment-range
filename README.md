@@ -167,6 +167,33 @@ var dr    = moment.range(start, end);
 dr.toDate(); // [new Date(2011, 2, 5), new Date(2011, 5, 5)]
 ```
 
+### Center
+
+Calculate the center of a range
+
+``` javascript
+var start = new Date(2011, 2, 5);
+var end   = new Date(2011, 3, 5);
+var dr    = moment.range(start, end);
+
+dr.center(); // 1300622400000
+```
+
+### Clone
+
+Deep clone a range
+
+``` javascript
+var start = new Date(2011, 2, 5);
+var end   = new Date(2011, 3, 5);
+var dr    = moment.range(start, end);
+
+var dr2 = dr.clone();
+dr2.start.add(2, 'days');
+
+dr2.start.toDate() === dr.start.toDate() // false
+```
+
 
 Installation
 ------------
