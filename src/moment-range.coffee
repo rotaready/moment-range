@@ -35,14 +35,15 @@ class DateRange
     * Determine if the current interval contains a given moment/date/range.
     *
     * @param {(Moment|Date|DateRange)} other Date to check
+    * @param {!boolean} exclusive True if the to value is exclusive
     *
     * @return {!boolean}
   *###
-  contains: (other) ->
+  contains: (other, exclusive) ->
     if other instanceof DateRange
-      @start <= other.start and @end >= other.end
+      @start <= other.start and (@end > other.end or (@end.isSame(other.end) and not exclusive))
     else
-      @start <= other <= @end
+      @start <= other and (@end > other or (@end.isSame(other) and not exclusive))
 
   ###*
     * @private
