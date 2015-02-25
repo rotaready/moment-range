@@ -48,18 +48,22 @@ class DateRange
   ###*
     * @private
   *###
-  _by_string: (interval, hollaback) ->
+  _by_string: (interval, hollaback, exclusive) ->
     current = moment(@start)
-    while @contains(current)
+    while @contains(current, exclusive)
       hollaback.call(@, current.clone())
       current.add(1, interval)
 
   ###*
     * @private
   *###
-  _by_range: (range_interval, hollaback) ->
-    l = Math.floor(@ / range_interval)
+  _by_range: (range_interval, hollaback, exclusive) ->
+    div = @ / range_interval
+    l = Math.floor(div)
     return @ if l is Infinity
+    if (l == div and exclusive)
+      l = l - 1
+
 
     for i in [0..l]
       hollaback.call(@, moment(@start.valueOf() + range_interval.valueOf() * i))
@@ -135,14 +139,16 @@ class DateRange
     *                                        or shorthand string (shorthands:
     *                                        http://momentjs.com/docs/#/manipulating/add/)
     * @param {!function(Moment)}   hollaback Function to execute for each sub-range
+    * @param {!boolean}            exclusive Indicate that the end of the range
+    *                                        should not be included in the iter.
     *
     * @return {!boolean}
   *###
-  by: (range, hollaback) ->
+  by: (range, hollaback, exclusive) ->
     if typeof range is 'string'
-      @_by_string(range, hollaback)
+      @_by_string(range, hollaback, exclusive)
     else
-      @_by_range(range, hollaback)
+      @_by_range(range, hollaback, exclusive)
     @ # Chainability
 
   ###*

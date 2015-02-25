@@ -150,6 +150,41 @@ describe 'DateRange', ->
 
       acc.should.eql ['2012-01', '2012-02', '2012-03']
 
+    it 'should not include .end in the iteration if exclusive is set to true when iterating by string', ->
+      my1 = moment('2014-04-02T00:00:00.000Z')
+      my2 = moment('2014-04-04T00:00:00.000Z')
+      dr1 = moment.range(my1, my2)
+
+      acc = []
+      dr1.by 'd', ((d) -> acc.push d.utc().format('YYYY-MM-DD')), false
+      acc.should.eql ['2014-04-02', '2014-04-03', '2014-04-04']
+
+      acc = []
+      dr1.by 'd', ((d) -> acc.push d.utc().format('YYYY-MM-DD')), true
+      acc.should.eql ['2014-04-02', '2014-04-03']
+
+      acc = []
+      dr1.by 'd', ((d) -> acc.push d.utc().format('YYYY-MM-DD'))
+      acc.should.eql ['2014-04-02', '2014-04-03', '2014-04-04']
+
+    it 'should not include .end in the iteration if exclusive is set to true when iterating by range', ->
+      my1 = moment('2014-04-02T00:00:00.000Z')
+      my2 = moment('2014-04-04T00:00:00.000Z')
+      dr1 = moment.range(my1, my2)
+      dr2 = moment.range(my1, moment('2014-04-03T00:00:00.000Z'))
+
+      acc = []
+      dr1.by dr2, (d) -> acc.push d.utc().format('YYYY-MM-DD')
+      acc.should.eql ['2014-04-02', '2014-04-03', '2014-04-04']
+
+      acc = []
+      dr1.by dr2, ((d) -> acc.push d.utc().format('YYYY-MM-DD')), false
+      acc.should.eql ['2014-04-02', '2014-04-03', '2014-04-04']
+
+      acc = []
+      dr1.by dr2, ((d) -> acc.push d.utc().format('YYYY-MM-DD')), true
+      acc.should.eql ['2014-04-02', '2014-04-03']
+
   describe '#contains()', ->
     it 'should work with Date objects', ->
       dr = moment.range(d_1, d_2)
