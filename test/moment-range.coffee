@@ -176,11 +176,11 @@ describe 'DateRange', ->
     it 'should be exlusive when the exclusive param is set', ->
       dr1 = moment.range(m_1, m_2)
       dr1.contains(dr1, true).should.be.false
-      # dr1.contains(dr1, false).should.be.true
-      # dr1.contains(dr1).should.be.true
+      dr1.contains(dr1, false).should.be.true
+      dr1.contains(dr1).should.be.true
       dr1.contains(m_2, true).should.be.false
-      # dr1.contains(m_2, false).should.be.true
-      # dr1.contains(m_2).should.be.true
+      dr1.contains(m_2, false).should.be.true
+      dr1.contains(m_2).should.be.true
 
   describe '#overlaps()', ->
     it 'should work with DateRange objects', ->
