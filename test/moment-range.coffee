@@ -9,7 +9,10 @@ describe 'Moment', ->
   m_end   = moment('2011-06-05', 'YYYY-MM-DD')
 
   describe '#range()', ->
-    it 'should return a DateRange'
+    it 'should return a DateRange with start & end properties', ->
+      dr = moment.range(m_1, m_2)
+      dr.start.should.equal(m_1)
+      dr.end.should.equal(m_2)
 
     it 'should support string units like `year`, `month`, `week`, `day`, `minute`, `second`, etc...', ->
       dr = m_1.range('year')
@@ -58,6 +61,14 @@ describe 'DateRange', ->
       moment.isMoment(dr.end).should.be.true
       dr.start.should.equal m_1
       dr.end.should.equal m_2
+
+  describe '#clone()', ->
+    it 'should deep clone range', ->
+      dr1 = moment().range(s_start, s_end)
+      dr2 = dr1.clone()
+
+      dr2.start.add(2, 'days')
+      dr1.start.toDate().should.not.equal(dr2.start.toDate())
 
   describe '#by()', ->
     it 'should iterate correctly by range', ->
@@ -121,7 +132,7 @@ describe 'DateRange', ->
       dr1 = moment.range(moment('2011', 'YYYY'), moment('2013', 'YYYY'))
       dr2 = 'years'
 
-      dr1.by dr2, (m) -> acc.push(m.utc().year())
+      dr1.by dr2, (m) -> acc.push(m.year())
 
       acc.should.eql [2011, 2012, 2013]
 
@@ -249,6 +260,11 @@ describe 'DateRange', ->
       dr_1 = moment.range(d_5, d_6)
       dr_2 = moment.range(d_5, d_6)
       dr_1.intersect(dr_2).isSame(dr_2).should.be.true
+
+    it 'should work with [--{}--] overlaps where (a=[], b={})', ->
+      dr_1 = moment.range(d_6, d_6)
+      dr_2 = moment.range(d_5, d_7)
+      dr_1.intersect(dr_2).isSame(dr_1).should.be.true
 
   describe '#add()', ->
     d_5 = new Date Date.UTC(2011, 2, 2)
@@ -412,3 +428,10 @@ describe 'DateRange', ->
       dr.diff('months').should.equal 3
       dr.diff('days').should.equal 92
       dr.diff().should.equal 7948800000
+
+  describe '#center()', ->
+    it 'should use momentjs’ center method', ->
+      d_1 = new Date Date.UTC(2011, 2, 5)
+      d_2 = new Date Date.UTC(2011, 3, 5)
+      dr = moment.range(d_1, d_2)
+      dr.center().valueOf().should.equal 1300622400000
