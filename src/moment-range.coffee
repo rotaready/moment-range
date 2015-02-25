@@ -200,24 +200,21 @@ class DateRange
   *
   * @return {!DateRange}
 *###
-moment.fn.range = (start, end) ->
+moment.range = (start, end) ->
   if start of INTERVALS
     new DateRange(moment(@).startOf(start), moment(@).endOf(start))
   else
     new DateRange(start, end)
 
 ###*
-  * Build a date range.
-  *
-  * @param {(Moment|Date)} start Start of range
-  * @param {(Moment|Date)} end   End of range
-  *
-  * @this {Moment}
-  *
-  * @return {!DateRange}
+  * Expose constructor
 *###
-moment.range = (start, end) ->
-  new DateRange(start, end)
+moment.range.constructor = DateRange
+
+###*
+  * @deprecated
+*###
+moment.fn.range = moment.range
 
 ###*
   * Check if the current moment is within a given date range.
