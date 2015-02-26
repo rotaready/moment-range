@@ -185,6 +185,19 @@ describe 'DateRange', ->
       dr1.by dr2, ((d) -> acc.push d.utc().format('YYYY-MM-DD')), true
       acc.should.eql ['2014-04-02', '2014-04-03']
 
+    it 'should be exlusive when using by with minutes as well', ->
+      d1 = moment('2014-01-01T00:00:00.000Z')
+      d2 = moment('2014-01-01T00:06:00.000Z')
+      dr = moment.range(d1, d2)
+
+      acc = []
+      dr.by 'm', ((d) -> acc.push d.utc().format('mm'))
+      acc.should.eql ['00', '01', '02', '03', '04', '05', '06']
+
+      acc = []
+      dr.by 'm', ((d) -> acc.push d.utc().format('mm')), true
+      acc.should.eql ['00', '01', '02', '03', '04', '05']
+
   describe '#contains()', ->
     it 'should work with Date objects', ->
       dr = moment.range(d_1, d_2)
