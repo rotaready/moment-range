@@ -40,6 +40,14 @@ var range2 = moment().range(lol, wat);
 range.contains(lol); // true
 range.contains(wat); // false
 ```
+A optional second parameter indicates if the end of the range
+should be excluded when testing for inclusion
+``` javascript
+range.contains(end) // true
+range.contains(end, false) // true
+range.contains(end, true) // false
+```
+
 
 Find out if your moment falls within a date range:
 
@@ -108,6 +116,17 @@ range1.by(range2, function(moment) {
 });
 
 acc.length == 5 // true
+```
+
+Iteration also supports excluding the end value of the range by setting the
+last parameter to ```true```.
+``` javascript
+acc2 = [];
+range1.by('d', function (moment) {
+  acc2.push(moment)
+}, true);
+acc2.length == 4 // true
+
 ```
 
 ### Compare

@@ -150,6 +150,54 @@ describe 'DateRange', ->
 
       acc.should.eql ['2012-01', '2012-02', '2012-03']
 
+    it 'should not include .end in the iteration if exclusive is set to true when iterating by string', ->
+      my1 = moment('2014-04-02T00:00:00.000Z')
+      my2 = moment('2014-04-04T00:00:00.000Z')
+      dr1 = moment.range(my1, my2)
+
+      acc = []
+      dr1.by 'd', ((d) -> acc.push d.utc().format('YYYY-MM-DD')), false
+      acc.should.eql ['2014-04-02', '2014-04-03', '2014-04-04']
+
+      acc = []
+      dr1.by 'd', ((d) -> acc.push d.utc().format('YYYY-MM-DD')), true
+      acc.should.eql ['2014-04-02', '2014-04-03']
+
+      acc = []
+      dr1.by 'd', ((d) -> acc.push d.utc().format('YYYY-MM-DD'))
+      acc.should.eql ['2014-04-02', '2014-04-03', '2014-04-04']
+
+    it 'should not include .end in the iteration if exclusive is set to true when iterating by range', ->
+      my1 = moment('2014-04-02T00:00:00.000Z')
+      my2 = moment('2014-04-04T00:00:00.000Z')
+      dr1 = moment.range(my1, my2)
+      dr2 = moment.range(my1, moment('2014-04-03T00:00:00.000Z'))
+
+      acc = []
+      dr1.by dr2, (d) -> acc.push d.utc().format('YYYY-MM-DD')
+      acc.should.eql ['2014-04-02', '2014-04-03', '2014-04-04']
+
+      acc = []
+      dr1.by dr2, ((d) -> acc.push d.utc().format('YYYY-MM-DD')), false
+      acc.should.eql ['2014-04-02', '2014-04-03', '2014-04-04']
+
+      acc = []
+      dr1.by dr2, ((d) -> acc.push d.utc().format('YYYY-MM-DD')), true
+      acc.should.eql ['2014-04-02', '2014-04-03']
+
+    it 'should be exlusive when using by with minutes as well', ->
+      d1 = moment('2014-01-01T00:00:00.000Z')
+      d2 = moment('2014-01-01T00:06:00.000Z')
+      dr = moment.range(d1, d2)
+
+      acc = []
+      dr.by 'm', ((d) -> acc.push d.utc().format('mm'))
+      acc.should.eql ['00', '01', '02', '03', '04', '05', '06']
+
+      acc = []
+      dr.by 'm', ((d) -> acc.push d.utc().format('mm')), true
+      acc.should.eql ['00', '01', '02', '03', '04', '05']
+
   describe '#contains()', ->
     it 'should work with Date objects', ->
       dr = moment.range(d_1, d_2)
@@ -172,6 +220,15 @@ describe 'DateRange', ->
       dr1.contains(m_1).should.be.true
       dr1.contains(m_4).should.be.true
       dr1.contains(dr1).should.be.true
+
+    it 'should be exlusive when the exclusive param is set', ->
+      dr1 = moment.range(m_1, m_2)
+      dr1.contains(dr1, true).should.be.false
+      dr1.contains(dr1, false).should.be.true
+      dr1.contains(dr1).should.be.true
+      dr1.contains(m_2, true).should.be.false
+      dr1.contains(m_2, false).should.be.true
+      dr1.contains(m_2).should.be.true
 
   describe '#overlaps()', ->
     it 'should work with DateRange objects', ->
