@@ -26,21 +26,21 @@
     "node": "*"
   },
   "scripts": {
-    "build": "grunt coffee umd uglify",
+    "build": "grunt es6transpiler browserify uglify",
     "test": "grunt mochaTest"
   },
-  "dependencies": {
-    "moment": ">= 1"
-  },
   "devDependencies": {
-    "coffee-script": "~1",
     "grunt": "~0.4.1",
-    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-browserify": "^3.8.0",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-uglify": "^0.6.0",
+    "grunt-es6-transpiler": "^1.0.2",
     "grunt-mocha-test": "~0.7.0",
-    "grunt-umd": "~1.3.0",
     "mocha": "^2.1.0",
     "should": "^5.0.1"
+  },
+  "peerDependencies": {
+    "moment": ">= 1"
   },
   "repository": {
     "type": "git",

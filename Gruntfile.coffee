@@ -1,39 +1,37 @@
 module.exports = (grunt) ->
 
-  grunt.loadNpmTasks('grunt-contrib-coffee')
+  grunt.loadNpmTasks('grunt-browserify')
   grunt.loadNpmTasks('grunt-contrib-uglify')
+  grunt.loadNpmTasks('grunt-es6-transpiler')
   grunt.loadNpmTasks('grunt-mocha-test')
-  grunt.loadNpmTasks('grunt-umd')
 
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
 
-    coffee:
-      compile:
-        options:
-          bare: true
+    es6transpiler:
+      options:
+        environments: ['node', 'browser']
+        globals: { 'moment': true }
+      dist:
         files:
-          'lib/moment-range.bare.js': 'src/moment-range.coffee'
+          'dist/moment-range.js': 'lib/moment-range.js'
 
     mochaTest:
       test:
         options:
           reporter: 'spec'
-          require: 'coffee-script'
-        src: ['test/**/*.coffee']
+        src: ['test/**/*.js']
 
     uglify:
       'moment-range':
         files:
-          'lib/moment-range.min.js': ['lib/moment-range.js']
-          'lib/moment-range.bare.min.js': ['lib/moment-range.bare.js']
-    umd:
-      all:
-        src: 'lib/moment-range.bare.js'
-        dest: 'lib/moment-range.js'
-        globalAlias: 'moment'
-        objectToExport: 'moment'
-        deps:
-          default: ['moment']
+          'dist/moment-range.min.js': ['dist/moment-range.js']
 
-  grunt.registerTask('default', ['coffee', 'umd', 'uglify', 'mochaTest'])
+    browserify:
+      dist:
+        files:
+          'dist/moment-range.js': 'dist/moment-range.js'
+        options:
+          exclude: ['moment']
+
+  grunt.registerTask('default', ['es6transpiler', 'browserify', 'uglify', 'mochaTest'])

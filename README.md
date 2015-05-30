@@ -245,12 +245,16 @@ Or put it in your `package.json`:
 { "moment-range": "~1" }
 ```
 
+**Note:** Include `moment-range` _after_ `moment`.
+
 
 ### Bower
 
 ``` sh
 bower install moment-range
 ```
+
+**Note:** Include `moment-range` _after_ `moment`.
 
 
 Running Tests
