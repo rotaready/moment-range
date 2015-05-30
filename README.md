@@ -3,6 +3,30 @@ moment-range
 
 Fancy date ranges for [Moment.js][moment].
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [moment-range](#moment-range)
+  - [Examples](#examples)
+    - [Create](#create)
+    - [Contains / Within / Overlaps / Intersect / Add / Subtract](#contains--within--overlaps--intersect--add--subtract)
+    - [Iterate](#iterate)
+    - [Compare](#compare)
+    - [Equality](#equality)
+    - [Difference](#difference)
+    - [Conversion](#conversion)
+      - [`toDate`](#todate)
+    - [Center](#center)
+    - [Clone](#clone)
+  - [Installation](#installation)
+    - [Browser](#browser)
+    - [NPM](#npm)
+    - [Bower](#bower)
+  - [Running Tests](#running-tests)
+  - [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 Examples
 --------
