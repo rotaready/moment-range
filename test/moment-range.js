@@ -630,6 +630,16 @@ describe('DateRange', function() {
     });
   });
 
+  describe('#toString()', function() {
+    it('should be a correctly formatted ISO8601 Time Interval', function() {
+      var start = '2015-01-17T09:50:04+00:00';
+      var end   = '2015-04-17T08:29:55+00:00';
+      var dr = moment.range(moment.utc(start), moment.utc(end));
+
+      dr.toString().should.equal(start + '/' + end);
+    });
+  });
+
   describe('#valueOf()', function() {
     it('should be the value of the range in milliseconds', function() {
       var dr = moment.range(d1, d2);
