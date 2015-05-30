@@ -72,6 +72,13 @@ describe('DateRange', function() {
       moment.isMoment(dr.start).should.be.true;
       moment.isMoment(dr.end).should.be.true;
     });
+
+    it('should allow initialization with an array', function() {
+      var dr = moment.range([m1, m2]);
+
+      m1.isSame(dr.start).should.be.true;
+      m2.isSame(dr.end).should.be.true;
+    });
   });
 
   describe('#clone()', function() {

@@ -49,6 +49,13 @@ var end   = moment("2011-11-27", "YYYY-MM-DD");
 var range = moment().range(start, end);
 ```
 
+Arrays work too:
+
+``` javascript
+var dates = [moment("2011-04-15", "YYYY-MM-DD"), moment("2011-11-27", "YYYY-MM-DD")];
+var range = moment().range(dates);
+```
+
 ### Contains / Within / Overlaps / Intersect / Add / Subtract
 
 Check to see if your range contains a date/moment:
