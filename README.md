@@ -37,7 +37,7 @@ Create a date range:
 ``` javascript
 var start = new Date(2012, 0, 15);
 var end   = new Date(2012, 4, 23);
-var range = moment().range(start, end);
+var range = moment.range(start, end);
 ```
 
 You can also create a date range with moment objects:
@@ -45,21 +45,21 @@ You can also create a date range with moment objects:
 ``` javascript
 var start = moment("2011-04-15", "YYYY-MM-DD");
 var end   = moment("2011-11-27", "YYYY-MM-DD");
-var range = moment().range(start, end);
+var range = moment.range(start, end);
 ```
 
 Arrays work too:
 
 ``` javascript
 var dates = [moment("2011-04-15", "YYYY-MM-DD"), moment("2011-11-27", "YYYY-MM-DD")];
-var range = moment().range(dates);
+var range = moment.range(dates);
 ```
 
 You can also create a range from an [ISO 8601 time interval][interval] string:
 
 ``` javascript
 var timeInterval = "2015-01-17T09:50:04+00:00/2015-04-17T08:29:55+00:00";
-var range = moment().range(timeInterval);
+var range = moment.range(timeInterval);
 ```
 
 ### Contains / Within / Overlaps / Intersect / Add / Subtract
@@ -71,8 +71,8 @@ var start  = new Date(2012, 4, 1);
 var end    = new Date(2012, 4, 23);
 var lol    = new Date(2012, 4, 15);
 var wat    = new Date(2012, 4, 27);
-var range  = moment().range(start, end);
-var range2 = moment().range(lol, wat);
+var range  = moment.range(start, end);
+var range2 = moment.range(lol, wat);
 
 range.contains(lol); // true
 range.contains(wat); // false
@@ -93,7 +93,7 @@ Find out if your moment falls within a date range:
 var start = new Date(2012, 4, 1);
 var end   = new Date(2012, 4, 23);
 var when  = moment("2012-05-10", "YYYY-MM-DD");
-var range = moment().range(start, end);
+var range = moment.range(start, end);
 
 when.within(range); // true
 ```
@@ -107,13 +107,13 @@ range.overlaps(range2); // true
 What are the intersecting ranges?
 
 ``` javascript
-range.intersect(range2); // [moment().range(lol, end)]
+range.intersect(range2); // [moment.range(lol, end)]
 ```
 
 Add/combine/merge overlapping ranges.
 
 ``` javascript
-range.add(range2); // [moment().range(start, wat)]
+range.add(range2); // [moment.range(start, wat)]
 
 var range3 = moment.range(new Date(2012, 3, 1), new Date(2012, 3, 15);
 range.add(range3); // [null]
@@ -122,7 +122,7 @@ range.add(range3); // [null]
 Subtracting one range from another.
 
 ``` javascript
-range.subtract(range2); // [moment().range(start, lol)]
+range.subtract(range2); // [moment.range(start, lol)]
 ```
 
 ### Iterate
@@ -133,8 +133,8 @@ Iterate over your date range by an amount of time or another range:
 var start = new Date(2012, 2, 1);
 var two   = new Date(2012, 2, 2);
 var end   = new Date(2012, 2, 5);
-var range1 = moment().range(start, end);
-var range2 = moment().range(start, two); // One day
+var range1 = moment.range(start, end);
+var range2 = moment.range(start, two); // One day
 var acc = [];
 
 range1.by('days', function(moment) {
@@ -174,8 +174,8 @@ acc.length == 4 // true
 Compare range lengths or add them together with simple math:
 
 ``` javascript
-var r_1 = moment().range(new Date(2011, 2, 5), new Date(2011, 3, 15));
-var r_2 = moment().range(new Date(1995, 0, 1), new Date(1995, 12, 25));
+var r_1 = moment.range(new Date(2011, 2, 5), new Date(2011, 3, 15));
+var r_2 = moment.range(new Date(1995, 0, 1), new Date(1995, 12, 25));
 
 r_2 > r_1 // true
 
@@ -189,9 +189,9 @@ Math.abs(r_1 - r_2); // difference of ranges in milliseconds
 Check if two ranges are the same, i.e. their starts and ends are the same:
 
 ``` javascript
-var r_1 = moment().range(new Date(2011, 2, 5), new Date(2011, 3, 15));
-var r_2 = moment().range(new Date(2011, 2, 5), new Date(2011, 3, 15));
-var r_3 = moment().range(new Date(2011, 3, 5), new Date(2011, 6, 15));
+var r_1 = moment.range(new Date(2011, 2, 5), new Date(2011, 3, 15));
+var r_2 = moment.range(new Date(2011, 2, 5), new Date(2011, 3, 15));
+var r_3 = moment.range(new Date(2011, 3, 5), new Date(2011, 6, 15));
 
 r_1.isSame(r_2); // true
 r_2.isSame(r_3); // false
