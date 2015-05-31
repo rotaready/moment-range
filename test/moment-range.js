@@ -6,7 +6,7 @@ var moment    = require('moment');
 require('../lib/moment-range');
 
 describe('Moment', function() {
-  var dr = moment.range(new Date(Date.UTC(2011, 2, 5), new Date(Date.UTC(2011, 5, 5))));
+  var dr = moment.range(new Date(Date.UTC(2011, 2, 5)), new Date(Date.UTC(2011, 5, 5)));
   var m1 = moment('2011-04-15', 'YYYY-MM-DD');
   var m2 = moment('2012-12-25', 'YYYY-MM-DD');
   var mStart = moment('2011-03-05', 'YYYY-MM-DD');
@@ -71,6 +71,15 @@ describe('DateRange', function() {
 
       moment.isMoment(dr.start).should.be.true;
       moment.isMoment(dr.end).should.be.true;
+    });
+
+    it('should allow initialization with an ISO 8601 Time Interval string', function() {
+      var start = '2015-01-17T09:50:04+00:00';
+      var end   = '2015-04-17T08:29:55+00:00';
+      var dr = moment.range(start + '/' + end);
+
+      moment.utc(start).isSame(dr.start).should.be.true;
+      moment.utc(end).isSame(dr.end).should.be.true;
     });
 
     it('should allow initialization with an array', function() {
