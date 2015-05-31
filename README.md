@@ -1,35 +1,34 @@
-moment-range
-============
+# moment-range
 
 Fancy date ranges for [Moment.js][moment].
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [moment-range](#moment-range)
-  - [Examples](#examples)
-    - [Create](#create)
-    - [Contains / Within / Overlaps / Intersect / Add / Subtract](#contains--within--overlaps--intersect--add--subtract)
-    - [Iterate](#iterate)
-    - [Compare](#compare)
-    - [Equality](#equality)
-    - [Difference](#difference)
-    - [Conversion](#conversion)
-      - [`toDate`](#todate)
-    - [Center](#center)
-    - [Clone](#clone)
-  - [Installation](#installation)
-    - [Browser](#browser)
-    - [NPM](#npm)
-    - [Bower](#bower)
-  - [Running Tests](#running-tests)
-  - [License](#license)
+- [Examples](#examples)
+  - [Create](#create)
+  - [Contains / Within / Overlaps / Intersect / Add / Subtract](#contains--within--overlaps--intersect--add--subtract)
+  - [Iterate](#iterate)
+  - [Compare](#compare)
+  - [Equality](#equality)
+  - [Difference](#difference)
+  - [Conversion](#conversion)
+    - [`toDate`](#todate)
+    - [`toString`](#tostring)
+    - [`valueOf`](#valueof)
+  - [Center](#center)
+  - [Clone](#clone)
+- [Installation](#installation)
+  - [Browser](#browser)
+  - [NPM](#npm)
+  - [Bower](#bower)
+- [Running Tests](#running-tests)
+- [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
-Examples
---------
+## Examples
 
 ### Create
 
@@ -56,6 +55,13 @@ var dates = [moment("2011-04-15", "YYYY-MM-DD"), moment("2011-11-27", "YYYY-MM-D
 var range = moment().range(dates);
 ```
 
+You can also create a range from an [ISO 8601 time interval][interval] string:
+
+``` javascript
+var timeInterval = "2015-01-17T09:50:04+00:00/2015-04-17T08:29:55+00:00";
+var range = moment().range(timeInterval);
+```
+
 ### Contains / Within / Overlaps / Intersect / Add / Subtract
 
 Check to see if your range contains a date/moment:
@@ -71,14 +77,15 @@ var range2 = moment().range(lol, wat);
 range.contains(lol); // true
 range.contains(wat); // false
 ```
+
 A optional second parameter indicates if the end of the range
 should be excluded when testing for inclusion
+
 ``` javascript
 range.contains(end) // true
 range.contains(end, false) // true
 range.contains(end, true) // false
 ```
-
 
 Find out if your moment falls within a date range:
 
@@ -150,14 +157,16 @@ acc.length == 5 // true
 ```
 
 Iteration also supports excluding the end value of the range by setting the
-last parameter to ```true```.
-``` javascript
-acc2 = [];
-range1.by('d', function (moment) {
-  acc2.push(moment)
-}, true);
-acc2.length == 4 // true
+last parameter to `true`.
 
+``` javascript
+var acc = [];
+
+range1.by('d', function (moment) {
+  acc.push(moment)
+}, true);
+
+acc.length == 4 // true
 ```
 
 ### Compare
@@ -209,12 +218,39 @@ dr.diff(); // 7945200000
 
 #### `toDate`
 
+Converts the `DateRange` to an `Array` of the start and end `Date` objects.
+
 ``` javascript
 var start = new Date(2011, 2, 5);
 var end   = new Date(2011, 5, 5);
 var dr    = moment.range(start, end);
 
 dr.toDate(); // [new Date(2011, 2, 5), new Date(2011, 5, 5)]
+```
+
+#### `toString`
+
+Converting a `DateRange` to a `String` will format it as an [ISO 8601 time
+interval][interval]:
+
+``` javascript
+var start = '2015-01-17T09:50:04+00:00';
+var end   = '2015-04-17T08:29:55+00:00';
+var range = moment.range(moment.utc(start), moment.utc(end));
+
+range.toString() // "2015-01-17T09:50:04+00:00/2015-04-17T08:29:55+00:00"
+```
+
+#### `valueOf`
+
+The difference between the end date and start date in milliseconds.
+
+``` javascript
+var start = new Date(2011, 2, 5);
+var end   = new Date(2011, 5, 5);
+var range = moment.range(start, end);
+
+range.valueOf(); // 7945200000
 ```
 
 ### Center
@@ -245,11 +281,9 @@ dr2.start.toDate() === dr.start.toDate() // false
 ```
 
 
-Installation
-------------
+## Installation
 
 moment-range works in both the browser and [node.js][node].
-
 
 ### Browser
 
@@ -259,8 +293,8 @@ Simply include moment-range after moment.js:
 <script src="/javascripts/moment-range.js"></script>
 ```
 
-Thanks to the fine people at [cdnjs][cdnjs], you can link to moment-range from the [cdnjs servers][cdnjs-moment-range].
-
+Thanks to the fine people at [cdnjs][cdnjs], you can link to moment-range from
+the [cdnjs servers][cdnjs-moment-range].
 
 ### NPM
 
@@ -278,7 +312,6 @@ Or put it in your `package.json`:
 
 **Note:** Include `moment-range` _after_ `moment`.
 
-
 ### Bower
 
 ``` sh
@@ -288,8 +321,7 @@ bower install moment-range
 **Note:** Include `moment-range` _after_ `moment`.
 
 
-Running Tests
--------------
+## Running Tests
 
 Clone this bad boy:
 
@@ -311,13 +343,13 @@ npm test
 ```
 
 
-License
--------
+## License
 
 moment-range is [UNLICENSED][unlicense].
 
 [cdnjs]: https://github.com/cdnjs/cdnjs
 [cdnjs-moment-range]: https://cdnjs.com/libraries/moment-range
+[interval]: http://en.wikipedia.org/wiki/ISO_8601#Time_intervals
 [moment]: http://momentjs.com/
 [node]: http://nodejs.org/
 [unlicense]: http://unlicense.org/
