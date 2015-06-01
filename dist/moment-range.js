@@ -1,9 +1,24 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module unless amdModuleId is set
+    define(["moment"], function (a0) {
+      return (root['DateRange'] = factory(a0));
+    });
+  } else if (typeof exports === 'object') {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory(require("moment"));
+  } else {
+    root['DateRange'] = factory(moment);
+  }
+}(this, function (moment) {
+
 //-----------------------------------------------------------------------------
 // Contstants
 //-----------------------------------------------------------------------------
 
-var moment = require('moment');
+
 
 var INTERVALS = {
   year:   true,
@@ -23,15 +38,49 @@ var INTERVALS = {
 /**
  * DateRange class to store ranges and query dates.
  *
+ * @class DateRange
  * @param {(Moment|Date)} start Start of interval
  * @param {(Moment|Date)} end End of interval
+ */
+/**
+ * DateRange class to store ranges and query dates.
  *
- * @constructor
+ * @class DateRange^1
+ * @param {!Array} range Array containing start and end dates.
+ */
+/**
+ * DateRange class to store ranges and query dates.
+ *
+ * @class DateRange^2
+ * @param {!String} range String formatted as an IS0 8601 time interval
  */
 function DateRange(start, end) {
-  this.start = moment(start);
-  this.end   = moment(end);
+  var parts;
+  var s = start;
+  var e = end;
+
+  if (arguments.length === 1 || end === undefined) {
+    if (start.length === 2) { // Infer array
+      s = start[0];
+      e = start[1];
+    }
+    else {
+      parts = start.split('/');
+      s = parts[0];
+      e = parts[1];
+    }
+  }
+
+  this.start = moment(s);
+  this.end   = moment(e);
 }
+
+/**
+ * Constructor for prototype.
+ *
+ * @return {Function}
+ */
+DateRange.prototype.constructor = DateRange;
 
 /**
  * Deep clone range.
@@ -152,7 +201,7 @@ DateRange.prototype.subtract = function(other) {
  *                                    http://momentjs.com/docs/#/manipulating/add/)
  * @param {!function(Moment)} hollaback Function to execute for each sub-range
  * @param {!boolean} exclusive Indicate that the end of the range should not
- * be included in the iter.
+ *                             be included in the iter.
  *
  * @return {DateRange} `this`
  */
@@ -194,6 +243,16 @@ function _byRange(interval, hollaback, exclusive) {
     hollaback.call(this, moment(this.start.valueOf() + interval.valueOf() * i));
   }
 }
+
+/**
+ * Date range formatted as an [ISO8601 Time
+ * Interval](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals).
+ *
+ * @return {!String}
+ */
+DateRange.prototype.toString = function() {
+  return this.start.format() + '/' + this.end.format();
+};
 
 /**
  * Date range in milliseconds. Allows basic coercion math of date ranges.
@@ -301,6 +360,8 @@ moment.fn.within = function(range) {
 // Export
 //-----------------------------------------------------------------------------
 
-module.exports = DateRange;
 
-},{"moment":undefined}]},{},[1]);
+
+return DateRange;
+
+}));
