@@ -26,16 +26,17 @@
     "node": "*"
   },
   "scripts": {
-    "build": "grunt es6transpiler browserify uglify",
+    "build": "grunt es6transpiler replace umd uglify",
     "test": "grunt mochaTest"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-browserify": "^3.8.0",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-uglify": "^0.6.0",
     "grunt-es6-transpiler": "^1.0.2",
     "grunt-mocha-test": "~0.7.0",
+    "grunt-text-replace": "^0.4.0",
+    "grunt-umd": "^2.3.3",
     "mocha": "^2.1.0",
     "should": "^5.0.1"
   },
