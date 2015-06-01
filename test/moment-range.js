@@ -1,8 +1,9 @@
 /* jshint node: true, maxlen: 200, -W030 */
 /* global describe, it */
 
-var should = require('should');
-var moment = require('../lib/moment-range');
+var should    = require('should');
+var moment    = require('moment');
+require('../lib/moment-range');
 
 describe('Moment', function() {
   var dr = moment.range(new Date(Date.UTC(2011, 2, 5)), new Date(Date.UTC(2011, 5, 5)));

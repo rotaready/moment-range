@@ -40,7 +40,7 @@ module.exports = function(grunt) {
           to: ''
         },
         {
-          from: 'module.exports = moment;',
+          from: 'module.exports = DateRange;',
           to: ''
         }]
       }
@@ -58,8 +58,8 @@ module.exports = function(grunt) {
       all: {
         src: 'dist/moment-range.js',
         dest: 'dist/moment-range.js',
-        globalAlias: 'moment',
-        objectToExport: 'moment',
+        globalAlias: 'DateRange',
+        objectToExport: 'DateRange',
         deps: {
           default: ['moment']
         }

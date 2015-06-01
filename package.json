@@ -40,7 +40,7 @@
     "mocha": "^2.1.0",
     "should": "^5.0.1"
   },
-  "dependencies": {
+  "peerDependencies": {
     "moment": ">= 1"
   },
   "repository": {
