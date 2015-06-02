@@ -13,7 +13,7 @@ describe('Moment', function() {
   var mEnd = moment('2011-06-05', 'YYYY-MM-DD');
 
   describe('#range()', function() {
-    it('should a DateRange with start & end properties', function() {
+    it('should return a DateRange with start & end properties', function() {
       dr = moment.range(m1, m2);
       moment.isMoment(dr.start).should.be.true;
       moment.isMoment(dr.end).should.be.true;
@@ -87,6 +87,20 @@ describe('DateRange', function() {
 
       m1.isSame(dr.start).should.be.true;
       m2.isSame(dr.end).should.be.true;
+    });
+
+    it('should allow initialization without any arguments', function() {
+      var dr = moment.range();
+
+      moment.isMoment(dr.start).should.be.true;
+      moment.isMoment(dr.end).should.be.true;
+    });
+
+    it('should allow initialization with undefined arguments', function() {
+      var dr = moment.range(undefined, undefined);
+
+      moment.isMoment(dr.start).should.be.true;
+      moment.isMoment(dr.end).should.be.true;
     });
   });
 

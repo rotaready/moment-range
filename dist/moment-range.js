@@ -60,11 +60,11 @@ function DateRange(start, end) {
   var e = end;
 
   if (arguments.length === 1 || end === undefined) {
-    if (start.length === 2) { // Infer array
+    if (typeof start === 'object' && start.length === 2) {
       s = start[0];
       e = start[1];
     }
-    else {
+    else if (typeof start === 'string') {
       parts = start.split('/');
       s = parts[0];
       e = parts[1];
