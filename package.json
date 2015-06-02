@@ -27,6 +27,7 @@
   },
   "scripts": {
     "build": "grunt es6transpiler replace umd uglify",
+    "jsdoc": "jsdoc -c .jsdoc",
     "test": "grunt mochaTest"
   },
   "devDependencies": {
@@ -37,6 +38,7 @@
     "grunt-mocha-test": "~0.7.0",
     "grunt-text-replace": "^0.4.0",
     "grunt-umd": "^2.3.3",
+    "jsdoc": "^3.3.0",
     "mocha": "^2.1.0",
     "should": "^5.0.1"
   },

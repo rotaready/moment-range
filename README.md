@@ -285,32 +285,32 @@ dr2.start.toDate() === dr.start.toDate() // false
 
 moment-range works in both the browser and [node.js][node].
 
+### Node / NPM
+
+Install via npm:
+
+``` sh
+npm install moment-range --save-dev
+```
+
+And then `require` it:
+
+``` javascript
+var moment = require('moment');
+require('moment-range');
+```
+
 ### Browser
 
 Simply include moment-range after moment.js:
 
 ``` html
-<script src="/javascripts/moment-range.js"></script>
+<script src="moment.js"></script>
+<script src="moment-range.js"></script>
 ```
 
 Thanks to the fine people at [cdnjs][cdnjs], you can link to moment-range from
 the [cdnjs servers][cdnjs-moment-range].
-
-### NPM
-
-Install via npm:
-
-``` sh
-npm install moment-range
-```
-
-Or put it in your `package.json`:
-
-``` json
-{ "moment-range": "~1" }
-```
-
-**Note:** Include `moment-range` _after_ `moment`.
 
 ### Bower
 
