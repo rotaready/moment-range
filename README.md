@@ -338,8 +338,9 @@ npm install
 Do all the things!
 
 ``` bash
-npm build
-npm test
+npm run-script build
+npm run-script test
+npm run-script jsdoc
 ```
 
 
