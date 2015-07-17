@@ -566,7 +566,7 @@ describe('DateRange', function() {
     var d7 = new Date(Date.UTC(2011, 6, 6));
     var d8 = new Date(Date.UTC(2011, 8, 8));
 
-    it('should turn [--{==}--] into (--)  (--) where (a=[], b={})', function() {
+    it('should turn [--{==}--] into (--) (--) where (a=[], b={})', function() {
       var dr1 = moment.range(d5, d8);
       var dr2 = moment.range(d6, d7);
 
@@ -627,6 +627,12 @@ describe('DateRange', function() {
       var dr2 = moment.range(d5, d6);
 
       dr1.subtract(dr2).should.eql([dr1]);
+    });
+
+    it('should turn [--{==}--] into (--) where (a=[], b={})', function() {
+      var o = moment.range('2015-04-07T00:00:00+00:00/2015-04-08T00:00:00+00:00');
+      var s = moment.range('2015-04-07T17:12:18+00:00/2015-04-07T17:12:18+00:00');
+      o.subtract(s).should.eql([moment.range('2015-04-07T00:00:00+00:00/2015-04-07T17:12:18+00:00'), moment.range('2015-04-07T17:12:18+00:00/2015-04-08T00:00:00+00:00')]);
     });
   });
 
