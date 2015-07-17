@@ -38,20 +38,18 @@ var INTERVALS = {
 /**
  * DateRange class to store ranges and query dates.
  *
- * @class DateRange
+ * @constructor
  * @param {(Moment|Date)} start Start of interval
  * @param {(Moment|Date)} end End of interval
- */
-/**
+ *//**
  * DateRange class to store ranges and query dates.
  *
- * @class DateRange^1
+ * @constructor
  * @param {!Array} range Array containing start and end dates.
- */
-/**
+ *//**
  * DateRange class to store ranges and query dates.
  *
- * @class DateRange^2
+ * @constructor
  * @param {!String} range String formatted as an IS0 8601 time interval
  */
 function DateRange(start, end) {
@@ -78,7 +76,7 @@ function DateRange(start, end) {
 /**
  * Constructor for prototype.
  *
- * @return {Function}
+ * @type {DateRange}
  */
 DateRange.prototype.constructor = DateRange;
 
@@ -127,7 +125,8 @@ DateRange.prototype.overlaps = function(range) {
  *
  * @param {!DateRange} other A date range to intersect with this one
  *
- * @return {DateRange}
+ * @return {DateRange} Returns the intersecting date or `null` if the ranges do
+ *                     not intersect
  */
 DateRange.prototype.intersect = function(other) {
   var start = this.start;
@@ -154,7 +153,8 @@ DateRange.prototype.intersect = function(other) {
  *
  * @param {!DateRange} other A date range to add to this one
  *
- * @return {DateRange}
+ * @return {DateRange} Returns the new `DateRange` or `null` if they do not
+ *                     overlap
  */
 DateRange.prototype.add = function(other) {
   if (this.overlaps(other)) {
@@ -190,6 +190,9 @@ DateRange.prototype.subtract = function(other) {
   else if ((start < other.start) && (other.start < other.end) && (other.end < end)) {
     return [new DateRange(start, other.start), new DateRange(other.end, end)];
   }
+  else if ((start < other.start) && (other.start < end) && (other.end < end)) {
+    return [new DateRange(start, other.start), new DateRange(other.start, end)];
+  }
 };
 
 /**
@@ -199,7 +202,7 @@ DateRange.prototype.subtract = function(other) {
  * @param {(!DateRange|String)} range Date range to be used for iteration or
  *                                    shorthand string (shorthands:
  *                                    http://momentjs.com/docs/#/manipulating/add/)
- * @param {!function(Moment)} hollaback Function to execute for each sub-range
+ * @param {!DateRange~by} hollaback Callback
  * @param {!boolean} exclusive Indicate that the end of the range should not
  *                             be included in the iter.
  *
@@ -214,6 +217,15 @@ DateRange.prototype.by = function(range, hollaback, exclusive) {
   }
   return this;
 };
+
+
+/**
+ * Callback executed for each sub-range.
+ *
+ * @callback DateRange~by
+ *
+ * @param {!Moment} current Current moment object for iteration
+ */
 
 /**
  * @private
