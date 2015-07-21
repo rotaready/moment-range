@@ -11,6 +11,8 @@ describe('Moment', function() {
   var m2 = moment('2012-12-25', 'YYYY-MM-DD');
   var mStart = moment('2011-03-05', 'YYYY-MM-DD');
   var mEnd = moment('2011-06-05', 'YYYY-MM-DD');
+  var or = moment.range(null, '2011-05-05');
+  var or2 = moment.range('2011-03-05', null);
 
   describe('#range()', function() {
     it('should return a DateRange with start & end properties', function() {
@@ -30,6 +32,10 @@ describe('Moment', function() {
     it('should determine if the current moment is within a given range', function() {
       m1.within(dr).should.be.true;
       m2.within(dr).should.be.false;
+      m1.within(or).should.be.true;
+      m1.within(or2).should.be.true;
+      m2.within(or).should.be.false;
+      m2.within(or2).should.be.true;
     });
 
     it('should consider the edges to be within the range', function() {
@@ -87,6 +93,16 @@ describe('DateRange', function() {
 
       m1.isSame(dr.start).should.be.true;
       m2.isSame(dr.end).should.be.true;
+    });
+    
+    it('should allow initialization with open-ended ranges', function() {
+      var dr = moment.range(null, m1);
+      
+      moment.isMoment(dr.start).should.be.true;
+      
+      dr = moment.range(m1, null);
+      
+      moment.isMoment(dr.end).should.be.true;
     });
 
     it('should allow initialization without any arguments', function() {
