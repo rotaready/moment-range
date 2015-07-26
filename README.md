@@ -64,6 +64,14 @@ var timeInterval = "2015-01-17T09:50:04+00:00/2015-04-17T08:29:55+00:00";
 var range = moment.range(timeInterval);
 ```
 
+You can also create open-ended ranges which go to the earliest or latest possible date:
+
+``` javascript
+var rangeUntil = moment.range(null, "2011-05-05");
+var rangeFrom = moment.range("2011-03-05", null);
+var rangeAllTime = moment.range(null, null);
+```
+
 ### Contains / Within / Overlaps / Intersect / Add / Subtract
 
 Check to see if your range contains a date/moment:
