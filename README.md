@@ -64,6 +64,13 @@ var timeInterval = "2015-01-17T09:50:04+00:00/2015-04-17T08:29:55+00:00";
 var range = moment.range(timeInterval);
 ```
 
+You can also create a range from the start until the end of a named interval:
+
+``` javascript
+var date = moment("2011-04-15", "YYYY-MM-DD");
+var range = date.range("month");
+```
+
 ### Contains / Within / Overlaps / Intersect / Add / Subtract
 
 Check to see if your range contains a date/moment:
