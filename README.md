@@ -148,6 +148,18 @@ var acc = [];
 
 range1.by('days', function(moment) {
   // Do something with `moment`
+  acc.push(moment)
+});
+```
+
+You can also use moment.js’ object notation to specify custom intervals:
+
+``` javascript
+var custom_interval = {minutes: 30}; // every half hour
+
+range1.by(custom_interval, function(moment) {
+  // Do something with `moment`
+  acc.push(moment);
 });
 ```
 

@@ -169,6 +169,24 @@ describe('DateRange', function() {
       acc[4].utc().date().should.eql(5);
     });
 
+    it('should iterate correctly by object literal', function(){
+      var acc = [];
+      var d1 = new Date(Date.UTC(2012, 1, 1));
+      var d2 = new Date(Date.UTC(2012, 1, 8));
+      var dr1 = moment.range(d1, d2);
+      var dr2 = {days:2};
+
+      dr1.by(dr2, function(m){
+        acc.push(m);
+      });
+
+      acc.length.should.eql(4);
+      acc[0].utc().date().should.eql(1);
+      acc[1].utc().date().should.eql(3);
+      acc[2].utc().date().should.eql(5);
+      acc[3].utc().date().should.eql(7);
+    });
+
     it('should iterate correctly by year over a Date-constructed range when leap years are involved', function() {
       var acc = [];
       var d1 = new Date(Date.UTC(2011, 1, 1));

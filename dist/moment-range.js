@@ -202,6 +202,8 @@ DateRange.prototype.subtract = function(other) {
  * @param {(!DateRange|String)} range Date range to be used for iteration or
  *                                    shorthand string (shorthands:
  *                                    http://momentjs.com/docs/#/manipulating/add/)
+ *                              Can also use Object Literals for different intervals.
+ *                              Eg, {minutes: 30}
  * @param {!DateRange~by} hollaback Callback
  * @param {!boolean} exclusive Indicate that the end of the range should not
  *                             be included in the iter.
@@ -212,8 +214,11 @@ DateRange.prototype.by = function(range, hollaback, exclusive) {
   if (typeof range === 'string') {
     _byString.call(this, range, hollaback, exclusive);
   }
-  else {
+  else if ((range instanceof DateRange) || (typeof range === 'number')) {
     _byRange.call(this, range, hollaback, exclusive);
+  }
+  else if (typeof range === 'object') {
+    _byObject.call(this, range, hollaback, exclusive);
   }
   return this;
 };
@@ -236,6 +241,18 @@ function _byString(interval, hollaback, exclusive) {
   while (this.contains(current, exclusive)) {
     hollaback.call(this, current.clone());
     current.add(1, interval);
+  }
+}
+
+/**
+ * @private
+ */
+function _byObject(interval, hollaback, exclusive) {
+  var current = moment(this.start);
+
+  while (this.contains(current, exclusive)) {
+    hollaback.call(this, current.clone());
+    current.add(interval);
   }
 }
 
