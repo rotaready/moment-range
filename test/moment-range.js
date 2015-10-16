@@ -427,10 +427,25 @@ describe('DateRange', function() {
       should.strictEqual(dr1.intersect(dr2), null);
     });
 
+    it('should work with [---{]---} overlaps where (a=[], b={})', function() {
+      //TODO: Make it happen
+      var dr1 = moment.range(d5, d6);
+      var dr2 = moment.range(d6, d7);
+
+      dr1.intersect(dr2, false).isSame(moment.range(d6, d6)).should.be.true;
+    });
+
     it('should work with {---}[---] overlaps where (a=[], b={})', function() {
       var dr1 = moment.range(d6, d7);
       var dr2 = moment.range(d5, d6);
       should.strictEqual(dr1.intersect(dr2), null);
+    });
+
+    it('should work with {---[}---] overlaps where (a=[], b={})', function() {
+      var dr1 = moment.range(d6, d7);
+      var dr2 = moment.range(d5, d6);
+
+      dr1.intersect(dr2, false).isSame(moment.range(d6, d6)).should.be.true;
     });
 
     it('should work with {--[===]--} overlaps where (a=[], b={})', function() {
@@ -460,6 +475,7 @@ describe('DateRange', function() {
 
       dr1.intersect(dr2).isSame(dr1).should.be.true;
     });
+
   });
 
   describe('#add()', function() {
