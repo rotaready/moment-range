@@ -82,6 +82,7 @@ var lol    = new Date(2012, 4, 15);
 var wat    = new Date(2012, 4, 27);
 var range  = moment.range(start, end);
 var range2 = moment.range(lol, wat);
+var range3 = moment.range(end, wat);
 
 range.contains(lol); // true
 range.contains(wat); // false
@@ -111,21 +112,27 @@ Does it overlap another range?
 
 ``` javascript
 range.overlaps(range2); // true
+range.overlaps(range3); // false
+range.overlaps(range3, false); // true
 ```
 
 What are the intersecting ranges?
 
 ``` javascript
 range.intersect(range2); // [moment.range(lol, end)]
+range.intersect(range3); // [null]
+range.intersect(range3, false); // [moment.range(end, end)]
 ```
 
 Add/combine/merge overlapping ranges.
 
 ``` javascript
 range.add(range2); // [moment.range(start, wat)]
-
-var range3 = moment.range(new Date(2012, 3, 1), new Date(2012, 3, 15);
 range.add(range3); // [null]
+range.add(range3, false); // [moment.range(start, wat)]
+
+var range4 = moment.range(new Date(2012, 3, 1), new Date(2012, 3, 15);
+range.add(range4); // [null]
 ```
 
 Subtracting one range from another.

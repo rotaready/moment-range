@@ -196,8 +196,7 @@ DateRange.prototype.add = function(other, exclusive) {
  *
  * @return {!Array<DateRange>}
  */
-DateRange.prototype.subtract = function(other, exclusive) {
-  exclusive = (typeof(exclusive) === 'boolean') ? exclusive : true;
+DateRange.prototype.subtract = function(other) {
   var start = this.start;
   var end = this.end;
 
@@ -205,7 +204,7 @@ DateRange.prototype.subtract = function(other, exclusive) {
       [---range---]                |                [---range---]
                      {---other---} | {---other---}
    */
-  if (this.intersect(other, exclusive) === null) {
+  if (this.intersect(other) === null) {
     return [this];
   }
   /*
@@ -219,18 +218,14 @@ DateRange.prototype.subtract = function(other, exclusive) {
       [---range---] |      [---range---] |             [---range---] (exclusive=false)
       {--other--}   | {---other---}      | {---other---}
    */
-  else if ((other.start <= start) &&
-    (start < other.end || (start.isSame(other.end) && !exclusive)) &&
-    (other.end < end)) {
+  else if ((other.start <= start) && start < other.end && (other.end < end)) {
     return [new DateRange(other.end, end)];
   }
   /*
       [---range---] | [---range---]     | [---range---]
         {--other--} |     {---other---} |             {---other---} (exclusive=false)
    */
-  else if ((start < other.start) &&
-    (other.start < end || (other.start.isSame(end) && !exclusive)) &&
-    (end <= other.end)) {
+  else if ((start < other.start) && other.start < end && (end <= other.end)) {
     return [new DateRange(start, other.start)];
   }
   /*
