@@ -113,6 +113,7 @@ DateRange.prototype.contains = function(other, exclusive) {
  * Determine if the current date range overlaps a given date range.
  *
  * @param {!DateRange} range Date range to check
+ * @param {!boolean} exclusive True if the to value is exclusive
  *
  * @return {!boolean}
  */
@@ -124,6 +125,7 @@ DateRange.prototype.overlaps = function(range, exclusive) {
  * Determine the intersecting periods from one or more date ranges.
  *
  * @param {!DateRange} other A date range to intersect with this one
+ * @param {!boolean} exclusive True if the to value is exclusive
  *
  * @return {DateRange} Returns the intersecting date or `null` if the ranges do
  *                     not intersect
@@ -173,6 +175,7 @@ DateRange.prototype.intersect = function(other, exclusive) {
  * Merge date ranges if they intersect.
  *
  * @param {!DateRange} other A date range to add to this one
+ * @param {!boolean} exclusive True if the to value is exclusive
  *
  * @return {DateRange} Returns the new `DateRange` or `null` if they do not
  *                     overlap
@@ -189,6 +192,7 @@ DateRange.prototype.add = function(other, exclusive) {
  * Subtract one range from another.
  *
  * @param {!DateRange} other A date range to substract from this one
+ * @param {!boolean} exclusive True if the to value is exclusive
  *
  * @return {!Array<DateRange>}
  */
@@ -274,6 +278,7 @@ DateRange.prototype.by = function(range, hollaback, exclusive) {
  * @callback DateRange~by
  *
  * @param {!Moment} current Current moment object for iteration
+ * @param {!boolean} exclusive True if the to value is exclusive
  */
 
 /**
