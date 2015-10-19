@@ -66,5 +66,6 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('default', ['es6transpiler', 'replace', 'umd', 'uglify', 'mochaTest']);
+  grunt.registerTask('build', ['es6transpiler', 'replace', 'umd', 'uglify', 'mochaTest']);
+  grunt.registerTask('default', 'build');
 };
