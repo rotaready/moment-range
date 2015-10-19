@@ -38,8 +38,7 @@ module.exports = function(grunt) {
         replacements: [{
           from: 'var moment = require(\'moment\');',
           to: ''
-        },
-        {
+        }, {
           from: 'module.exports = DateRange;',
           to: ''
         }]
@@ -67,5 +66,6 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('default', ['es6transpiler', 'replace', 'umd', 'uglify', 'mochaTest']);
+  grunt.registerTask('build', ['es6transpiler', 'replace', 'umd', 'uglify', 'mochaTest']);
+  grunt.registerTask('default', 'build');
 };
