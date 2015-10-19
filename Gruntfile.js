@@ -38,8 +38,7 @@ module.exports = function(grunt) {
         replacements: [{
           from: 'var moment = require(\'moment\');',
           to: ''
-        },
-        {
+        }, {
           from: 'module.exports = DateRange;',
           to: ''
         }]

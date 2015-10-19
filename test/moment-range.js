@@ -354,6 +354,7 @@ describe('DateRange', function() {
 
       dr1.overlaps(dr2).should.be.true;
       dr1.overlaps(dr3).should.be.false;
+      dr1.overlaps(dr3, false).should.be.true;
       dr4.overlaps(dr3).should.be.false;
     });
   });
@@ -428,7 +429,6 @@ describe('DateRange', function() {
     });
 
     it('should work with [---{]---} overlaps where (a=[], b={})', function() {
-      //TODO: Make it happen
       var dr1 = moment.range(d5, d6);
       var dr2 = moment.range(d6, d7);
 
@@ -547,6 +547,27 @@ describe('DateRange', function() {
       should.strictEqual(dr1.add(dr2), null);
     });
 
+    it('should add ranges with [---]{---} overlaps if border dates are not excluded where (a=[], b={})', function() {
+      var dr1 = moment.range(d5, d6);
+      var dr2 = moment.range(d6, d7);
+
+      dr1.add(dr2, false).isSame(moment.range(d5, d7)).should.be.true;
+    });
+
+    it('should not add ranges with [---]{---} overlaps where (a=[], b={})', function() {
+      var dr1 = moment.range(d5, d6);
+      var dr2 = moment.range(d6, d7);
+
+      should.strictEqual(dr1.add(dr2), null);
+    });
+
+    it('should add ranges with [---]{---} overlaps if border dates are not excluded where (a=[], b={})', function() {
+      var dr1 = moment.range(d5, d6);
+      var dr2 = moment.range(d6, d7);
+
+      dr1.add(dr2, false).isSame(moment.range(d5, d7)).should.be.true;
+    });
+
     it('should not add ranges with {---}[---] overlaps where (a=[], b={})', function() {
       var dr1 = moment.range(d6, d7);
       var dr2 = moment.range(d5, d6);
@@ -638,11 +659,39 @@ describe('DateRange', function() {
       dr1.subtract(dr2).should.eql([dr1]);
     });
 
+    it('should turn [--{]--} into [--] where (a=[], b={})', function() {
+      var dr1 = moment.range(d5, d6);
+      var dr2 = moment.range(d6, d7);
+
+      dr1.subtract(dr2).should.eql([dr1]);
+    });
+
+    it('should turn [--{]--} into [--] if border dates are not excluded where (a=[], b={})', function() {
+      var dr1 = moment.range(d5, d6);
+      var dr2 = moment.range(d6, d7);
+
+      dr1.subtract(dr2, false).should.eql([dr1]);
+    });
+
     it('should turn {--} [--] into (--) where (a=[], b={})', function() {
       var dr1 = moment.range(d7, d8);
       var dr2 = moment.range(d5, d6);
 
       dr1.subtract(dr2).should.eql([dr1]);
+    });
+
+    it('should turn {--[}--] into {--} where (a=[], b={})', function() {
+      var dr1 = moment.range(d7, d8);
+      var dr2 = moment.range(d6, d7);
+
+      dr1.subtract(dr2).should.eql([dr1]);
+    });
+
+    it('should turn {--[}--] into {--} if border dates are not excluded where (a=[], b={})', function() {
+      var dr1 = moment.range(d5, d6);
+      var dr2 = moment.range(d6, d7);
+
+      dr1.subtract(dr2, false).should.eql([dr1]);
     });
 
     it('should turn [--{==}--] into (--) where (a=[], b={})', function() {

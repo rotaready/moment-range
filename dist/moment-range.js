@@ -14,6 +14,8 @@
   }
 }(this, function (moment) {
 
+//TODO: Terminar tests en intersect(), overlap(), subtract(), add(), _byString(), by()
+
 //-----------------------------------------------------------------------------
 // Contstants
 //-----------------------------------------------------------------------------
@@ -21,11 +23,11 @@
 
 
 var INTERVALS = {
-  year:   true,
-  month:  true,
-  week:   true,
-  day:    true,
-  hour:   true,
+  year: true,
+  month: true,
+  week: true,
+  day: true,
+  hour: true,
   minute: true,
   second: true
 };
@@ -41,12 +43,14 @@ var INTERVALS = {
  * @constructor
  * @param {(Moment|Date)} start Start of interval
  * @param {(Moment|Date)} end End of interval
- *//**
+ */
+/**
  * DateRange class to store ranges and query dates.
  *
  * @constructor
  * @param {!Array} range Array containing start and end dates.
- *//**
+ */
+/**
  * DateRange class to store ranges and query dates.
  *
  * @constructor
@@ -61,8 +65,7 @@ function DateRange(start, end) {
     if (typeof start === 'object' && start.length === 2) {
       s = start[0];
       e = start[1];
-    }
-    else if (typeof start === 'string') {
+    } else if (typeof start === 'string') {
       parts = start.split('/');
       s = parts[0];
       e = parts[1];
@@ -70,7 +73,7 @@ function DateRange(start, end) {
   }
 
   this.start = moment(s);
-  this.end   = moment(e);
+  this.end = moment(e);
 }
 
 /**
@@ -99,12 +102,11 @@ DateRange.prototype.clone = function() {
  */
 DateRange.prototype.contains = function(other, exclusive) {
   var start = this.start;
-  var end   = this.end;
+  var end = this.end;
 
   if (other instanceof DateRange) {
     return start <= other.start && (end > other.end || (end.isSame(other.end) && !exclusive));
-  }
-  else {
+  } else {
     return start <= other && (end > other || (end.isSame(other) && !exclusive));
   }
 };
@@ -116,8 +118,8 @@ DateRange.prototype.contains = function(other, exclusive) {
  *
  * @return {!boolean}
  */
-DateRange.prototype.overlaps = function(range) {
-  return this.intersect(range) !== null;
+DateRange.prototype.overlaps = function(range, exclusive) {
+  return this.intersect(range, exclusive) !== null;
 };
 
 /**
@@ -128,19 +130,40 @@ DateRange.prototype.overlaps = function(range) {
  * @return {DateRange} Returns the intersecting date or `null` if the ranges do
  *                     not intersect
  */
-DateRange.prototype.intersect = function(other) {
+DateRange.prototype.intersect = function(other, exclusive) {
+  exclusive = (typeof(exclusive) === 'boolean') ? exclusive : true;
   var start = this.start;
-  var end   = this.end;
+  var end = this.end;
 
-  if ((start <= other.start) && (other.start < end) && (end < other.end)) {
+  /*
+      [---range---]       | [---range---]
+            {---other---} |             {---other---}
+   */
+  if ((start <= other.start) &&
+    (other.start < end || (other.start.isSame(end) && !exclusive)) &&
+    (end < other.end)) {
     return new DateRange(other.start, end);
   }
-  else if ((other.start < start) && (start < other.end) && (other.end <= end)) {
+  /*
+           [---range---] |             [---range---]
+      {---other---}      | {---other---}
+   */
+  else if ((other.start < start) &&
+    (start < other.end || (start.isSame(other.end) && !exclusive)) &&
+    (other.end <= end)) {
     return new DateRange(start, other.end);
   }
+  /*
+        [---range---]
+      {-----other-----}
+   */
   else if ((other.start < start) && (start <= end) && (end < other.end)) {
     return this;
   }
+  /*
+      [-----range-----] | [---range---]
+        {---other---}   | {---other---}
+   */
   else if ((start <= other.start) && (other.start <= other.end) && (other.end <= end)) {
     return other;
   }
@@ -156,8 +179,8 @@ DateRange.prototype.intersect = function(other) {
  * @return {DateRange} Returns the new `DateRange` or `null` if they do not
  *                     overlap
  */
-DateRange.prototype.add = function(other) {
-  if (this.overlaps(other)) {
+DateRange.prototype.add = function(other, exclusive) {
+  if (this.overlaps(other, exclusive)) {
     return new DateRange(moment.min(this.start, other.start), moment.max(this.end, other.end));
   }
 
@@ -171,25 +194,54 @@ DateRange.prototype.add = function(other) {
  *
  * @return {!Array<DateRange>}
  */
-DateRange.prototype.subtract = function(other) {
+DateRange.prototype.subtract = function(other, exclusive) {
+  exclusive = (typeof(exclusive) === 'boolean') ? exclusive : true;
   var start = this.start;
-  var end   = this.end;
+  var end = this.end;
 
-  if (this.intersect(other) === null) {
+  /*
+      [---range---]                |                [---range---]
+                     {---other---} | {---other---}
+   */
+  if (this.intersect(other, exclusive) === null) {
     return [this];
   }
+  /*
+      [---range---] |    [---range---]
+      {---other---} | {------other------}
+   */
   else if ((other.start <= start) && (start < end) && (end <= other.end)) {
     return [];
   }
-  else if ((other.start <= start) && (start < other.end) && (other.end < end)) {
+  /*
+      [---range---] |      [---range---] |             [---range---] (exclusive=false)
+      {--other--}   | {---other---}      | {---other---}
+   */
+  else if ((other.start <= start) &&
+    (start < other.end || (start.isSame(other.end) && !exclusive)) &&
+    (other.end < end)) {
     return [new DateRange(other.end, end)];
   }
-  else if ((start < other.start) && (other.start < end) && (end <= other.end)) {
+  /*
+      [---range---] | [---range---]     | [---range---]
+        {--other--} |     {---other---} |             {---other---} (exclusive=false)
+   */
+  else if ((start < other.start) &&
+    (other.start < end || (other.start.isSame(end) && !exclusive)) &&
+    (end <= other.end)) {
     return [new DateRange(start, other.start)];
   }
+  /*
+     start [----range----] end
+       start {--other--} end
+   */
   else if ((start < other.start) && (other.start < other.end) && (other.end < end)) {
     return [new DateRange(start, other.start), new DateRange(other.end, end)];
   }
+  /*
+    start [----range----] end
+        end {--other--} start
+   */
   else if ((start < other.start) && (other.start < end) && (other.end < end)) {
     return [new DateRange(start, other.start), new DateRange(other.start, end)];
   }
@@ -211,8 +263,7 @@ DateRange.prototype.subtract = function(other) {
 DateRange.prototype.by = function(range, hollaback, exclusive) {
   if (typeof range === 'string') {
     _byString.call(this, range, hollaback, exclusive);
-  }
-  else {
+  } else {
     _byRange.call(this, range, hollaback, exclusive);
   }
   return this;
@@ -246,7 +297,9 @@ function _byRange(interval, hollaback, exclusive) {
   var div = this / interval;
   var l = Math.floor(div);
 
-  if (l === Infinity) { return; }
+  if (l === Infinity) {
+    return;
+  }
   if (l === div && exclusive) {
     l--;
   }
@@ -336,8 +389,7 @@ DateRange.prototype.diff = function(unit) {
 moment.range = function(start, end) {
   if (start in INTERVALS) {
     return new DateRange(moment(this).startOf(start), moment(this).endOf(start));
-  }
-  else {
+  } else {
     return new DateRange(start, end);
   }
 };

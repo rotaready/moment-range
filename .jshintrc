@@ -30,5 +30,6 @@
   "white": false,
   "eqnull": true,
   "esnext": true,
+  "node": true,
   "unused": "vars"
 }
