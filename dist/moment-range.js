@@ -69,8 +69,8 @@ function DateRange(start, end) {
     }
   }
 
-  this.start = moment(s);
-  this.end   = moment(e);
+  this.start = (s === null) ? moment(-8640000000000000) : moment(s);
+  this.end   = (e === null) ? moment(8640000000000000) : moment(e);
 }
 
 /**
