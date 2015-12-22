@@ -235,7 +235,7 @@ var start = new Date(2011, 2, 5);
 var end   = new Date(2011, 5, 5);
 var dr    = moment.range(start, end);
 
-dr.toArray(); // [new Date(2011, 2, 5), new Date(2011, 3, 5), new Date(2011, 4, 5), new Date(2011, 5, 5)]
+dr.toArray('days'); // [new Date(2011, 2, 5), new Date(2011, 3, 5), new Date(2011, 4, 5), new Date(2011, 5, 5)]
 ```
 
 #### `toDate`
