@@ -196,6 +196,25 @@ DateRange.prototype.subtract = function(other) {
 };
 
 /**
+ * Build a n array of dates.
+ *
+ * @param {(!DateRange|String)} range Date range to be used for iteration or
+ *                                    shorthand string (shorthands:
+ *                                    http://momentjs.com/docs/#/manipulating/add/)
+ * @param {!boolean} exclusive Indicate that the end of the range should not
+ *                             be included in the iter.
+ *
+ * @return {!Array}
+ */
+DateRange.prototype.toArray = function(by, exclusive) {
+  var acc = [];
+  this.by(by, function(unit) {
+    acc.push(unit);
+  }, exclusive);
+  return acc;
+};
+
+/**
  * Iterate over the date range by a given date range, executing a function
  * for each sub-range.
  *
