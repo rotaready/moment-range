@@ -15,6 +15,7 @@ Detailed API documentation can be found at: http://gf3.github.io/moment-range/Da
   - [Equality](#equality)
   - [Difference](#difference)
   - [Conversion](#conversion)
+    - [`toArray`](#toarray)
     - [`toDate`](#todate)
     - [`toString`](#tostring)
     - [`valueOf`](#valueof)
@@ -232,6 +233,18 @@ dr.diff(); // 7945200000
 ```
 
 ### Conversion
+
+#### `toArray`
+
+Converts the `DateRange` to an `Array` of `Date` objects.
+
+``` javascript
+var start = new Date(2011, 2, 5);
+var end   = new Date(2011, 5, 5);
+var dr    = moment.range(start, end);
+
+dr.toArray('days'); // [new Date(2011, 2, 5), new Date(2011, 3, 5), new Date(2011, 4, 5), new Date(2011, 5, 5)]
+```
 
 #### `toDate`
 

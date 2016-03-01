@@ -318,6 +318,39 @@ describe('DateRange', function() {
     });
   });
 
+  describe('#toArray()', function() {
+    it('should return array by range', function() {
+      var d1 = new Date(Date.UTC(2012, 2, 1));
+      var d2 = new Date(Date.UTC(2012, 2, 5));
+      var dr1 = moment.range(d1, d2);
+      var dr2 = 1000 * 60 * 60 * 24;
+
+      var acc = dr1.toArray(dr2);
+
+      acc.length.should.eql(5);
+      acc[0].utc().date().should.eql(1);
+      acc[1].utc().date().should.eql(2);
+      acc[2].utc().date().should.eql(3);
+      acc[3].utc().date().should.eql(4);
+      acc[4].utc().date().should.eql(5);
+    });
+
+    it('should return array by shorthand string with exclusive', function() {
+      var d1 = new Date(Date.UTC(2012, 2, 1));
+      var d2 = new Date(Date.UTC(2012, 2, 5));
+      var dr1 = moment.range(d1, d2);
+      var dr2 = 'days';
+
+      var acc = dr1.toArray(dr2, true);
+
+      acc.length.should.eql(4);
+      acc[0].utc().date().should.eql(1);
+      acc[1].utc().date().should.eql(2);
+      acc[2].utc().date().should.eql(3);
+      acc[3].utc().date().should.eql(4);
+    });
+  });
+
   describe('#contains()', function() {
     it('should work with Date objects', function() {
       var dr = moment.range(d1, d2);
