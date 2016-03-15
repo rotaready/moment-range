@@ -369,6 +369,27 @@ moment.range = function(start, end) {
 moment.range.constructor = DateRange;
 
 /**
+ * Build a date range between a specified interval and now (or a specified date).
+ *
+ * @param {String} interval The type of interval
+ * @param {Number} [count=1] The number of intervals
+ * @param {(Moment|Date} [date=moment()] The date to use
+ *
+ * @return {!DateRange}
+ */
+moment.range.fromInterval = function(interval) {var count = arguments[1];if(count === void 0)count = 1;var date = arguments[2];if(date === void 0)date = moment();
+  if (!moment.isMoment(date)) date = moment(date);
+
+  var date2 = date.clone().add(count, interval);
+  var dates = [];
+
+  dates.push(moment.min(date, date2));
+  dates.push(moment.max(date, date2));
+
+  return new DateRange(dates);
+};
+
+/**
  * @deprecated
  */
 moment.fn.range = moment.range;
