@@ -372,17 +372,20 @@ moment.range.constructor = DateRange;
  * Build a date range between a specified interval and now (or a specified date).
  *
  * @param {String} interval The type of interval
- * @param {Number} [count=1] The number of intervals
+ * @param {Number} [count=1] The number of intervals.
+ *                           Accepts both positive and negative values.
  * @param {(Moment|Date} [date=moment()] The date to use
  *
  * @return {!DateRange}
  */
 moment.range.fromInterval = function(interval) {var count = arguments[1];if(count === void 0)count = 1;var date = arguments[2];if(date === void 0)date = moment();
   if (!moment.isMoment(date)) date = moment(date);
+  if (!date.isValid()) throw new Error('Invalid date.');
 
   var date2 = date.clone().add(count, interval);
-  var dates = [];
 
+  // Handle negative interval counts by assembling the dates in chronological order.
+  var dates = [];
   dates.push(moment.min(date, date2));
   dates.push(moment.max(date, date2));
 

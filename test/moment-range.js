@@ -26,6 +26,47 @@ describe('Moment', function() {
       dr.start.valueOf().should.equal(moment(m1).startOf('year').valueOf());
       dr.end.valueOf().should.equal(moment(m1).endOf('year').valueOf());
     });
+
+    describe('fromInterval', function() {
+      it('should return a `DateRange`', function() {
+        var range = moment.range.fromInterval('day');
+        range.should.be.instanceof(moment.range.constructor);
+        moment.isMoment(range.start).should.be.true;
+        moment.isMoment(range.end).should.be.true;
+      });
+
+      it('should accept interval count', function() {
+        var range = moment.range.fromInterval('year', 2);
+        range.start.clone().add(2, 'years').valueOf().should.equal(range.end.valueOf());
+      });
+
+      it('should accept negative interval count', function() {
+        var range = moment.range.fromInterval('month', -4);
+        range.start.clone().add(4, 'months').valueOf().should.equal(range.end.valueOf());
+      });
+
+      it('should accept date param', function() {
+        var range = moment.range.fromInterval('year', 3, moment('2000-01-01', 'YYYY-MM-DD'));
+        moment.isMoment(range.start).should.be.true;
+        moment.isMoment(range.end).should.be.true;
+        range.start.year().should.equal(2000);
+        range.end.year().should.equal(2003);
+      });
+
+      it('should accept date param with negative interval count', function() {
+        var range = moment.range.fromInterval('year', -3, moment('2000-01-01', 'YYYY-MM-DD'));
+        moment.isMoment(range.start).should.be.true;
+        moment.isMoment(range.end).should.be.true;
+        range.start.year().should.equal(1997);
+        range.end.year().should.equal(2000);
+      });
+
+      it('should throw on invalid date param', function() {
+        should.throws(function() {
+          moment.range.fromInterval('month', 2, moment('foo'));
+        }, Error);
+      });
+    });
   });
 
   describe('#within()', function() {

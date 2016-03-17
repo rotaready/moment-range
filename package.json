@@ -28,7 +28,7 @@
   "scripts": {
     "build": "grunt es6transpiler replace umd uglify",
     "jsdoc": "jsdoc -c .jsdoc",
-    "test": "grunt mochaTest"
+    "test": "npm run build && grunt mochaTest"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
