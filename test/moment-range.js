@@ -685,6 +685,29 @@ describe('DateRange', function() {
     });
   });
 
+  describe('#extend()', function() {
+    var m1 = moment.utc('06-05-1996', 'MM-DD-YYYY');
+    var m2 = moment.utc('11-05-1996', 'MM-DD-YYYY');
+    var m3 = moment.utc('08-12-1996', 'MM-DD-YYYY');
+    var m4 = moment.utc('07-01-1996', 'MM-DD-YYYY');
+    var m5 = moment.utc('09-01-1996', 'MM-DD-YYYY');
+    var dr1 = moment.range(m4, m5);
+
+    it('should extend * [--] to (-----) where (a=[--], b=*)', function() {
+      dr1.extend(m1).isSame(moment.range(m1, m5)).should.be.true;
+    });
+
+    it('should extend [--] * to (-----) where (a=[--], b=*)', function() {
+      dr1.extend(m2).isSame(moment.range(m4, m2)).should.be.true;
+    });
+
+    it('should keep same range [-*-] to (---) where (a=[--], b=*)', function() {
+      dr1.extend(m3).isSame(moment.range(m4, m5)).should.be.true;
+    });
+
+  });
+  
+
   describe('#isSame()', function() {
     it('should true if the start and end of both DateRange objects equal', function() {
       var dr1 = moment.range(d1, d2);
