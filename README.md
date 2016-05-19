@@ -330,6 +330,12 @@ var moment = require('moment');
 require('moment-range');
 ```
 
+Or for `import` statements:
+``` javascript
+import moment from 'moment';
+import 'moment-range';
+```
+
 ### Browser
 
 Simply include moment-range after moment.js:
