@@ -10,7 +10,7 @@
     // like Node.
     module.exports = factory(require("moment"));
   } else {
-    root['DateRange'] = factory(moment);
+    root['DateRange'] = factory(root["moment"]);
   }
 }(this, function (moment) {
 
@@ -29,6 +29,24 @@ var INTERVALS = {
   minute: true,
   second: true
 };
+
+var DATE_RANGE_FORMATS = {
+  DR: "1{LL} — 2{LL}",
+  DRT: "1{LLL} — 2{LLL}",
+  DRY: "1{MMMM D} — 2{MMMM D, YYYY}",
+  DRYT: "1{MMMM D LT} — 2{MMMM D LT, YYYY}",
+  DRM: "1{MMMM D} ‒ 2{D, YYYY}",
+  DRMT: "1{MMMM D LT} — 2{MMMM D LT, YYYY}",
+  DRD: "1{MMMM D, YYYY}",
+  DRDT: "1{MMMM D, YYYY} 1{LT} ‒ 2{LT}",
+  DRS: "[From] LL",
+  DRST: "[From] LLL",
+  DRE: "[To] LL",
+  DRET: "[To] LLL"
+};
+
+var MIN_TIMESTAMP = -8640000000000000,
+      MAX_TIMESTAMP = 8640000000000000;
 
 
 //-----------------------------------------------------------------------------
@@ -69,8 +87,8 @@ function DateRange(start, end) {
     }
   }
 
-  this.start = (s === null) ? moment(-8640000000000000) : moment(s);
-  this.end   = (e === null) ? moment(8640000000000000) : moment(e);
+  this.start = (s === null) ? moment(MIN_TIMESTAMP) : moment(s);
+  this.end   = (e === null) ? moment(MAX_TIMESTAMP) : moment(e);
 }
 
 /**
@@ -274,6 +292,85 @@ function _byRange(interval, hollaback, exclusive) {
     hollaback.call(this, moment(this.start.valueOf() + interval.valueOf() * i));
   }
 }
+
+/**
+ * Date range with nice formatting
+ *
+ * @param {(Object|String)} options list or format
+ * @param {String} options.collapse Collapse depth. Can be 'year', 'month', 'date' or 'none'
+ * @param {boolean} options.showTime Show time
+ * @param {boolean} options.openRange Format open ranges
+ *
+ * @return {!String}
+ */
+DateRange.prototype.format = function(opts) {
+  if (typeof opts === "string") {
+    opts = { format: opts };
+  } else if (typeof opts === "undefined") {
+    opts = {};
+  }
+  var options = Object.assign({
+    collapse: 'date',
+    showTime: true,
+    openRange: true
+  }, opts);
+
+  var start = this.start,
+      end = this.end;
+
+  var hasStart = options.openRange && !start.isSame(MIN_TIMESTAMP),
+      hasEnd = options.openRange && !end.isSame(MAX_TIMESTAMP);
+
+  var sameYear = (start.year() == end.year()),
+      sameMonth = sameYear && (start.month() == end.month()),
+      sameDate = sameMonth && (start.date() == end.date());
+
+  if (!options.format) {
+    var f = 'DR';
+    if (hasStart && !hasEnd) {
+      f += 'S';
+    } else if (!hasStart && hasEnd) {
+      f += 'E';
+    } else switch (options.collapse) {
+      case 'date':
+        if (sameDate) {
+          f += 'D';
+          break;
+        }
+      case 'month':
+        if (sameMonth) {
+          f += 'M';
+          break;
+        }
+      case 'year':
+        if (sameYear) {
+          f += 'Y';
+          break;
+        }
+    }
+    if (options.showTime) {
+      f += 'T';
+    }
+    var formats = moment.localeData()._dateRangeFormat;
+    options.format = (formats && formats.hasOwnProperty(f)) ? formats[f] : DATE_RANGE_FORMATS[f];
+  }
+  options.format = options.format.replace(/\[.*?\]|1\{(.+?)\}/g, function(m, g) {
+    if (!g) return m;
+    return "[[]" + g + "[]]";
+  }).replace(/\[.*?\]|2\{(.+?)\}/g, function(m, g) {
+    if (!g) return m;
+    return "[" + g + "]";
+  });
+
+  var res = '';
+  if (hasStart) {
+    res = start.format(res || options.format);
+  }
+  if (hasEnd) {
+    res = end.format(res || options.format);
+  }
+  return res;
+};
 
 /**
  * Date range formatted as an [ISO8601 Time

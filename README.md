@@ -14,6 +14,7 @@ Detailed API documentation can be found at: http://gf3.github.io/moment-range/Da
   - [Compare](#compare)
   - [Equality](#equality)
   - [Difference](#difference)
+  - [Format](#format)
   - [Conversion](#conversion)
     - [`toArray`](#toarray)
     - [`toDate`](#todate)
@@ -230,6 +231,23 @@ var dr    = moment.range(start, end);
 dr.diff('months'); // 3
 dr.diff('days'); // 92
 dr.diff(); // 7945200000
+```
+
+### Format
+
+Similar to [moment.js' `format`
+method](http://momentjs.com/docs/#/displaying/format/) with slightly different tokens.
+
+``` javascript
+var start = new Date(2011, 2, 5, 15);
+var end   = new Date(2011, 2, 5, 20);
+moment.range(start, end).format(); // "March 5, 2011 3:00 PM ‒ 8:00 PM"
+moment.range(start, end).format({ showTime: false }); // "March 5, 2011"
+moment.range(start, null).format({ showTime: false }); // "From March 5, 2011"
+moment.range(null, end).format({ showTime: false }); // "To March 5, 2011"
+moment.range(start, end).format({ collapse: 'none' }); // "March 5, 2011 3:00 PM — March 5, 2011 8:00 PM"
+moment.range(start, end).format({ collapse: 'year' }); // "March 5 3:00 PM — March 5 8:00 PM, 2011"
+moment.range(start, end).format("1{Do MMMM} — 2{Do MMMM}"); // "5th March — 5th March"
 ```
 
 ### Conversion
