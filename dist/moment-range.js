@@ -4,13 +4,13 @@
     define(["moment"], function (a0) {
       return (root['DateRange'] = factory(a0));
     });
-  } else if (typeof exports === 'object') {
+  } else if (typeof module === 'object' && module.exports) {
     // Node. Does not work with strict CommonJS, but
     // only CommonJS-like environments that support module.exports,
     // like Node.
     module.exports = factory(require("moment"));
   } else {
-    root['DateRange'] = factory(moment);
+    root['DateRange'] = factory(root["moment"]);
   }
 }(this, function (moment) {
 
@@ -52,25 +52,18 @@ var INTERVALS = {
  * @constructor
  * @param {!String} range String formatted as an IS0 8601 time interval
  */
-function DateRange(start, end) {
-  var parts;
-  var s = start;
-  var e = end;
+function DateRange(start, end, options) {
 
-  if (arguments.length === 1 || end === undefined) {
-    if (typeof start === 'object' && start.length === 2) {
-      s = start[0];
-      e = start[1];
-    }
-    else if (typeof start === 'string') {
-      parts = start.split('/');
-      s = parts[0];
-      e = parts[1];
-    }
+  if(options === undefined && ( (typeof end === 'object') && !(end instanceof moment || end instanceof Date) )){
+    options = end;
+
+    // e = end = undefined;
   }
 
-  this.start = (s === null) ? moment(-8640000000000000) : moment(s);
-  this.end   = (e === null) ? moment(8640000000000000) : moment(e);
+  this.options = options = options || {};
+
+  if(options.limit !== false) this.setLimits(options);
+  this.set(start, end);
 }
 
 /**
@@ -86,7 +79,7 @@ DateRange.prototype.constructor = DateRange;
  * @return {!DateRange}
  */
 DateRange.prototype.clone = function() {
-  return moment().range(this.start, this.end);
+  return moment().range(this.start, this.end, this.options);
 };
 
 /**
@@ -176,7 +169,7 @@ DateRange.prototype.subtract = function(other) {
   var end   = this.end;
 
   if (this.intersect(other) === null) {
-    return [this];
+    return [new DateRange(start, end)];
   }
   else if ((other.start <= start) && (start < end) && (end <= other.end)) {
     return [];
@@ -337,6 +330,67 @@ DateRange.prototype.diff = function(unit) {
   return this.end.diff(this.start, unit);
 };
 
+DateRange.prototype.set = function(start, end) {
+  var parts;
+  var s = start;
+  var e = end;
+
+  if (arguments.length === 1 || end === undefined) {
+    if (typeof start === 'object' && start.length === 2) {
+      s = start[0];
+      e = start[1];
+    }
+    else if (typeof start === 'string') {
+      parts = start.split('/');
+      s = parts[0];
+      e = parts[1];
+    }
+  }
+  
+  if(this.options.limit !== false){
+    this.actualStart = (s === null) ? moment(-8640000000000000) : moment(s);
+    this.actualEnd   = (e === null) ? moment(8640000000000000) : moment(e);
+    this.actualRange = moment.range(this.actualStart, this.actualEnd, {limit:false});
+
+    this._intersect();
+  }
+  else {
+    this.start = (s === null) ? moment(-8640000000000000) : moment(s);
+    this.end   = (e === null) ? moment(8640000000000000) : moment(e);
+  }
+}
+
+DateRange.prototype.setLimits = function (options) {
+  this.lowerLimit = moment(-8640000000000000);
+  this.upperLimit = moment(8640000000000000);
+  this.limitRange = moment.range(this.lowerLimit, this.upperLimit, {limit: false});
+}
+
+DateRange.prototype._intersect = function() {
+  var limit = this.limitRange;
+  var actual = this.actualRange;
+
+  if ((actual.start <= limit.start) && (limit.start < actual.end) && (actual.end < limit.end)) {
+    this.start = limit.start;
+    this.end = actual.end;
+  }
+  else if ((limit.start < actual.start) && (actual.start < limit.end) && (limit.end <= actual.end)) {
+    this.start = actual.start;
+    this.end = limit.end;
+  }
+  else if ((limit.start < actual.start) && (actual.start <= actual.end) && (actual.end < limit.end)) {
+    this.start = actual.start;
+    this.end = actual.end;
+  }
+  else if ((actual.start <= limit.start) && (limit.start <= limit.end) && (limit.end <= actual.end)) {
+    this.start = limit.start;
+    this.end = limit.end;
+  }
+  else {
+    throw('Cannont set range outside of range limits');
+  }
+};
+
 
 //-----------------------------------------------------------------------------
 // Moment Extensions
@@ -352,12 +406,12 @@ DateRange.prototype.diff = function(unit) {
  *
  * @return {!DateRange}
  */
-moment.range = function(start, end) {
+moment.range = function(start, end, options) {
   if (start in INTERVALS) {
-    return new DateRange(moment(this).startOf(start), moment(this).endOf(start));
+    return new DateRange(moment(this).startOf(start), moment(this).endOf(start), options);
   }
   else {
-    return new DateRange(start, end);
+    return new DateRange(start, end, options);
   }
 };
 
