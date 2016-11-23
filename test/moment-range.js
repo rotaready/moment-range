@@ -12,7 +12,7 @@ describe('Moment', function() {
   var mStart = moment('2011-03-05', 'YYYY-MM-DD');
   var mEnd = moment('2011-06-05', 'YYYY-MM-DD');
   var or = moment.range(null, '2011-05-05');
-  var or2 = moment.range('2011-03-05', null);  
+  var or2 = moment.range('2011-03-05', null);
 
   describe('#range()', function() {
     it('should return a DateRange with start & end properties', function() {
@@ -635,12 +635,15 @@ describe('DateRange', function() {
     var d6 = new Date(Date.UTC(2011, 4, 4));
     var d7 = new Date(Date.UTC(2011, 6, 6));
     var d8 = new Date(Date.UTC(2011, 8, 8));
-
+    
     it('should turn [--{==}--] into (--) (--) where (a=[], b={})', function() {
       var dr1 = moment.range(d5, d8);
       var dr2 = moment.range(d6, d7);
 
-      dr1.subtract(dr2).should.eql([moment.range(d5, d6), moment.range(d7, d8)]);
+      var dr1subtract2 = dr1.subtract(dr2);
+
+      dr1subtract2.should.eql([moment.range(d5, d6), moment.range(d7, d8)]);
+      dr1subtract2.should.not.eql(dr1);
     });
 
     it('should turn {--[==]--} into () where (a=[], b={})', function() {
