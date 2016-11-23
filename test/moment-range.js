@@ -56,6 +56,9 @@ describe('DateRange', function() {
   var m4 = moment.utc('01-01-2012', 'MM-DD-YYYY');
   var sStart = '1996-08-12T00:00:00.000Z';
   var sEnd = '2012-01-01T00:00:00.000Z';
+  var options = {
+    exists: true
+  };
 
   describe('constructor', function() {
     it('should allow initialization with date string', function() {
@@ -113,11 +116,29 @@ describe('DateRange', function() {
     });
 
     it('should allow initialization with undefined arguments', function() {
-      var dr = moment.range(undefined, undefined);
+      var dr = moment.range(undefined, undefined, undefined);
 
       moment.isMoment(dr.start).should.be.true;
       moment.isMoment(dr.end).should.be.true;
     });
+    
+    it('should allow initialization with options', function() {
+      var dr = moment.range(sStart, sEnd, options);
+
+      moment.isMoment(dr.start).should.be.true;
+      moment.isMoment(dr.end).should.be.true;
+      dr.options.should.be.type('object');
+      
+      dr.options.should.have.property('exists');
+    });
+
+    it('should allow initialization with options as second option', function() {
+      dr = moment.range(m1, options);
+      
+      moment.isMoment(dr.end).should.be.true;
+      dr.options.exists.should.be.true;
+    });
+
   });
 
   describe('#clone()', function() {
@@ -614,12 +635,15 @@ describe('DateRange', function() {
     var d6 = new Date(Date.UTC(2011, 4, 4));
     var d7 = new Date(Date.UTC(2011, 6, 6));
     var d8 = new Date(Date.UTC(2011, 8, 8));
-
+    
     it('should turn [--{==}--] into (--) (--) where (a=[], b={})', function() {
       var dr1 = moment.range(d5, d8);
       var dr2 = moment.range(d6, d7);
 
-      dr1.subtract(dr2).should.eql([moment.range(d5, d6), moment.range(d7, d8)]);
+      var dr1subtract2 = dr1.subtract(dr2);
+
+      dr1subtract2.should.eql([moment.range(d5, d6), moment.range(d7, d8)]);
+      dr1subtract2.should.not.eql(dr1);
     });
 
     it('should turn {--[==]--} into () where (a=[], b={})', function() {
