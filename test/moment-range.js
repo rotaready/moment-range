@@ -12,7 +12,7 @@ describe('Moment', function() {
   var mStart = moment('2011-03-05', 'YYYY-MM-DD');
   var mEnd = moment('2011-06-05', 'YYYY-MM-DD');
   var or = moment.range(null, '2011-05-05');
-  var or2 = moment.range('2011-03-05', null);
+  var or2 = moment.range('2011-03-05', null);  
 
   describe('#range()', function() {
     it('should return a DateRange with start & end properties', function() {
@@ -56,6 +56,9 @@ describe('DateRange', function() {
   var m4 = moment.utc('01-01-2012', 'MM-DD-YYYY');
   var sStart = '1996-08-12T00:00:00.000Z';
   var sEnd = '2012-01-01T00:00:00.000Z';
+  var options = {
+    exists: true
+  };
 
   describe('constructor', function() {
     it('should allow initialization with date string', function() {
@@ -113,11 +116,29 @@ describe('DateRange', function() {
     });
 
     it('should allow initialization with undefined arguments', function() {
-      var dr = moment.range(undefined, undefined);
+      var dr = moment.range(undefined, undefined, undefined);
 
       moment.isMoment(dr.start).should.be.true;
       moment.isMoment(dr.end).should.be.true;
     });
+    
+    it('should allow initialization with options', function() {
+      var dr = moment.range(sStart, sEnd, options);
+
+      moment.isMoment(dr.start).should.be.true;
+      moment.isMoment(dr.end).should.be.true;
+      dr.options.should.be.type('object');
+      
+      dr.options.should.have.property('exists');
+    });
+
+    it('should allow initialization with options as second option', function() {
+      dr = moment.range(m1, options);
+      
+      moment.isMoment(dr.end).should.be.true;
+      dr.options.exists.should.be.true;
+    });
+
   });
 
   describe('#clone()', function() {

@@ -1,0 +1,43 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'c:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'run-script',
+1 verbose cli   'test' ]
+2 info using npm@2.15.9
+3 info using node@v4.6.1
+4 verbose run-script [ 'pretest', 'test', 'posttest' ]
+5 info pretest moment-range@2.1.0
+6 info test moment-range@2.1.0
+7 verbose unsafe-perm in lifecycle true
+8 info moment-range@2.1.0 Failed to exec test script
+9 verbose stack Error: moment-range@2.1.0 test: `grunt mochaTest`
+9 verbose stack Exit status 3
+9 verbose stack     at EventEmitter.<anonymous> (c:\Program Files\nodejs\node_modules\npm\lib\utils\lifecycle.js:217:16)
+9 verbose stack     at emitTwo (events.js:87:13)
+9 verbose stack     at EventEmitter.emit (events.js:172:7)
+9 verbose stack     at ChildProcess.<anonymous> (c:\Program Files\nodejs\node_modules\npm\lib\utils\spawn.js:24:14)
+9 verbose stack     at emitTwo (events.js:87:13)
+9 verbose stack     at ChildProcess.emit (events.js:172:7)
+9 verbose stack     at maybeClose (internal/child_process.js:829:16)
+9 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+10 verbose pkgid moment-range@2.1.0
+11 verbose cwd d:\Adam\Documents\Majik\moment-range
+12 error Windows_NT 10.0.14393
+13 error argv "c:\\Program Files\\nodejs\\node.exe" "c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run-script" "test"
+14 error node v4.6.1
+15 error npm  v2.15.9
+16 error code ELIFECYCLE
+17 error moment-range@2.1.0 test: `grunt mochaTest`
+17 error Exit status 3
+18 error Failed at the moment-range@2.1.0 test script 'grunt mochaTest'.
+18 error This is most likely a problem with the moment-range package,
+18 error not with npm itself.
+18 error Tell the author that this fails on your system:
+18 error     grunt mochaTest
+18 error You can get information on how to open an issue for this project with:
+18 error     npm bugs moment-range
+18 error Or if that isn't available, you can get their info via:
+18 error
+18 error     npm owner ls moment-range
+18 error There is likely additional logging output above.
+19 verbose exit [ 1, true ]
