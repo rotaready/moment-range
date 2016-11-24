@@ -6,13 +6,17 @@ var moment    = require('moment');
 require('../lib/moment-range');
 
 describe('Moment', function() {
-  var dr = moment.range(new Date(Date.UTC(2011, 2, 5)), new Date(Date.UTC(2011, 5, 5)));
-  var m1 = moment('2011-04-15', 'YYYY-MM-DD');
-  var m2 = moment('2012-12-25', 'YYYY-MM-DD');
-  var mStart = moment('2011-03-05', 'YYYY-MM-DD');
-  var mEnd = moment('2011-06-05', 'YYYY-MM-DD');
-  var or = moment.range(null, '2011-05-05');
-  var or2 = moment.range('2011-03-05', null);
+  var dr, m1, m2, mStart, mEnd, or, or2;
+
+  before(function() {
+    dr = moment.range(new Date(Date.UTC(2011, 2, 5)), new Date(Date.UTC(2011, 5, 5)));
+    m1 = moment('2011-04-15', 'YYYY-MM-DD');
+    m2 = moment('2012-12-25', 'YYYY-MM-DD');
+    mStart = moment('2011-03-05', 'YYYY-MM-DD');
+    mEnd = moment('2011-06-05', 'YYYY-MM-DD');
+    or = moment.range(null, '2011-05-05');
+    or2 = moment.range('2011-03-05', null);
+  });
 
   describe('#range()', function() {
     it('should return a DateRange with start & end properties', function() {
@@ -139,6 +143,23 @@ describe('DateRange', function() {
       moment.isMoment(dr.end).should.be.true;
       dr.options.exists.should.be.true;
     });
+
+  // ///////////check actual and limit range
+  //   it('should allow limit initialization with date string', function() {
+  //     var ll = '1995-08-12T00:00:00.000Z';
+  //     var ul = '1997-08-12T00:00:00.000Z';
+
+  //     var dr = moment.range(sStart, sEnd, { 
+  //       lowerLimit: ll,
+  //       upperLimit: ul
+  //     });
+
+  //     moment.isMoment(dr.lowerLimit).should.be.true;
+  //     moment.isMoment(dr.upperLimit).should.be.true;
+      
+  //     dr.lowerLimit.isSame(ll).should.be.true;
+  //     dr.upperLimit.isSame(ul).should.be.true;
+  //   });
 
   });
 
