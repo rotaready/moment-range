@@ -144,23 +144,123 @@ describe('DateRange', function() {
       dr.options.exists.should.be.true;
     });
 
-  // ///////////check actual and limit range
-  //   it('should allow limit initialization with date string', function() {
-  //     var ll = '1995-08-12T00:00:00.000Z';
-  //     var ul = '1997-08-12T00:00:00.000Z';
+  ///////////check actual and limit range
+    it('should allow limit initialization with date string', function() {
+      var ll = '1995-08-12T00:00:00.000Z';
+      var ul = '1997-08-12T00:00:00.000Z';
 
-  //     var dr = moment.range(sStart, sEnd, { 
-  //       lowerLimit: ll,
-  //       upperLimit: ul
-  //     });
+      var dr = moment.range(sStart, sEnd, { 
+        lowerLimit: ll,
+        upperLimit: ul
+      });
 
-  //     moment.isMoment(dr.lowerLimit).should.be.true;
-  //     moment.isMoment(dr.upperLimit).should.be.true;
+      moment.isMoment(dr.lowerLimit).should.be.true;
+      moment.isMoment(dr.upperLimit).should.be.true;
       
-  //     dr.lowerLimit.isSame(ll).should.be.true;
-  //     dr.upperLimit.isSame(ul).should.be.true;
-  //   });
+      dr.lowerLimit.isSame(ll).should.be.true;
+      dr.upperLimit.isSame(ul).should.be.true;
+    });
 
+    it('should allow limit initialization with date object', function() {
+      var ll = new Date(Date.UTC(2011, 2, 5));
+      var ul = new Date(Date.UTC(2011, 5, 5));
+      
+      var dr = moment.range(sStart, sEnd, {
+        lowerLimit: ll,
+        upperLimit: ul,
+      });
+
+       moment.isMoment(dr.lowerLimit).should.be.true;
+       moment.isMoment(dr.upperLimit).should.be.true;
+
+        dr.lowerLimit.isSame(ll).should.be.true;
+        dr.upperLimit.isSame(ul).should.be.true;
+    });
+
+    if('should allow limit initialization with Moment object', function() {
+      var ll = moment.utc('06-05-1996', 'MM-DD-YYYY');
+      var ul = moment.utc('11-05-1996', 'MM-DD-YYYY');
+
+      var dr = moment.range(sStart, sEnd, {
+        lowerLimit: ll,
+        upperLimit: ul
+      });
+
+      moment.isMoment(dr.lowerLimit).should.be.true;
+      moment.isMoment(dr.upperLimit).should.be.true;
+
+      dr.lowerLimit.isSame(ll).should.be.true;
+      dr.upperLimit.isSame(ul).should.be.true;
+    });
+
+    it('should allow limit initialization with ISO 8601 Time Interval String', function() {
+      var ll = '2011-01-17T09:50:04+00:00';
+      var ul = '2011-04-17T08:29:55+00:00';
+
+      var dr = moment.range(sStart, sEnd, {
+        lowerLimit: ll,
+        upperLimit: ul
+      })
+      
+      moment.isMoment(dr.lowerLimit).should.be.true;
+      moment.isMoment(dr.upperLimit).should.be.true;
+
+      dr.lowerLimit.isSame(ll).should.be.true;
+      dr.upperLimit.isSame(ul).should.be.true;
+    });
+
+    it('should allow limit initialization with an array', function() {
+      var ll = moment.utc('06-05-1996', 'MM-DD-YYYY');
+      var ul = moment.utc('11-05-1996', 'MM-DD-YYYY');
+
+      var dr = moment.range(sStart, sEnd, {
+        lowerLimit: ll,
+        upperLimit: ul
+      });
+      
+      moment.isMoment(dr.lowerLimit).should.be.true;
+      moment.isMoment(dr.upperLimit).should.be.true;
+
+      dr.lowerLimit.isSame(ll).should.be.true;
+      dr.upperLimit.isSame(ul).should.be.true;
+    })
+
+    it('should allow limit initialization with open ended ranges', function() {
+      var ll = moment.utc('06-05-2011', 'MM-DD-YYYY');
+      var ul = moment.utc('11-05-2011', 'MM-DD-YYYY');
+
+      var dr = moment.range(null ,sEnd, {
+        lowerLimit: ll,
+        upperLimit: ul
+      });
+      moment.isMoment(dr.lowerLimit).should.be.true;
+      dr.lowerLimit.isSame(ll).should.be.true;
+      dr.upperLimit.isSame(ul).should.be.true;
+    
+      var dr = moment.range(sStart, {
+        lowerLimit: ll,
+        upperLimit: ul
+      });
+      moment.isMoment(dr.upperLimit).should.be.true;
+      dr.lowerLimit.isSame(ll).should.be.true;
+      dr.upperLimit.isSame(ul).should.be.true;
+    })
+
+    it('should allow limit initialization without any arguments', function() {
+      var ll = moment.utc('06-05-2011', 'MM-DD-YYYY');
+      var ul = moment.utc('11-05-2011', 'MM-DD-YYYY');
+
+      var dr = moment.range(undefined, undefined, {
+        lowerLimit: ll,
+        upperLimit: ul
+      });
+
+      moment.isMoment(dr.lowerLimit).should.be.true;
+      moment.isMoment(dr.upperLimit).should.be.true;
+
+      dr.lowerLimit.isSame(ll).should.be.true;
+      dr.upperLimit.isSame(ul).should.be.true;
+    })
   });
 
   describe('#clone()', function() {
