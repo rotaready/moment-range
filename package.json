@@ -41,7 +41,8 @@
     "jsdoc": "^3.3.0",
     "mocha": "^2.1.0",
     "moment": ">= 1",
-    "should": "^5.0.1"
+    "should": "^5.0.1",
+    "chai":"3.5.0"
   },
   "peerDependencies": {
     "moment": ">= 1"
