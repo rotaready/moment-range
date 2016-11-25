@@ -1019,4 +1019,128 @@ describe('DateRange', function() {
 
     })
   })
+
+  describe('#clear', function() {
+    it('should clear start, clear end with empty args', function() {
+        var start = moment("2011-01-01T00:00:00.000Z");
+        var end = moment("2011-05-06T00:00:00.000Z");
+        var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+        var upperLimit = moment("2011-05-04T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+
+        range.clear();
+        range.start.isSame(lowerLimit).should.be.true;
+        range.end.isSame(upperLimit).should.be.true;
+    })
+
+    it('should clear start, keep  end with false', function() {
+        var start = moment("2011-01-01T00:00:00.000Z");
+        var end = moment("2011-05-06T00:00:00.000Z");
+        var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+        var upperLimit = moment("2011-05-04T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+
+        range.clear(true, false);
+        range.start.isSame(lowerLimit).should.be.true;
+        range.end.isSame(upperLimit).should.be.true;
+    })
+
+    it('should keep start, clear end with false', function() {
+        var start = moment("2011-01-01T00:00:00.000Z");
+        var end = moment("2011-05-06T00:00:00.000Z");
+        var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+        var upperLimit = moment("2011-05-04T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+
+        range.clear(false, true);
+        range.start.isSame(lowerLimit).should.be.true;
+        range.end.isSame(upperLimit).should.be.true;
+    })
+    
+    it('should keep start, keep  end with false', function() {
+        var start = moment("2011-01-01T00:00:00.000Z");
+        var end = moment("2011-05-06T00:00:00.000Z");
+        var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+        var upperLimit = moment("2011-05-04T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+
+        range.clear(false, false);
+        range.start.isSame(lowerLimit).should.be.true;
+        range.end.isSame(upperLimit).should.be.true;
+    })
+  })
+
+  describe.only('#clearLimits', function() {
+    it('should clear lower, clear upper with empty args', function() {
+        var start = moment("2011-01-01T00:00:00.000Z");
+        var end = moment("2011-05-06T00:00:00.000Z");
+        var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+        var upperLimit = moment("2011-05-04T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+
+        range.clearLimits();
+        range.start.isSame(start).should.be.true;
+        range.end.isSame(end).should.be.true;
+    })
+
+    it('should clear lower, keep  upper with false', function() {
+        var start = moment("2011-01-01T00:00:00.000Z");
+        var end = moment("2011-05-06T00:00:00.000Z");
+        var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+        var upperLimit = moment("2011-05-04T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+
+        range.clearLimits(true, false);
+        range.start.isSame(start).should.be.true;
+        range.end.isSame(upperLimit).should.be.true;
+    })
+
+    it('should keep lower, clear upper with false', function() {
+        var start = moment("2011-01-01T00:00:00.000Z");
+        var end = moment("2011-05-06T00:00:00.000Z");
+        var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+        var upperLimit = moment("2011-05-04T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+
+        range.clearLimits(false, true);
+        range.start.isSame(lowerLimit).should.be.true;
+        range.end.isSame(end).should.be.true;
+    })
+    
+    it('should keep lower, keep  upper with false', function() {
+        var start = moment("2011-01-01T00:00:00.000Z");
+        var end = moment("2011-05-06T00:00:00.000Z");
+        var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+        var upperLimit = moment("2011-05-04T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+
+        range.clearLimits(false, false);
+        range.start.isSame(lowerLimit).should.be.true;
+        range.end.isSame(upperLimit).should.be.true;
+    })
+  })
 });
