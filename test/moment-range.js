@@ -981,4 +981,42 @@ describe('DateRange', function() {
       range.end.isSame(newEnd).should.be.true;
     })
   })
+
+  describe('#setLowerLimit', function() {
+    it('should only set the lower limit', function() {
+      var newLowerLimit = moment("2011-04-02T00:00:00.000Z");
+      var start = moment("2011-01-01T00:00:00.000Z");
+      var end = moment("2011-06-06T00:00:00.000Z");
+      var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+      var upperLimit = moment("2011-05-04T00:00:00.000Z");
+      var range = moment.range(start, end, {
+        lowerLimit,
+        upperLimit
+      });
+      
+     range.setLowerLimit(newLowerLimit);
+
+      range.start.isSame(newLowerLimit).should.be.true;
+
+    })
+  })
+
+    describe('#setUpperLimit', function() {
+      it('should only set the Upper limit', function() {
+        var newUpperLimit = moment("2011-05-03T00:00:00.000Z");
+        var start = moment("2011-01-01T00:00:00.000Z");
+        var end = moment("2011-05-06T00:00:00.000Z");
+        var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+        var upperLimit = moment("2011-05-04T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+        
+      range.setUpperLimit(newUpperLimit);
+
+      range.end.isSame(newUpperLimit).should.be.true;
+
+    })
+  })
 });
