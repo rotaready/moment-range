@@ -3,6 +3,7 @@
 
 var should    = require('should');
 var moment    = require('moment');
+var expect = require('chai').expect;
 require('../lib/moment-range');
 
 describe('Moment', function() {
@@ -922,7 +923,7 @@ describe('DateRange', function() {
     })
   })
 
-  describe('Upper and lower limits', function() {
+  describe('#_intersect()', function() {
     it('should set range within with acutal and limit ranges', function() {
       var start = moment("2016-01-02T00:00:00.000Z");
       var end = moment("2016-01-05T00:00:00.000Z");
@@ -939,6 +940,20 @@ describe('DateRange', function() {
 
        range.actualStart.isSame(start).should.be.true;
        range.actualEnd.isSame(end).should.be.true;
+    })
+
+    it('should return undefinded when the limit is outside of range', function() {
+      var start = moment("2016-01-01T00:00:00.000Z");
+      var end = moment("2016-01-05T00:00:00.000Z");
+      var lowerLimit = moment("2016-02-01T00:00:00.000Z");
+      var upperLimit = moment("2016-02-04T00:00:00.000Z");
+      
+      var range = moment.range(start, end, {
+        lowerLimit,
+        upperLimit,
+      });
+      expect(range.start).to.be.an('undefined');
+      expect(range.end).to.be.an('undefined');
     })
   })
 
@@ -1082,7 +1097,7 @@ describe('DateRange', function() {
     })
   })
 
-  describe.only('#clearLimits', function() {
+  describe('#clearLimits', function() {
     it('should clear lower, clear upper with empty args', function() {
         var start = moment("2011-01-01T00:00:00.000Z");
         var end = moment("2011-05-06T00:00:00.000Z");
