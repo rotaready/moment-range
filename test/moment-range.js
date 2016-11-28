@@ -1194,4 +1194,41 @@ describe('DateRange', function() {
         expect(range.end).to.be.an('undefined');
     })
   })
-});
+
+
+  describe("#shiftBackward()", function() {
+    it('should shift actualStart and actualEnd backward within limits', function() {
+          var start = moment("2011-03-02T00:00:00.000Z");
+          var end = moment("2011-05-06T00:00:00.000Z");
+          var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+          var upperLimit = moment("2011-05-04T00:00:00.000Z");
+          var range = moment.range(start, end, {
+            lowerLimit,
+            upperLimit
+          });
+
+          range.shiftBackward(86400000);
+
+          range.actualStart.isSame(moment("2011-03-01T00:00:00.000Z")).should.be.true;
+          range.actualEnd.isSame(moment("2011-05-05T00:00:00.000Z")).should.be.true;
+    })
+
+    it('should shift actualStart and actualEnd backward outsite of limits', function() {
+          var start = moment("2011-03-02T00:00:00.000Z");
+          var end = moment("2011-03-03T00:00:00.000Z");
+          var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+          var upperLimit = moment("2011-03-04T00:00:00.000Z");
+          var range = moment.range(start, end, {
+            lowerLimit,
+            upperLimit
+          });
+
+          range.shiftBackward(moment.duration(5,'days'));
+
+          range.actualStart.isSame(moment("2011-02-25T00:00:00.000Z")).should.be.true;
+          range.actualEnd.isSame(moment("2011-02-26T00:00:00.000Z")).should.be.true;
+          expect(range.start).to.be.an('undefined');
+          expect(range.end).to.be.an('undefined');
+    })
+  })
+
