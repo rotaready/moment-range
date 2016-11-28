@@ -1354,4 +1354,38 @@ describe('DateRange', function() {
     })
   })
 
+  describe('#shift()', function() {
+    it('should shift forward with postive duration', function() {
+        var start = moment("2011-03-02T00:00:00.000Z");
+        var end = moment("2011-05-06T00:00:00.000Z");
+        var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+        var upperLimit = moment("2011-05-04T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+
+        range.shift(86400000);
+
+        range.actualStart.isSame(moment("2011-03-03T00:00:00.000Z")).should.be.true;
+        range.actualEnd.isSame(moment("2011-05-07T00:00:00.000Z")).should.be.true;
+    })
+    
+    it('should shift backward with negative duration', function() {
+        var start = moment("2011-03-02T00:00:00.000Z");
+        var end = moment("2011-05-06T00:00:00.000Z");
+        var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+        var upperLimit = moment("2011-05-04T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+
+        range.shift(-86400000);
+
+        range.actualStart.isSame(moment("2011-03-01T00:00:00.000Z")).should.be.true;
+        range.actualEnd.isSame(moment("2011-05-05T00:00:00.000Z")).should.be.true;
+    })
+  })
+
 }); //final describe
