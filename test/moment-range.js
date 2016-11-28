@@ -1232,3 +1232,126 @@ describe('DateRange', function() {
     })
   })
 
+  describe('#_containIntersect()', function() {
+    it('should shift short range before limits inside of limits', function() {
+          var start = moment("2011-01-01T00:00:00.000Z");
+          var end = moment("2011-01-05T00:00:00.000Z");
+          var lowerLimit = moment("2011-02-01T00:00:00.000Z");
+          var upperLimit = moment("2011-02-20T00:00:00.000Z");
+          var range = moment.range(start, end, {
+            lowerLimit,
+            upperLimit,
+            contain: true
+          });
+
+          range.start.isSame(moment("2011-02-01T00:00:00.000Z")).should.be.true;
+          range.end.isSame(moment("2011-02-05T00:00:00.000Z")).should.be.true;
+    })
+
+    it('should shift short range after limits inside of limits', function() {
+          var start = moment("2011-04-02T00:00:00.000Z");
+          var end = moment("2011-04-05T00:00:00.000Z");
+          var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+          var upperLimit = moment("2011-03-31T00:00:00.000Z");
+          var range = moment.range(start, end, {
+            lowerLimit,
+            upperLimit,
+            contain: true
+          });
+
+         range.start.isSame(moment("2011-03-28T00:00:00.000Z")).should.be.true;
+         range.end.isSame(moment("2011-03-31T00:00:00.000Z")).should.be.true;
+    })
+
+    it('should shift long range before limits to be limits', function() {
+          var start = moment("2011-02-01T00:00:00.000Z");
+          var end = moment("2011-02-20T00:00:00.000Z");
+          var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+          var upperLimit = moment("2011-03-05T00:00:00.000Z");
+          var range = moment.range(start, end, {
+            lowerLimit,
+            upperLimit,
+            contain: true
+          });
+
+          range.start.isSame(moment("2011-03-01T00:00:00.000Z")).should.be.true;
+          range.end.isSame(moment("2011-03-05T00:00:00.000Z")).should.be.true;
+      }) 
+
+    it('should shift long range after limits to be limits', function() {
+          var start = moment("2011-05-05T00:00:00.000Z");
+          var end = moment("2011-07-05T00:00:00.000Z");
+          var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+          var upperLimit = moment("2011-03-31T00:00:00.000Z");
+          var range = moment.range(start, end, {
+            lowerLimit,
+            upperLimit,
+            contain: true
+          });
+
+          range.start.isSame(moment("2011-03-01T00:00:00.000Z")).should.be.true;
+          range.end.isSame(moment("2011-03-31T00:00:00.000Z")).should.be.true;
+    })
+
+    it('should shift overlap short range before limits to be inside limits', function() {
+          var start = moment("2011-03-01T00:00:00.000Z");
+          var end = moment("2011-03-05T00:00:00.000Z");
+          var lowerLimit = moment("2011-03-04T00:00:00.000Z");
+          var upperLimit = moment("2011-03-20T00:00:00.000Z");
+          var range = moment.range(start, end, {
+            lowerLimit,
+            upperLimit,
+            contain: true
+          });
+
+          range.start.isSame(moment("2011-03-04T00:00:00.000Z")).should.be.true;
+          range.end.isSame(moment("2011-03-08T00:00:00.000Z")).should.be.true;
+    })
+
+    it('should shift overlap short range after limits to be inside limits', function() {
+          var start = moment("2011-03-10T00:00:00.000Z");
+          var end = moment("2011-03-20T00:00:00.000Z");
+          var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+          var upperLimit = moment("2011-03-15T00:00:00.000Z");
+          var range = moment.range(start, end, {
+            lowerLimit,
+            upperLimit,
+            contain: true
+          });
+
+          range.start.isSame(moment("2011-03-05T00:00:00.000Z")).should.be.true;
+          range.end.isSame(moment("2011-03-15T00:00:00.000Z")).should.be.true;
+    })
+
+    it('should shift overlap long range before limits to be limits', function() {
+          var start = moment("2011-03-01T00:00:00.000Z");
+          var end = moment("2011-03-20T00:00:00.000Z");
+          var lowerLimit = moment("2011-03-05T00:00:00.000Z");
+          var upperLimit = moment("2011-03-08T00:00:00.000Z");
+          var range = moment.range(start, end, {
+            lowerLimit,
+            upperLimit,
+            contain: true
+          });
+
+          range.start.isSame(moment("2011-03-05T00:00:00.000Z")).should.be.true;
+          range.end.isSame(moment("2011-03-08T00:00:00.000Z")).should.be.true;
+    })
+
+    it('should shift overlap long range after limits to be limits', function() {
+          var start = moment("2011-03-10T00:00:00.000Z");
+          var end = moment("2011-03-30T00:00:00.000Z");
+          var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+          var upperLimit = moment("2011-03-15T00:00:00.000Z");
+          var range = moment.range(start, end, {
+            lowerLimit,
+            upperLimit,
+            contain: true
+          });
+
+          range.start.isSame(moment("2011-03-01T00:00:00.000Z")).should.be.true;
+          range.end.isSame(moment("2011-03-15T00:00:00.000Z")).should.be.true;
+    })
+  })
+
+}); //final describe
