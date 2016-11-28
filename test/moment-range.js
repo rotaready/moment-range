@@ -1403,4 +1403,20 @@ describe('DateRange', function() {
     })
   })
 
+  describe("Durations", function(){
+    it('should check limit, actual, and set durations', function() {
+        var start = moment("2011-03-02T00:00:00.000Z");
+        var end = moment("2011-03-08T00:00:00.000Z");
+        var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+        var upperLimit = moment("2011-03-06T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+        
+        (range.limitDuration._milliseconds).should.be.eql(432000000);
+        (range.actualDuration._milliseconds).should.be.eql(518400000);
+        (range.duration._milliseconds).should.be.eql(345600000);
+    })
+  })
 }); //final describe
