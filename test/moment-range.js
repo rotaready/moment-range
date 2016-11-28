@@ -1352,6 +1352,21 @@ describe('DateRange', function() {
           range.start.isSame(moment("2011-03-01T00:00:00.000Z")).should.be.true;
           range.end.isSame(moment("2011-03-15T00:00:00.000Z")).should.be.true;
     })
+
+    it('should be acutal start and end if both values within limit', function() {
+          var start = moment("2011-03-03T00:00:00.000Z");
+          var end = moment("2011-03-06T00:00:00.000Z");
+          var lowerLimit = moment("2011-03-01T00:00:00.000Z");
+          var upperLimit = moment("2011-03-15T00:00:00.000Z");
+          var range = moment.range(start, end, {
+            lowerLimit,
+            upperLimit,
+            contain: true
+          });
+
+          range.start.isSame(moment("2011-03-03T00:00:00.000Z")).should.be.true;
+          range.end.isSame(moment("2011-03-06T00:00:00.000Z")).should.be.true;
+    })
   })
 
   describe('#shift()', function() {
