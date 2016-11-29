@@ -1419,4 +1419,66 @@ describe('DateRange', function() {
         (range.duration._milliseconds).should.be.eql(345600000);
     })
   })
+
+  describe('#format', function() {
+    it('should format both dates with set delimiter', function() {
+        var start = moment.utc("2011-03-02T00:00:00.000Z");
+        var end = moment.utc("2011-03-08T00:00:00.000Z");
+        var lowerLimit = moment.utc("2011-03-01T00:00:00.000Z");
+        var upperLimit = moment.utc("2011-03-06T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+
+        rangeFormat = range.format("DD", "MMMM", ' - ');
+
+        (rangeFormat).should.be.eql("02 - March");
+    })
+
+    it('should format both dates with default delimiter', function() {
+        var start = moment.utc("2011-03-02T00:00:00.000Z");
+        var end = moment.utc("2011-03-08T00:00:00.000Z");
+        var lowerLimit = moment.utc("2011-03-01T00:00:00.000Z");
+        var upperLimit = moment.utc("2011-03-06T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+
+        rangeFormat = range.format("DD", "MMMM");
+
+        (rangeFormat).should.be.eql("02 March");
+    })
+
+    it('should return empty for start date', function() {
+        var start = moment.utc("2011-03-02T00:00:00.000Z");
+        var end = moment.utc("2011-03-08T00:00:00.000Z");
+        var lowerLimit = moment.utc("2011-03-01T00:00:00.000Z");
+        var upperLimit = moment.utc("2011-03-06T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+
+        rangeFormat = range.format(undefined, "MMMM");
+
+        (rangeFormat).should.be.eql("March");
+    })
+
+    it('should return empty for start date', function() {
+        var start = moment.utc("2011-02-02T00:00:00.000Z");
+        var end = moment.utc("2011-03-08T00:00:00.000Z");
+        var lowerLimit = moment.utc("2011-02-01T00:00:00.000Z");
+        var upperLimit = moment.utc("2011-03-06T00:00:00.000Z");
+        var range = moment.range(start, end, {
+          lowerLimit,
+          upperLimit
+        });
+
+        rangeFormat = range.format("MMMM");
+
+        (rangeFormat).should.be.eql("February");
+    })
+  })
 }); //final describe
