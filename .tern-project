@@ -1,0 +1,9 @@
+{
+  "libs": [
+    "browser"
+  ],
+  "plugins": {
+    "webpack": {},
+    "complete_strings": {}
+  }
+}
