@@ -1,0 +1,69 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "rules": {
+    "array-bracket-spacing": [2, "never"],
+    "brace-style": [2, "stroustrup", {"allowSingleLine": true}],
+    "camelcase": [2, {"properties": "never"}],
+    "comma-dangle": [2, "never"],
+    "comma-spacing": [2, {"before": false, "after": true}],
+    "constructor-super": 2,
+    "eol-last": 2,
+    "indent": [2, 2, {"SwitchCase": 1}],
+    "jsx-quotes": 2,
+    "key-spacing": [2, {"beforeColon": false, "afterColon": true}],
+    "keyword-spacing": 2,
+    "no-alert": 2,
+    "no-debugger": 2,
+    "no-dupe-args": 2,
+    "no-dupe-keys": 2,
+    "no-duplicate-case": 2,
+    "no-else-return": 1,
+    "no-empty": 2,
+    "no-extra-semi": 2,
+    "no-func-assign": 1,
+    "no-inner-declarations": [2, "both"],
+    "no-irregular-whitespace": 2,
+    "no-multiple-empty-lines": [1, {"max": 2}],
+    "no-redeclare": 2,
+    "no-sequences": 2,
+    "no-spaced-func": 2,
+    "no-shadow": 0,
+    "no-trailing-spaces": 2,
+    "no-underscore-dangle": 0,
+    "no-unneeded-ternary": 2,
+    "no-unused-expressions": 2,
+    "no-unused-vars": 0,
+    "no-use-before-define": [2, "nofunc"],
+    "no-var": 2,
+    "object-curly-spacing": [2, "always", { "objectsInObjects": false, "arraysInObjects": true }],
+    "object-shorthand": [1, "always"],
+    "one-var": [2, "never"],
+    "padded-blocks": [2, "never"],
+    "prefer-const": [1, {
+      "destructuring": "all"
+    }],
+    "quotes": [2, "single", "avoid-escape"],
+    "radix": 2,
+    "semi": [2, "always"],
+    "semi-spacing": [2, {"before": false, "after": true}],
+    "sort-vars": 1,
+    "space-before-function-paren": [2, "never"],
+    "space-in-parens": [2, "never"],
+    "spaced-comment": [2, "always", { "exceptions": ["-"] }],
+    "strict": 0,
+    "yoda": [2, "never"]
+  }
+}
