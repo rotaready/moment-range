@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-es6-transpiler');
+  grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-umd');
@@ -8,12 +8,10 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    es6transpiler: {
+    babel: {
       options: {
-        environments: ['node', 'browser'],
-        globals: {
-          'moment': true
-        }
+        sourceMap: true,
+        presets: ['es2015']
       },
       dist: {
         files: {
@@ -67,5 +65,5 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('default', ['es6transpiler', 'replace', 'umd', 'uglify', 'mochaTest']);
+  grunt.registerTask('default', ['babel', 'replace', 'umd', 'uglify', 'mochaTest']);
 };
