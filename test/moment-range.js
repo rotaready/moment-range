@@ -94,14 +94,14 @@ describe('DateRange', function() {
       m1.isSame(dr.start).should.be.true;
       m2.isSame(dr.end).should.be.true;
     });
-    
+
     it('should allow initialization with open-ended ranges', function() {
       var dr = moment.range(null, m1);
-      
+
       moment.isMoment(dr.start).should.be.true;
-      
+
       dr = moment.range(m1, null);
-      
+
       moment.isMoment(dr.end).should.be.true;
     });
 
@@ -710,11 +710,11 @@ describe('DateRange', function() {
 
   describe('#toString()', function() {
     it('should be a correctly formatted ISO8601 Time Interval', function() {
-      var start = '2015-01-17T09:50:04+00:00';
-      var end   = '2015-04-17T08:29:55+00:00';
-      var dr = moment.range(moment.utc(start), moment.utc(end));
+      var start = moment.utc('2015-01-17T09:50:04+00:00');
+      var end   = moment.utc('2015-04-17T08:29:55+00:00');
+      var dr = moment.range(start, end);
 
-      dr.toString().should.equal(start + '/' + end);
+      dr.toString().should.equal(start.format() + '/' + end.format());
     });
   });
 
