@@ -19,6 +19,7 @@
   "bugs": "https://github.com/gf3/moment-range/issues",
   "main": "./dist/moment-range",
   "directories": {
+    "dist": "./dist",
     "lib": "./lib"
   },
   "version": "2.1.0",
@@ -28,7 +29,8 @@
   "scripts": {
     "build": "webpack",
     "lint": "eslint ./lib/",
-    "test": "karma start ./karma.conf.js --debug"
+    "prepublish": "npm run build",
+    "test": "karma start ./karma.conf.js"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
