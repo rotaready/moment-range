@@ -140,7 +140,7 @@ describe('DateRange', function() {
 
       dr1.by(dr2, function(m) {
         acc.push(m);
-      });
+      }, "[]");
 
       acc.length.should.eql(5);
       acc[0].utc().date().should.eql(1);
@@ -148,6 +148,17 @@ describe('DateRange', function() {
       acc[2].utc().date().should.eql(3);
       acc[3].utc().date().should.eql(4);
       acc[4].utc().date().should.eql(5);
+
+      acc = [];
+
+      dr1.by(dr2, function(m) {
+        acc.push(m);
+      }, "()");
+
+      acc.length.should.eql(3);
+      acc[0].utc().date().should.eql(2);
+      acc[1].utc().date().should.eql(3);
+      acc[2].utc().date().should.eql(4);
     });
 
     it('should iterate correctly by duration', function() {
@@ -239,13 +250,21 @@ describe('DateRange', function() {
 
     it('should not include .end in the iteration if exclusive is set to true when iterating by string', function() {
       var my1 = moment('2014-04-02T00:00:00.000Z');
-      var my2 = moment('2014-04-04T00:00:00.000Z');
+      var my2 = moment('2014-04-05T00:00:00.000Z');
       var dr1 = moment.range(my1, my2);
       var acc = [];
 
       dr1.by('d', (function(d) {
         acc.push(d.utc().format('YYYY-MM-DD'));
-      }), false);
+      }), "[]");
+
+      acc.should.eql(['2014-04-02', '2014-04-03', '2014-04-04', '2014-04-05']);
+
+      acc = [];
+
+      dr1.by('d', (function(d) {
+        acc.push(d.utc().format('YYYY-MM-DD'));
+      }), "[)");
 
       acc.should.eql(['2014-04-02', '2014-04-03', '2014-04-04']);
 
@@ -253,9 +272,17 @@ describe('DateRange', function() {
 
       dr1.by('d', (function(d) {
         acc.push(d.utc().format('YYYY-MM-DD'));
-      }), true);
+      }), "(]");
 
-      acc.should.eql(['2014-04-02', '2014-04-03']);
+      acc.should.eql(['2014-04-03', '2014-04-04', '2014-04-05']);
+
+      acc = [];
+
+      dr1.by('d', (function(d) {
+        acc.push(d.utc().format('YYYY-MM-DD'));
+      }), "()");
+
+      acc.should.eql(['2014-04-03', '2014-04-04']);
 
       acc = [];
 
@@ -263,37 +290,54 @@ describe('DateRange', function() {
         acc.push(d.utc().format('YYYY-MM-DD'));
       }));
 
-      acc.should.eql(['2014-04-02', '2014-04-03', '2014-04-04']);
+      acc.should.eql(['2014-04-02', '2014-04-03', '2014-04-04', '2014-04-05']);
     });
 
     it('should not include .end in the iteration if exclusive is set to true when iterating by range', function() {
       var my1 = moment('2014-04-02T00:00:00.000Z');
-      var my2 = moment('2014-04-04T00:00:00.000Z');
+      var my2 = moment('2014-04-05T00:00:00.000Z');
       var dr1 = moment.range(my1, my2);
       var dr2 = moment.range(my1, moment('2014-04-03T00:00:00.000Z'));
       var acc = [];
+
+      dr1.by(dr2, (function(d) {
+        acc.push(d.utc().format('YYYY-MM-DD'));
+      }), "[]");
+
+      acc.should.eql(['2014-04-02', '2014-04-03', '2014-04-04', '2014-04-05']);
+
+      acc = [];
+
+      dr1.by(dr2, (function(d) {
+        acc.push(d.utc().format('YYYY-MM-DD'));
+      }), "[)");
+
+      acc.should.eql(['2014-04-02', '2014-04-03', '2014-04-04']);
+
+      acc = [];
+
+      dr1.by(dr2, (function(d) {
+        acc.push(d.utc().format('YYYY-MM-DD'));
+      }), "(]");
+
+      acc.should.eql(['2014-04-03', '2014-04-04', '2014-04-05']);
+
+      acc = [];
+
+      dr1.by(dr2, (function(d) {
+        acc.push(d.utc().format('YYYY-MM-DD'));
+      }), "()");
+
+      acc.should.eql(['2014-04-03', '2014-04-04']);
+
+      acc = [];
 
       dr1.by(dr2, function(d) {
         acc.push(d.utc().format('YYYY-MM-DD'));
       });
 
-      acc.should.eql(['2014-04-02', '2014-04-03', '2014-04-04']);
+    acc.should.eql(['2014-04-02', '2014-04-03', '2014-04-04', '2014-04-05']);
 
-      acc = [];
-
-      dr1.by(dr2, (function(d) {
-        acc.push(d.utc().format('YYYY-MM-DD'));
-      }), false);
-
-      acc.should.eql(['2014-04-02', '2014-04-03', '2014-04-04']);
-
-      acc = [];
-
-      dr1.by(dr2, (function(d) {
-        acc.push(d.utc().format('YYYY-MM-DD'));
-      }), true);
-
-      acc.should.eql(['2014-04-02', '2014-04-03']);
     });
 
     it('should be exlusive when using by with minutes as well', function() {
@@ -304,7 +348,7 @@ describe('DateRange', function() {
 
       dr.by('m', (function(d) {
         acc.push(d.utc().format('mm'));
-      }));
+      }), "[]");
 
       acc.should.eql(['00', '01', '02', '03', '04', '05', '06']);
 
@@ -312,9 +356,25 @@ describe('DateRange', function() {
 
       dr.by('m', (function(d) {
         acc.push(d.utc().format('mm'));
-      }), true);
+      }), "[)");
 
       acc.should.eql(['00', '01', '02', '03', '04', '05']);
+
+      acc = [];
+
+      dr.by('m', (function(d) {
+        acc.push(d.utc().format('mm'));
+      }), "(]");
+
+      acc.should.eql(['01', '02', '03', '04', '05', '06']);
+
+      acc = [];
+
+      dr.by('m', (function(d) {
+        acc.push(d.utc().format('mm'));
+      }), "()");
+
+      acc.should.eql(['01', '02', '03', '04', '05']);
     });
   });
 
@@ -385,12 +445,21 @@ describe('DateRange', function() {
     it('should be exlusive when the exclusive param is set', function() {
       var dr1 = moment.range(m1, m2);
 
-      dr1.contains(dr1, true).should.be.false;
-      dr1.contains(dr1, false).should.be.true;
       dr1.contains(dr1).should.be.true;
-      dr1.contains(m2, true).should.be.false;
-      dr1.contains(m2, false).should.be.true;
+      dr1.contains(dr1, "()").should.be.false;
+      dr1.contains(dr1, "[]").should.be.true;
+
+      dr1.contains(m1).should.be.true;
+      dr1.contains(m1, "()").should.be.false;
+      dr1.contains(m1, "[]").should.be.true;
+      dr1.contains(m1, "(]").should.be.false;
+      dr1.contains(m1, "[)").should.be.true;
+
       dr1.contains(m2).should.be.true;
+      dr1.contains(m2, "()").should.be.false;
+      dr1.contains(m2, "[]").should.be.true;
+      dr1.contains(m2, "(]").should.be.true;
+      dr1.contains(m2, "[)").should.be.false;
     });
   });
 
@@ -402,8 +471,10 @@ describe('DateRange', function() {
       var dr4 = moment.range(m1, m3);
 
       dr1.overlaps(dr2).should.be.true;
-      dr1.overlaps(dr3).should.be.false;
-      dr4.overlaps(dr3).should.be.false;
+      dr1.overlaps(dr3, "()").should.be.false;
+      dr1.overlaps(dr3, "[]").should.be.true;
+      dr4.overlaps(dr3, "()").should.be.false;
+      dr4.overlaps(dr3, "[]").should.be.false;
     });
   });
 
@@ -473,13 +544,15 @@ describe('DateRange', function() {
       var dr1 = moment.range(d5, d6);
       var dr2 = moment.range(d6, d7);
 
-      should.strictEqual(dr1.intersect(dr2), null);
+      should.strictEqual(dr1.intersect(dr2, "()"), null);
+      should.strictEqual(dr1.intersect(dr2, "[]").isSame(moment.range(d6, d6)), true);
     });
 
     it('should work with {---}[---] overlaps where (a=[], b={})', function() {
       var dr1 = moment.range(d6, d7);
       var dr2 = moment.range(d5, d6);
-      should.strictEqual(dr1.intersect(dr2), null);
+      should.strictEqual(dr1.intersect(dr2, "()"), null);
+      should.strictEqual(dr1.intersect(dr2, "[]").isSame(moment.range(d6, d6)), true);
     });
 
     it('should work with {--[===]--} overlaps where (a=[], b={})', function() {
@@ -577,14 +650,23 @@ describe('DateRange', function() {
       var dr1 = moment.range(d5, d6);
       var dr2 = moment.range(d6, d7);
 
-      should.strictEqual(dr1.add(dr2), null);
+      should.strictEqual(dr1.add(dr2, "()"), null);
+      should.strictEqual(dr1.add(dr2, "[]").isSame(moment.range(d5, d7)), true);
     });
 
     it('should not add ranges with {---}[---] overlaps where (a=[], b={})', function() {
       var dr1 = moment.range(d6, d7);
       var dr2 = moment.range(d5, d6);
 
-      should.strictEqual(dr1.add(dr2), null);
+      should.strictEqual(dr1.add(dr2, "()"), null);
+      should.strictEqual(dr1.add(dr2, "[]").isSame(moment.range(d5, d7)), true);
+    });
+
+    it('should add ranges with [---]{---} overlaps if border dates are not excluded where (a=[], b={})', function() {
+      var dr1 = moment.range(d5, d6);
+      var dr2 = moment.range(d6, d7);
+
+      dr1.add(dr2, "[]").isSame(moment.range(d5, d7)).should.be.true;
     });
 
     it('should add ranges {--[===]--} overlaps where (a=[], b={})', function() {
@@ -710,8 +792,8 @@ describe('DateRange', function() {
 
   describe('#toString()', function() {
     it('should be a correctly formatted ISO8601 Time Interval', function() {
-      var start = '2015-01-17T09:50:04+00:00';
-      var end   = '2015-04-17T08:29:55+00:00';
+      var start = '2015-01-17T09:50:04Z';
+      var end = '2015-04-17T08:29:55Z';
       var dr = moment.range(moment.utc(start), moment.utc(end));
 
       dr.toString().should.equal(start + '/' + end);
