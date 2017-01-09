@@ -30,8 +30,10 @@
     "build": "webpack",
     "doctoc": "doctoc README.md --github",
     "lint": "eslint ./lib/",
-    "prepublish": "npm run build",
-    "test": "karma start ./karma.conf.js"
+    "prepublish": "npm run build; cp ./lib/moment-range.js.flow ./dist",
+    "preversion": "npm run test && npm run lint",
+    "test": "karma start ./karma.conf.js",
+    "version": "npm run build; cp ./lib/moment-range.js.flow ./dist"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
@@ -41,6 +43,7 @@
     "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-stage-0": "^6.16.0",
+    "copy-webpack-plugin": "^4.0.1",
     "doctoc": "^1.2.0",
     "eslint": "^3.11.1",
     "eslint-loader": "^1.6.1",
