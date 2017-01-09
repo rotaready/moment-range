@@ -75,6 +75,7 @@ declare class moment$LocaleData {
   firstDayOfWeek(): number;
   firstDayOfYear(): number;
 }
+
 declare class moment$MomentDuration {
   humanize(suffix?: bool): string;
   milliseconds(): number;
@@ -97,6 +98,7 @@ declare class moment$MomentDuration {
   get(unit: string): number;
   toJSON(): string;
 }
+
 declare class moment$Moment {
   static ISO_8601: string;
   static (string?: string, format?: string|Array<string>, locale?: string, strict?: bool): moment$Moment;
@@ -180,6 +182,7 @@ declare class moment$Moment {
   utc(): this;
   utcOffset(offset: number|string): void;
   utcOffset(): number|string;
+  fn: Object;
   format(format?: string): string;
   fromNow(removeSuffix?: bool): string;
   from(value: moment$Moment|string|number|Date|Array<number>, removePrefix?: bool): string;
