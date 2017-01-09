@@ -1,0 +1,56 @@
+import type Moment from 'moment';
+
+declare module 'moment-range' {
+  declare type Shorthand = 'years' | 'quarters' | 'months' | 'weeks' | 'days' | 'hours' | 'minutes' | 'seconds' | 'milliseconds';
+
+  declare function extendMoment(moment: Class<moment$Moment>): Class<moment$Moment>;
+
+  declare class DateRange {
+    start: moment$Moment;
+    end: moment$Moment;
+
+    constructor(start: Date, end: Date): void;
+    constructor(start: moment$Moment, end: moment$Moment): void;
+    constructor(range: [Date, Date]): void;
+    constructor(range: [moment$Moment, moment$Moment]): void;
+    constructor(range: string): void;
+
+    adjacent(other: DateRange): bool;
+
+    add(other: DateRange): ?DateRange;
+
+    by(interval: Shorthand, options?: { exclusive: bool; step: number; }): Iterable<moment$Moment>;
+
+    byRange(interval: DateRange, options?: { exclusive: bool; step: number; }): Iterable<moment$Moment>;
+
+    center(): moment$Moment;
+
+    clone(): DateRange;
+
+    contains(other: Date | DateRange | moment$Moment, options?: { exclusive: bool; }): bool;
+
+    diff(unit: ?Shorthand, rounded: ?bool): number;
+
+    duration(unit: ?Shorthand, rounded: ?bool): number;
+
+    intersect(other: DateRange): ?DateRange;
+
+    isEqual(other: DateRange): bool;
+
+    isSame(other: DateRange): bool;
+
+    overlaps(other: DateRange, options: { adjacent: bool; }): bool;
+
+    reverseBy(interval: Shorthand, options?: { exclusive: bool; step: number; }): Iterable<moment$Moment>;
+
+    reverseByRange(interval: DateRange, options?: { exclusive: bool; step: number; }): Iterable<moment$Moment>;
+
+    subtract(other: DateRange): Array<DateRange>;
+
+    toDate(): Array<Date>;
+
+    toString(): string;
+
+    valueOf(): number;
+  }
+};
