@@ -7,9 +7,19 @@ Detailed API documentation can be found at: http://gf3.github.io/moment-range/Da
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Examples](#examples)
   - [Create](#create)
-  - [Contains / Within / Overlaps / Intersect / Add / Subtract](#contains--within--overlaps--intersect--add--subtract)
+  - [Attributes](#attributes)
+  - [Querying](#querying)
+    - [Contains](#contains)
+    - [Within](#within)
+    - [Overlaps](#overlaps)
+    - [Intersect](#intersect)
+  - [Manipulation](#manipulation)
+    - [Add](#add)
+    - [Subtract](#subtract)
+    - [Extend](#extend)
   - [Iterate](#iterate)
   - [Compare](#compare)
   - [Equality](#equality)
@@ -23,7 +33,7 @@ Detailed API documentation can be found at: http://gf3.github.io/moment-range/Da
   - [Clone](#clone)
 - [Installation](#installation)
   - [Browser](#browser)
-  - [NPM](#npm)
+  - [Node / NPM](#node--npm)
   - [Bower](#bower)
 - [Running Tests](#running-tests)
 - [License](#license)
@@ -80,7 +90,21 @@ var rangeFrom = moment.range("2011-03-05", null);
 var rangeAllTime = moment.range(null, null);
 ```
 
-### Contains / Within / Overlaps / Intersect / Add / Subtract
+### Attributes
+
+You can access the start and end times of the range easily enough:
+
+``` javascript
+var start = new Date(2012, 0, 15);
+var end   = new Date(2012, 4, 23);
+var range = moment.range(start, end);
+range.start  // moment
+range.end  // moment
+```
+
+### Querying
+
+#### Contains
 
 Check to see if your range contains a date/moment:
 
@@ -105,6 +129,8 @@ range.contains(end, false) // true
 range.contains(end, true) // false
 ```
 
+#### Within
+
 Find out if your moment falls within a date range:
 
 ``` javascript
@@ -116,17 +142,25 @@ var range = moment.range(start, end);
 when.within(range); // true
 ```
 
+#### Overlaps
+
 Does it overlap another range?
 
 ``` javascript
 range.overlaps(range2); // true
 ```
 
+#### Intersect
+
 What are the intersecting ranges?
 
 ``` javascript
 range.intersect(range2); // [moment.range(lol, end)]
 ```
+
+### Manipulation
+
+#### Add
 
 Add/combine/merge overlapping ranges.
 
@@ -137,10 +171,24 @@ var range3 = moment.range(new Date(2012, 3, 1), new Date(2012, 3, 15);
 range.add(range3); // [null]
 ```
 
+#### Subtract
+
 Subtracting one range from another.
 
 ``` javascript
 range.subtract(range2); // [moment.range(start, lol)]
+```
+
+#### Extend
+
+Extend a range to include a given moment.
+
+``` javascript
+var start = new Date(2012, 2, 1);
+var end   = new Date(2012, 3, 1);
+var other = new Date(2012, 1, 1);
+var range = moment.range(start, end);
+range.extend(other); // moment.range(other, end)
 ```
 
 ### Iterate
