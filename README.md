@@ -23,7 +23,7 @@ Detailed API documentation can be found at: http://gf3.github.io/moment-range/Da
   - [Clone](#clone)
 - [Installation](#installation)
   - [Browser](#browser)
-  - [NPM](#npm)
+  - [NPM](#node--npm)
   - [Bower](#bower)
 - [Running Tests](#running-tests)
 - [License](#license)
