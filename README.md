@@ -91,6 +91,7 @@ var lol    = new Date(2012, 4, 15);
 var wat    = new Date(2012, 4, 27);
 var range  = moment.range(start, end);
 var range2 = moment.range(lol, wat);
+var range3 = moment.range(end, wat);
 
 range.contains(lol); // true
 range.contains(wat); // false
@@ -100,18 +101,15 @@ A optional second parameter indicates if the end of the range
 should be excluded when testing for inclusion
 
 ``` javascript
-range.contains(end) // true
-range.contains(end, false) // true
-range.contains(end, true) // false
+range.contains(end) // false
+range.contains(end, "()") // false
+range.contains(end, "[]") // true
 ```
 
 Find out if your moment falls within a date range:
 
 ``` javascript
-var start = new Date(2012, 4, 1);
-var end   = new Date(2012, 4, 23);
 var when  = moment("2012-05-10", "YYYY-MM-DD");
-var range = moment.range(start, end);
 
 when.within(range); // true
 ```
