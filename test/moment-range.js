@@ -3,7 +3,7 @@
 
 var should    = require('should');
 var moment    = require('moment');
-require('../lib/moment-range');
+require('../dist/moment-range');
 
 describe('Moment', function() {
   var dr = moment.range(new Date(Date.UTC(2011, 2, 5)), new Date(Date.UTC(2011, 5, 5)));
@@ -94,14 +94,14 @@ describe('DateRange', function() {
       m1.isSame(dr.start).should.be.true;
       m2.isSame(dr.end).should.be.true;
     });
-    
+
     it('should allow initialization with open-ended ranges', function() {
       var dr = moment.range(null, m1);
-      
+
       moment.isMoment(dr.start).should.be.true;
-      
+
       dr = moment.range(m1, null);
-      
+
       moment.isMoment(dr.end).should.be.true;
     });
 
