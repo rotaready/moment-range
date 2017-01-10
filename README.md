@@ -320,7 +320,7 @@ moment-range works in both the browser and [node.js][node].
 Install via npm:
 
 ``` sh
-npm install moment-range
+npm install moment-range --save
 ```
 
 And then `require` it:
