@@ -17,7 +17,7 @@
   ],
   "homepage": "https://github.com/gf3/moment-range",
   "bugs": "https://github.com/gf3/moment-range/issues",
-  "main": "./dist/moment-range",
+  "main": "./lib/moment-range",
   "directories": {
     "lib": "./lib"
   },
