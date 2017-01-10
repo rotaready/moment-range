@@ -94,14 +94,14 @@ describe('DateRange', function() {
       m1.isSame(dr.start).should.be.true;
       m2.isSame(dr.end).should.be.true;
     });
-    
+
     it('should allow initialization with open-ended ranges', function() {
       var dr = moment.range(null, m1);
-      
+
       moment.isMoment(dr.start).should.be.true;
-      
+
       dr = moment.range(m1, null);
-      
+
       moment.isMoment(dr.end).should.be.true;
     });
 
@@ -708,10 +708,46 @@ describe('DateRange', function() {
     });
   });
 
+  describe('#format()', function() {
+    var firstMonth = moment.months(0);
+    var secondMonth = moment.months(1);
+
+    var sameNone = moment.range('2016-01-01 12:00:00', '2017-02-02 15:00:00');
+    var sameYear = moment.range('2016-01-01 12:00:00', '2016-02-02 15:00:00');
+    var sameMont = moment.range('2016-01-01 12:00:00', '2016-01-02 15:00:00');
+    var sameDate = moment.range('2016-01-01 12:00:00', '2016-01-01 15:00:00');
+
+    var noStart = moment.range(null, '2016-01-01 12:00:00');
+    var noEnd = moment.range('2016-01-01 12:00:00', null);
+
+    it('should collapse dates by default', function() {
+      sameNone.format({ showTime: false }).should.eql(firstMonth + ' 1, 2016 — ' + secondMonth + ' 2, 2017');
+      sameYear.format({ showTime: false }).should.eql(firstMonth + ' 1 — ' + secondMonth + ' 2, 2016');
+      sameMont.format({ showTime: false }).should.eql(firstMonth + ' 1 ‒ 2, 2016');
+      sameDate.format({ showTime: false }).should.eql(firstMonth + ' 1, 2016');
+      sameDate.format().should.eql(firstMonth + ' 1, 2016 12:00 PM ‒ 3:00 PM');
+    });
+
+    it('should not collapse all when option is specified', function() {
+      sameDate.format({ showTime: false, collapse: 'year' }).should.eql(firstMonth + ' 1 — ' + firstMonth + ' 1, 2016');
+      sameDate.format({ showTime: false, collapse: 'month' }).should.eql(firstMonth + ' 1 ‒ 1, 2016');
+    });
+
+    it('should work with custom formats', function() {
+      sameNone.format('1{DD MMMM} - 2{DD MMMM}').should.eql('01 January - 02 February');
+    });
+
+    it('should work with open ranges', function() {
+      noStart.format().should.eql('To ' + firstMonth + ' 1, 2016 12:00 PM');
+      noEnd.format().should.eql('From ' + firstMonth + ' 1, 2016 12:00 PM');
+      noEnd.format({ showTime: false }).should.eql('From ' + firstMonth + ' 1, 2016');
+    });
+  });
+
   describe('#toString()', function() {
     it('should be a correctly formatted ISO8601 Time Interval', function() {
-      var start = '2015-01-17T09:50:04+00:00';
-      var end   = '2015-04-17T08:29:55+00:00';
+      var start = '2015-01-17T09:50:04Z';
+      var end   = '2015-04-17T08:29:55Z';
       var dr = moment.range(moment.utc(start), moment.utc(end));
 
       dr.toString().should.equal(start + '/' + end);
