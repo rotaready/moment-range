@@ -1,6 +1,10 @@
 # Moment Range
 
 ## [Unreleased]
+
+*Nothing*
+
+## [3.0.0]
 ### Added
 
 * ES6
@@ -47,4 +51,5 @@
 * Fixed issue with `moment#within` and moment-timezone (#127)
 * Fixed typo in comment (#133)
 
-[Unreleased]: https://github.com/gf3/moment-range/tree/3-dev
+[Unreleased]: https://github.com/gf3/moment-range/tree/master
+[3.0.0]: https://github.com/gf3/moment-range/releases/tag/v3.0.0
