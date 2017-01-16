@@ -1,0 +1,12 @@
+[ignore]
+
+[include]
+declarations/
+
+[libs]
+
+[options]
+esproposal.class_instance_fields=enable
+esproposal.class_static_fields=enable
+suppress_comment=.*\\$FlowFixMe
+suppress_comment=.*\\$FlowIssue

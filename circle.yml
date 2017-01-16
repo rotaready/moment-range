@@ -1,0 +1,10 @@
+machine:
+  node:
+    version: 6.1.0
+dependencies:
+  pre:
+    - npm install --global flow-bin
+test:
+  pre:
+    - npm run lint
+    - npm run flow
