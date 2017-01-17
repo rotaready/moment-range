@@ -36,6 +36,7 @@ Fancy date ranges for [Moment.js][moment].
     - [`toString`](#tostring)
     - [`valueOf`](#valueof)
 - [Running Tests](#running-tests)
+- [Contributors](#contributors)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
