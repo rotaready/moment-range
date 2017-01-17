@@ -579,6 +579,27 @@ npm run test
 npm run lint
 ```
 
+## Contributors
+
+- [**Adam Biggs**](https://github.com/adambiggs) (http://lightmaker.com)
+- [**Mats Julian Olsen**](https://github.com/mewwts)
+- [**Matt Patterson**](https://github.com/fidothe) (http://reprocessed.org/)
+- [**Wilgert Velinga**](https://github.com/wilgert) (http://neocles.io)
+- [**Tomasz Bak**](https://github.com/tb) (http://twitter.com/tomaszbak)
+- [**Stuart Kelly**](https://github.com/stuartleigh)
+- [**Jeremy Forsythe**](https://github.com/jdforsythe)
+- [**Александр Гренишин**](https://github.com/nd0ut)
+- [**@scotthovestadt**](https://github.com/scotthovestadt)
+- [**Thomas van Lankveld**](https://github.com/thomasvanlankveld)
+- [**nebel**](https://github.com/pronebel)
+- [**Kevin Ross**](https://github.com/rosskevin) (http://www.alienfast.com)
+- [**Thomas Walpole**](https://github.com/twalpole)
+- [**Jonathan Kim**](https://github.com/jkimbo) (http://jkimbo.co.uk)
+- [**Tymon Tobolski**](https://github.com/teamon) (http://teamon.eu)
+- [**Aristide Niyungeko**](https://github.com/aristiden7o)
+- [**Bradley Ayers**](https://github.com/bradleyayers)
+- [**Ross Hadden**](https://github.com/rosshadden) (http://rosshadden.github.com/resume)
+
 
 ## License
 

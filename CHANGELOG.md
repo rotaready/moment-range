@@ -2,7 +2,14 @@
 
 ## [Unreleased]
 
-*Nothing*
+### Added
+
+* Added contributors to *README*
+
+### Changed
+
+* Updatged contributors in *package.json*
+
 
 ## [3.0.0]
 ### Added
