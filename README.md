@@ -202,20 +202,20 @@ range.contains(lol); // true
 range.contains(wat); // false
 ```
 
-The `exclusive` options is used to indicate if the end of the range should be
-excluded when testing for inclusion:
+The `inclusivity` options is used to indicate if the end of the range should be
+included when testing for inclusion:
 
-``` js
-range.contains(end) // true
-range.contains(end, { exclusive: false }) // true
-range.contains(end, { exclusive: true }) // false
+``` javascript
+range.contains(end) // false
+range.contains(end, "()") // false
+range.contains(end, "[]") // true
 ```
 
 #### Within
 
 Find out if your moment falls within a date range:
 
-``` js
+``` javascript
 const start = new Date(2012, 4, 1);
 const end   = new Date(2012, 4, 23);
 const when  = moment('2012-05-10', 'YYYY-MM-DD');
