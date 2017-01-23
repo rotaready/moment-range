@@ -1,4 +1,4 @@
-# moment-range
+# moment-range [![CircleCI](https://circleci.com/gh/gf3/moment-range.svg?style=shield)](https://circleci.com/gh/gf3/moment-range)
 
 Fancy date ranges for [Moment.js][moment].
 

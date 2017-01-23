@@ -5,6 +5,7 @@
 ### Added
 
 * Added contributors to *README*
+* Added CircleCI badge to *README*
 
 ### Changed
 
