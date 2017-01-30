@@ -6,6 +6,7 @@
 
 * Added contributors to *README*
 * Added CircleCI badge to *README*
+* Added yarn lockfile
 
 ### Changed
 
