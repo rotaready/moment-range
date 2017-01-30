@@ -10,6 +10,7 @@
 ### Changed
 
 * Updatged contributors in *package.json*
+* Moved `expect.js` from dependencies to development dependencies
 
 
 ## [3.0.0]
