@@ -1,7 +1,13 @@
 # Moment Range
 
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](http://semver.org/).
+
 ## [Unreleased]
 
+## [3.0.1]
 ### Added
 
 * Added contributors to *README*
@@ -63,5 +69,6 @@
 * Fixed issue with `moment#within` and moment-timezone (#127)
 * Fixed typo in comment (#133)
 
-[Unreleased]: https://github.com/gf3/moment-range/tree/master
-[3.0.0]: https://github.com/gf3/moment-range/releases/tag/v3.0.0
+[Unreleased]: https://github.com/gf3/moment-range/compare/v3.0.1...HEAD
+[3.0.1]: https://github.com/gf3/moment-range/compare/v3.0.0...v3.0.1
+[3.0.0]: https://github.com/gf3/moment-range/compare/v1.0.5...v3.0.1
