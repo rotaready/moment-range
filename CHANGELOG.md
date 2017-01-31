@@ -10,7 +10,8 @@
 
 ### Changed
 
-* Updatged contributors in *package.json*
+* Updated contributors in *package.json*
+* Updated usage instructions for browsers (`window['moment-range']`)
 * Moved `expect.js` from dependencies to development dependencies
 
 

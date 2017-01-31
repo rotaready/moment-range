@@ -80,7 +80,7 @@ const moment = MomentRange.extendMoment(Moment);
 ```
 
 ``` js
-DateRange.extendMoment(moment);
+window['moment-range'].extendMoment(moment);
 ```
 
 Thanks to the fine people at [cdnjs][cdnjs], you can link to moment-range from
