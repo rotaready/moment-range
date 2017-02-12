@@ -39,7 +39,7 @@ module.exports = {
   },
   output: {
     filename: 'moment-range.js',
-    library: 'moment-range',
+    library: 'MomentRange',
     libraryTarget: 'umd',
     path: './dist/',
     umdNamedDefine: true

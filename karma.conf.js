@@ -24,11 +24,10 @@ module.exports = function(config) {
     },
 
     files: [
-      { pattern: 'lib/*_test.js', watched: false },
       { pattern: 'node_modules/expect.js/index.js', watched: false },
       { pattern: 'node_modules/moment/min/moment.min.js', watched: false },
       { pattern: 'dist/moment-range.js', watched: false },
-      { pattern: 'test/*_test.js', watched: false }
+      { pattern: 'lib/*_test.js', watched: false }
     ],
 
     frameworks: ['babel-polyfill', 'mocha', 'expect'],
