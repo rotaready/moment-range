@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+* Changed the library name from moment-range to MomentRange (fix Issue 142)
+* Updated usage instructions for browsers (`MomentRange.extendMoment(moment)`)
+
 ## [3.0.2]
 ### Changed
 
