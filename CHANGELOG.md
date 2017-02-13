@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+* `lib` is now included in npm release to allow packagers to repackage the library
 
 ## [3.0.1]
 ### Added
