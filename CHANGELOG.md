@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Changed
+
 * `lib` is now included in npm release to allow packagers to repackage the library
+* Add @victoriafrench to *CONTRIBUTORS*
 
 ## [3.0.1]
 ### Added
