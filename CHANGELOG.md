@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [3.0.2]
 ### Changed
 
 * `lib` is now included in npm release to allow packagers to repackage the library
@@ -75,6 +77,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Fixed issue with `moment#within` and moment-timezone (#127)
 * Fixed typo in comment (#133)
 
-[Unreleased]: https://github.com/gf3/moment-range/compare/v3.0.1...HEAD
+[Unreleased]: https://github.com/gf3/moment-range/compare/v3.0.2...HEAD
+[3.0.2]: https://github.com/gf3/moment-range/compare/v3.0.1...v3.0.2
 [3.0.1]: https://github.com/gf3/moment-range/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/gf3/moment-range/compare/v1.0.5...v3.0.1
