@@ -18,11 +18,12 @@ module.exports = {
           plugins: ['transform-flow-strip-types'],
           presets: ['es2015', 'stage-0']
         }
-      }, {
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'eslint-loader',
-        enforce: "pre"
+        enforce: 'pre'
       }
     ]
   },

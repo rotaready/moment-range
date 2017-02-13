@@ -601,6 +601,7 @@ npm run lint
 - [**Bradley Ayers**](https://github.com/bradleyayers)
 - [**Ross Hadden**](https://github.com/rosshadden) (http://rosshadden.github.com/resume)
 - [**Victoria French**](https://github.com/victoriafrench)
+- [**Jochen Diekenbrock**](https://github.com/JochenDiekenbrock)
 
 
 ## License

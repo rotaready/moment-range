@@ -9,7 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 * `lib` is now included in npm release to allow packagers to repackage the library
+* Update to webpack 2
 * Add @victoriafrench to *CONTRIBUTORS*
+* Add @JochenDiekenbrock to *CONTRIBUTORS*
 
 ## [3.0.1]
 ### Added
