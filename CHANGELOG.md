@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [3.0.3]
+### Changed
 * 'module' has been replaced with 'jsnext:main' to support both rollup and webpack 2
 
 ## [3.0.2]
@@ -78,7 +81,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Fixed issue with `moment#within` and moment-timezone (#127)
 * Fixed typo in comment (#133)
 
-[Unreleased]: https://github.com/gf3/moment-range/compare/v3.0.2...HEAD
+[Unreleased]: https://github.com/gf3/moment-range/compare/v3.0.3...HEAD
+[3.0.2]: https://github.com/gf3/moment-range/compare/v3.0.2...v3.0.3
 [3.0.2]: https://github.com/gf3/moment-range/compare/v3.0.1...v3.0.2
 [3.0.1]: https://github.com/gf3/moment-range/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/gf3/moment-range/compare/v1.0.5...v3.0.1
