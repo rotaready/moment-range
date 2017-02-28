@@ -27,7 +27,7 @@
   "homepage": "https://github.com/gf3/moment-range",
   "bugs": "https://github.com/gf3/moment-range/issues",
   "main": "./dist/moment-range",
-  "module": "lib/moment-range.js",
+  "jsnext:main": "lib/moment-range.js",
   "version": "3.0.2",
   "engines": {
     "node": "*"
