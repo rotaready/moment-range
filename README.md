@@ -256,6 +256,22 @@ What are the intersecting ranges?
 range.intersect(range2); // [moment.range(lol, end)]
 ```
 
+Include adjacent ranges:
+
+``` js
+const a = moment('2016-03-15');
+const b = moment('2016-03-20');
+const c = moment('2016-03-20');
+const d = moment('2016-03-25');
+
+const range1 = moment.range(a, b);
+const range2 = moment.range(c, d);
+
+range1.intersect(range2)                      // null
+range1.intersect(range2, { adjacent: false }) // null
+range1.intersect(range2, { adjacent: true })  // [moment.range('2016-03,20', '2016-03,20')]
+```
+
 ### Manipulation
 
 #### Add
