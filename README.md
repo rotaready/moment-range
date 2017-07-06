@@ -19,6 +19,7 @@ Fancy date ranges for [Moment.js][moment].
     - [Within](#within)
     - [Overlaps](#overlaps)
     - [Intersect](#intersect)
+    - [IsRange](#IsRange)
   - [Manipulation](#manipulation)
     - [Add](#add)
     - [Clone](#clone)
@@ -254,6 +255,15 @@ What are the intersecting ranges?
 
 ``` js
 range.intersect(range2); // [moment.range(lol, end)]
+```
+
+#### IsRange
+
+Is that a Range?
+
+``` js
+moment.isRange(range); // true
+moment.isRange(IamNotRange); // false
 ```
 
 ### Manipulation
