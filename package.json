@@ -22,7 +22,8 @@
     "Bradley Ayers <bradley.ayers@gmail.com> (https://github.com/bradleyayers)",
     "Ross Hadden <ross@hadden.family> (http://rosshadden.github.com/resume)",
     "Victoria French <victoria.french@cinecove.com> (https://github.com/victoriafrench)",
-    "Jochen Diekenbrock (https://github.com/JochenDiekenbrock)"
+    "Jochen Diekenbrock (https://github.com/JochenDiekenbrock)",
+    "Claire Knight (https://github.com/krider2010)"
   ],
   "homepage": "https://github.com/gf3/moment-range",
   "bugs": "https://github.com/gf3/moment-range/issues",
@@ -78,10 +79,7 @@
     "type": "git",
     "url": "https://git@github.com/gf3/moment-range.git"
   },
-  "license": {
-    "type": "Public Domain",
-    "url": "https://github.com/gf3/moment-range/raw/master/UNLICENSE"
-  },
+  "license": "Unlicense",
   "dependencies": {
     "es6-symbol": "^3.1.0"
   }
