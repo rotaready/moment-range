@@ -34,15 +34,17 @@
   },
   "files": [
     "dist/",
-    "lib/"
+    "lib/",
+    "webpack.config.js"
   ],
   "scripts": {
     "build": "webpack",
     "doctoc": "doctoc README.md --github",
     "flow": "flow",
     "lint": "eslint ./lib/",
-    "prepublish": "npm run build; cp ./declarations/moment-range.js.flow ./dist",
+    "prepublishOnly": "npm run build; cp ./declarations/moment-range.js.flow ./dist",
     "preversion": "npm run flow && npm run lint && npm run test",
+    "postinstall": "postinstall-build --only-as-dependency ./dist/",
     "test": "karma start ./karma.conf.js",
     "version": "npm run build; cp ./declarations/moment-range.js.flow ./dist"
   },
@@ -83,6 +85,7 @@
     "url": "https://github.com/gf3/moment-range/raw/master/UNLICENSE"
   },
   "dependencies": {
-    "es6-symbol": "^3.1.0"
+    "es6-symbol": "^3.1.0",
+    "postinstall-build": "^5.0.1"
   }
 }
