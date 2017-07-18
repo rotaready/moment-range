@@ -30,7 +30,10 @@ module.exports = {
   resolve: {
     modules: [
       path.resolve(__dirname, './src'),
-      path.resolve(__dirname, './node_modules')
+      path.resolve(__dirname, './node_modules'),
+      // If we're using webpack in the postinstall step this package is being installed as a dependency this means
+      // that the node_modules directory we are looking for (for es6-symbol) is directly above us.
+      path.resolve(__dirname, '../')
     ]
   },
   resolveLoader: {
@@ -42,7 +45,7 @@ module.exports = {
     filename: 'moment-range.js',
     library: 'moment-range',
     libraryTarget: 'umd',
-    path: './dist/',
+    path: path.resolve(__dirname, './dist/'),
     umdNamedDefine: true
   },
   plugins: [
