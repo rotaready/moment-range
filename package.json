@@ -41,9 +41,9 @@
     "doctoc": "doctoc README.md --github",
     "flow": "flow",
     "lint": "eslint ./lib/",
-    "prepublish": "npm run build; cp ./declarations/moment-range.js.flow ./dist",
+    "prepublishOnly": "npm run build; cp ./declarations/moment-range.js.flow ./dist",
     "preversion": "npm run flow && npm run lint && npm run test",
-    "postinstall": "postinstall-build --only-as-dependency ./dist prepublish",
+    "postinstall": "postinstall-build --only-as-dependency ./dist/",
     "test": "karma start ./karma.conf.js",
     "version": "npm run build; cp ./declarations/moment-range.js.flow ./dist"
   },
