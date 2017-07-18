@@ -34,7 +34,8 @@
   },
   "files": [
     "dist/",
-    "lib/"
+    "lib/",
+    "webpack.config.js"
   ],
   "scripts": {
     "build": "webpack",
