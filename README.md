@@ -1,4 +1,4 @@
-# moment-range [![CircleCI](https://circleci.com/gh/gf3/moment-range.svg?style=shield)](https://circleci.com/gh/gf3/moment-range)
+# moment-range [![CircleCI](https://circleci.com/gh/rotaready/moment-range.svg?style=shield)](https://circleci.com/gh/rotaready/moment-range)
 
 Fancy date ranges for [Moment.js][moment].
 
@@ -566,20 +566,20 @@ range.valueOf(); // 7945200000
 Clone this bad boy:
 
 ``` sh
-git clone https://git@github.com/gf3/moment-range.git
+git clone https://git@github.com/rotaready/moment-range.git
 ```
 
 Install the dependencies:
 
 ``` sh
-npm install
+yarn install
 ```
 
 Do all the things!
 
 ``` sh
-npm run test
-npm run lint
+yarn run test
+yarn run lint
 ```
 
 ## Contributors
