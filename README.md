@@ -563,7 +563,7 @@ range.valueOf(); // 7945200000
 #### `parseZoneRange`
 
 Parses an [ISO 8601 time interval][interval] into a `range` while
-preserving the time zones using [moment.parseZone](parseZone).  
+preserving the time zones using [moment.parseZone][parseZone].  
 
 ``` js
 const interval = '2015-01-17T09:50:04+03:00/2015-04-17T08:29:55-04:00';
