@@ -39,6 +39,7 @@
   "scripts": {
     "build": "webpack",
     "doctoc": "doctoc README.md --github",
+    "flow": "flow",
     "lint": "eslint ./lib/",
     "prepublish": "yarn run build; cp ./declarations/moment-range.js.flow ./dist",
     "preversion": "yarn run flow && yarn run lint && yarn run test",
