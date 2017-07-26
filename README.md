@@ -35,6 +35,7 @@ Fancy date ranges for [Moment.js][moment].
     - [`toDate`](#todate)
     - [`toString`](#tostring)
     - [`valueOf`](#valueof)
+    - [`parseZoneRange`](#parseZoneRange)
 - [Running Tests](#running-tests)
 - [Contributors](#contributors)
 - [License](#license)
@@ -557,6 +558,18 @@ const end   = new Date(2011, 5, 5);
 const range = moment.range(start, end);
 
 range.valueOf(); // 7945200000
+```
+
+#### `parseZoneRange`
+
+Parses an [ISO 8601 time interval][interval] into a `range` while
+preserving the time zones using `moment.parseZone`.  
+
+``` js
+const interval = '2015-01-17T09:50:04+03:00/2015-04-17T08:29:55-04:00';
+const range = moment.parseZoneRange(interval);
+
+range.toString(); // '2015-01-17T09:50:04+03:00/2015-04-17T08:29:55-04:00'
 ```
 
 ## Running Tests
