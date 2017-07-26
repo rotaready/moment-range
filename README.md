@@ -133,9 +133,11 @@ You can also create open-ended ranges which go to the earliest or latest possibl
 
 ``` js
 const rangeUntil = moment.range(null, '2011-05-05');
-const rangeFrom = moment.range('2011-03-05', null);
-const rangeAllTime = moment.range(null, null);
+const rangeFrom = moment.range('2011-03-05');
+const rangeAllTime = moment.range();
 ```
+
+Note that any falsy value except 0 is treated as a missing date, resulting in an open-ended range.
 
 *Note:* Dates and moment objects both use a timestamp of 00:00:000 if none is
 provided. To ensure your range includes any timestamp for the given end date,
