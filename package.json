@@ -24,8 +24,8 @@
     "Victoria French <victoria.french@cinecove.com> (https://github.com/victoriafrench)",
     "Jochen Diekenbrock (https://github.com/JochenDiekenbrock)"
   ],
-  "homepage": "https://github.com/gf3/moment-range",
-  "bugs": "https://github.com/gf3/moment-range/issues",
+  "homepage": "https://github.com/rotaready/moment-range",
+  "bugs": "https://github.com/rotaready/moment-range/issues",
   "main": "./dist/moment-range",
   "jsnext:main": "lib/moment-range.js",
   "version": "3.0.3",
@@ -41,10 +41,10 @@
     "doctoc": "doctoc README.md --github",
     "flow": "flow",
     "lint": "eslint ./lib/",
-    "prepublish": "npm run build; cp ./declarations/moment-range.js.flow ./dist",
-    "preversion": "npm run flow && npm run lint && npm run test",
+    "prepublish": "yarn run build; cp ./declarations/moment-range.js.flow ./dist",
+    "preversion": "yarn run flow && yarn run lint && yarn run test",
     "test": "karma start ./karma.conf.js",
-    "version": "npm run build; cp ./declarations/moment-range.js.flow ./dist"
+    "version": "yarn run build; cp ./declarations/moment-range.js.flow ./dist"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
@@ -76,12 +76,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git@github.com/gf3/moment-range.git"
+    "url": "https://git@github.com/rotaready/moment-range.git"
   },
-  "license": {
-    "type": "Public Domain",
-    "url": "https://github.com/gf3/moment-range/raw/master/UNLICENSE"
-  },
+  "license": "Unlicense",
   "dependencies": {
     "es6-symbol": "^3.1.0"
   }
