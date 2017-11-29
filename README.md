@@ -267,7 +267,7 @@ Add/combine/merge overlapping ranges.
 ``` js
 range.add(range2); // [moment.range(start, wat)]
 
-const range3 = moment.range(new Date(2012, 3, 1), new Date(2012, 3, 15);
+const range3 = moment.range(new Date(2012, 3, 1), new Date(2012, 3, 15));
 range.add(range3); // [null]
 ```
 
