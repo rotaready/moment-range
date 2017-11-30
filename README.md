@@ -293,7 +293,7 @@ const range1 = moment.range(a, d);
 const range2 = range1.clone();
 range2.start.add(2, 'days');
 
-range1.start.toDate() === range2.start.toDate() // false
+range1.start.toDate().getTime() === range2.start.toDate().getTime() // false
 ```
 
 #### Subtract
