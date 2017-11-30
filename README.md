@@ -13,6 +13,7 @@ Fancy date ranges for [Moment.js][moment].
   - [Browser](#browser)
 - [Examples](#examples)
   - [Create](#create)
+    - [parseZoneRange](#parsezonerange)
   - [Attributes](#attributes)
   - [Querying](#querying)
     - [Adjacent](#adjacent)
@@ -38,7 +39,6 @@ Fancy date ranges for [Moment.js][moment].
     - [`toDate`](#todate)
     - [`toString`](#tostring)
     - [`valueOf`](#valueof)
-    - [`parseZoneRange`](#parsezonerange)
 - [Running Tests](#running-tests)
 - [Contributors](#contributors)
 - [License](#license)
@@ -140,13 +140,24 @@ const rangeUntil = moment.range(null, '2011-05-05');
 const rangeFrom = moment.range('2011-03-05');
 const rangeAllTime = moment.range();
 ```
-
 Note that any falsy value except 0 is treated as a missing date, resulting in an open-ended range.
 
 *Note:* Dates and moment objects both use a timestamp of 00:00:000 if none is
 provided. To ensure your range includes any timestamp for the given end date,
 use `.setHours(23,59,59,999)` when constructing a Date object, or
 `.endOf('day')` when constructing a moment object.
+
+#### parseZoneRange
+
+Parses an [ISO 8601 time interval][interval] into a date range while
+preserving the time zones using [moment.parseZone][parseZone].
+
+``` js
+const interval = '2015-01-17T09:50:00+03:00/2015-04-17T08:29:55-04:00';
+const range = moment.parseZoneRange(interval);
+
+range.toString(); // '2015-01-17T09:50:00+03:00/2015-04-17T08:29:55-04:00'
+```
 
 ### Attributes
 
@@ -572,18 +583,6 @@ const end   = new Date(2011, 5, 5);
 const range = moment.range(start, end);
 
 range.valueOf(); // 7945200000
-```
-
-#### `parseZoneRange`
-
-Parses an [ISO 8601 time interval][interval] into a `range` while
-preserving the time zones using [moment.parseZone][parseZone].  
-
-``` js
-const interval = '2015-01-17T09:50:04+03:00/2015-04-17T08:29:55-04:00';
-const range = moment.parseZoneRange(interval);
-
-range.toString(); // '2015-01-17T09:50:04+03:00/2015-04-17T08:29:55-04:00'
 ```
 
 ## Running Tests
