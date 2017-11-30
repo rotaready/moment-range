@@ -56,4 +56,4 @@ module.exports = function(config) {
       stats: 'errors-only'
     }
   });
-}
+};
