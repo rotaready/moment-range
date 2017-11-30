@@ -236,6 +236,7 @@ declare class moment$Moment {
   static range(interval: string): DateRange;
   static range(start: Date, end: Date): DateRange;
   static range(start: Moment, end: Moment): DateRange;
+  static isRange(range: any): bool;
   range(interval: string): DateRange;
   range(start: Date, end: Date): DateRange;
   range(start: Moment, end: Moment): DateRange;
