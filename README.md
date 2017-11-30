@@ -13,6 +13,7 @@ Fancy date ranges for [Moment.js][moment].
   - [Browser](#browser)
 - [Examples](#examples)
   - [Create](#create)
+    - [parseZoneRange](#parsezonerange)
   - [Attributes](#attributes)
   - [Querying](#querying)
     - [Adjacent](#adjacent)
@@ -21,6 +22,7 @@ Fancy date ranges for [Moment.js][moment].
     - [Within](#within)
     - [Overlaps](#overlaps)
     - [Intersect](#intersect)
+    - [IsRange](#isrange)
   - [Manipulation](#manipulation)
     - [Add](#add)
     - [Clone](#clone)
@@ -135,14 +137,27 @@ You can also create open-ended ranges which go to the earliest or latest possibl
 
 ``` js
 const rangeUntil = moment.range(null, '2011-05-05');
-const rangeFrom = moment.range('2011-03-05', null);
-const rangeAllTime = moment.range(null, null);
+const rangeFrom = moment.range('2011-03-05');
+const rangeAllTime = moment.range();
 ```
+Note that any falsy value except 0 is treated as a missing date, resulting in an open-ended range.
 
 *Note:* Dates and moment objects both use a timestamp of 00:00:000 if none is
 provided. To ensure your range includes any timestamp for the given end date,
 use `.setHours(23,59,59,999)` when constructing a Date object, or
 `.endOf('day')` when constructing a moment object.
+
+#### parseZoneRange
+
+Parses an [ISO 8601 time interval][interval] into a date range while
+preserving the time zones using [moment.parseZone][parseZone].
+
+``` js
+const interval = '2015-01-17T09:50:00+03:00/2015-04-17T08:29:55-04:00';
+const range = moment.parseZoneRange(interval);
+
+range.toString(); // '2015-01-17T09:50:00+03:00/2015-04-17T08:29:55-04:00'
+```
 
 ### Attributes
 
@@ -254,6 +269,15 @@ What is the intersecting range?
 const range1 = moment.range(a, c);
 const range2 = moment.range(b, d);
 range1.intersect(range2); // moment.range(b, c)
+```
+
+#### IsRange
+
+Is it a Range?
+
+``` js
+moment.isRange(range); // true
+moment.isRange(IamNotRange); // false
 ```
 
 ### Manipulation
@@ -635,3 +659,4 @@ moment-range is [UNLICENSED][unlicense].
 [moment]: http://momentjs.com/
 [node]: http://nodejs.org/
 [unlicense]: http://unlicense.org/
+[parseZone]: https://momentjs.com/docs/#/parsing/parse-zone/

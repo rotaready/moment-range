@@ -1,5 +1,6 @@
+.idea
 dist/
 docs/
 node_modules/
 tags
-.idea
+package-lock.json
