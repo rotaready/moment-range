@@ -13,6 +13,7 @@ Fancy date ranges for [Moment.js][moment].
   - [Browser](#browser)
 - [Examples](#examples)
   - [Create](#create)
+    - [rangeFromInterval](#rangefrominterval)
     - [parseZoneRange](#parsezonerange)
   - [Attributes](#attributes)
   - [Querying](#querying)
@@ -146,6 +147,23 @@ Note that any falsy value except 0 is treated as a missing date, resulting in an
 provided. To ensure your range includes any timestamp for the given end date,
 use `.setHours(23,59,59,999)` when constructing a Date object, or
 `.endOf('day')` when constructing a moment object.
+
+#### rangeFromInterval
+
+You can also create a range from an interval to a specified date. This accepts positive or negative values
+for `count` and the date will default to _now_ if not provided.
+
+``` js
+const interval = 'month';
+const count = 4;
+const date = moment('2017-07-20');
+
+const range1 = moment.rangeFromInterval(interval, count, date);  // moment.range('2017-07-20', '2017-11-20')
+const range2 = moment.rangeFromInterval('month', -2, date);      // moment.range('2017-05-20', '2017-07-20')
+```
+
+Note: The date can be provided as a Date, String, or Moment.
+When using a negative interval, the date provided will be set as the end of the range.
 
 #### parseZoneRange
 
