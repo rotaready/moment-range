@@ -150,7 +150,7 @@ use `.setHours(23,59,59,999)` when constructing a Date object, or
 
 #### rangeFromInterval
 
-You can also create a range from an interval to a specified date. This accepts positive or negative values
+You can also create a range between an interval and a specified date. This accepts positive or negative values
 for `count` and the date will default to _now_ if not provided.
 
 ``` js
