@@ -233,7 +233,6 @@ declare class moment$Moment {
 
   // moment-range additions
   fn: Object;
-  parseZoneRange(isoTimeInterval: string): DateRange;
   static range(interval: string): DateRange;
   static range(start: Date, end: Date): DateRange;
   static range(start: Moment, end: Moment): DateRange;
@@ -241,6 +240,8 @@ declare class moment$Moment {
   range(interval: string): DateRange;
   range(start: Date, end: Date): DateRange;
   range(start: Moment, end: Moment): DateRange;
+  rangeFromInterval(interval: string, count?: number, date?: Date|Moment|string): DateRange;
+  parseZoneRange(isoTimeInterval: string): DateRange;
   within(range: DateRange): bool;
 }
 
