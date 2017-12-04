@@ -13,6 +13,8 @@ Fancy date ranges for [Moment.js][moment].
   - [Browser](#browser)
 - [Examples](#examples)
   - [Create](#create)
+    - [rangeFromInterval](#rangefrominterval)
+    - [parseZoneRange](#parsezonerange)
   - [Attributes](#attributes)
   - [Querying](#querying)
     - [Adjacent](#adjacent)
@@ -21,6 +23,7 @@ Fancy date ranges for [Moment.js][moment].
     - [Within](#within)
     - [Overlaps](#overlaps)
     - [Intersect](#intersect)
+    - [IsRange](#isrange)
   - [Manipulation](#manipulation)
     - [Add](#add)
     - [Clone](#clone)
@@ -135,14 +138,44 @@ You can also create open-ended ranges which go to the earliest or latest possibl
 
 ``` js
 const rangeUntil = moment.range(null, '2011-05-05');
-const rangeFrom = moment.range('2011-03-05', null);
-const rangeAllTime = moment.range(null, null);
+const rangeFrom = moment.range('2011-03-05');
+const rangeAllTime = moment.range();
 ```
+Note that any falsy value except 0 is treated as a missing date, resulting in an open-ended range.
 
 *Note:* Dates and moment objects both use a timestamp of 00:00:000 if none is
 provided. To ensure your range includes any timestamp for the given end date,
 use `.setHours(23,59,59,999)` when constructing a Date object, or
 `.endOf('day')` when constructing a moment object.
+
+#### rangeFromInterval
+
+You can also create a range between an interval and a specified date. This accepts positive or negative values
+for `count` and the date will default to _now_ if not provided.
+
+``` js
+const interval = 'month';
+const count = 4;
+const date = moment('2017-07-20');
+
+const range1 = moment.rangeFromInterval(interval, count, date);  // moment.range('2017-07-20', '2017-11-20')
+const range2 = moment.rangeFromInterval('month', -2, date);      // moment.range('2017-05-20', '2017-07-20')
+```
+
+Note: The date can be provided as a Date, String, or Moment.
+When using a negative interval, the date provided will be set as the end of the range.
+
+#### parseZoneRange
+
+Parses an [ISO 8601 time interval][interval] into a date range while
+preserving the time zones using [moment.parseZone][parseZone].
+
+``` js
+const interval = '2015-01-17T09:50:00+03:00/2015-04-17T08:29:55-04:00';
+const range = moment.parseZoneRange(interval);
+
+range.toString(); // '2015-01-17T09:50:00+03:00/2015-04-17T08:29:55-04:00'
+```
 
 ### Attributes
 
@@ -159,20 +192,27 @@ range.end  // moment
 
 ### Querying
 
+Many of the following examples make use of these moments:
+
+``` js
+const a = moment('2016-03-10');
+const b = moment('2016-03-15');
+const c = moment('2016-03-29');
+const d = moment('2016-04-01');
+```
+
 #### Adjacent
 
 Check if two ranges are touching but not overlapping:
 
 ``` js
-const a = moment('2016-03-15');
-const b = moment('2016-03-29');
-const c = moment('2016-03-10');
-const d = moment('2016-03-15');
 
 const range1 = moment.range(a, b);
-const range2 = moment.range(c, d);
+const range2 = moment.range(b, c);
+const range3 = moment.range(c, d);
 
 range1.adjacent(range2) // true
+range1.adjacent(range3) // false
 ```
 
 #### Center
@@ -193,24 +233,19 @@ dr.center(); // 1300622400000
 Check to see if your range contains a date/moment:
 
 ``` js
-const start  = new Date(2012, 4, 1);
-const end    = new Date(2012, 4, 23);
-const lol    = new Date(2012, 4, 15);
-const wat    = new Date(2012, 4, 27);
-const range  = moment.range(start, end);
-const range2 = moment.range(lol, wat);
+const range  = moment.range(a, c);
 
-range.contains(lol); // true
-range.contains(wat); // false
+range.contains(b); // true
+range.contains(d); // false
 ```
 
 The `exclusive` options is used to indicate if the end of the range should be
 excluded when testing for inclusion:
 
 ``` js
-range.contains(end) // true
-range.contains(end, { exclusive: false }) // true
-range.contains(end, { exclusive: true }) // false
+range.contains(c) // true
+range.contains(c, { exclusive: false }) // true
+range.contains(c, { exclusive: true }) // false
 ```
 
 #### Within
@@ -218,12 +253,9 @@ range.contains(end, { exclusive: true }) // false
 Find out if your moment falls within a date range:
 
 ``` js
-const start = new Date(2012, 4, 1);
-const end   = new Date(2012, 4, 23);
-const when  = moment('2012-05-10', 'YYYY-MM-DD');
-const range = moment.range(start, end);
+const range = moment.range(a, c);
 
-when.within(range); // true
+b.within(range); // true
 ```
 
 #### Overlaps
@@ -231,19 +263,16 @@ when.within(range); // true
 Does it overlap another range?
 
 ``` js
-range.overlaps(range2); // true
+const range1 = moment.range(a, c);
+const range2 = moment.range(b, d);
+range1.overlaps(range2); // true
 ```
 
 Include adjacent ranges:
 
 ``` js
-const a = moment('2016-03-15');
-const b = moment('2016-03-20');
-const c = moment('2016-03-20');
-const d = moment('2016-03-25');
-
 const range1 = moment.range(a, b);
-const range2 = moment.range(c, d);
+const range2 = moment.range(b, c);
 
 range1.overlaps(range2)                      // false
 range1.overlaps(range2, { adjacent: false }) // false
@@ -252,23 +281,48 @@ range1.overlaps(range2, { adjacent: true })  // true
 
 #### Intersect
 
-What are the intersecting ranges?
+What is the intersecting range?
 
 ``` js
-range.intersect(range2); // [moment.range(lol, end)]
+const range1 = moment.range(a, c);
+const range2 = moment.range(b, d);
+range1.intersect(range2); // moment.range(b, c)
+```
+
+#### IsRange
+
+Is it a Range?
+
+``` js
+moment.isRange(range); // true
+moment.isRange(IamNotRange); // false
 ```
 
 ### Manipulation
 
 #### Add
 
-Add/combine/merge overlapping ranges.
+Add/combine/merge overlapping or adjacent ranges.
 
 ``` js
-range.add(range2); // [moment.range(start, wat)]
+const range1 = moment.range(a, c);
+const range2 = moment.range(b, d);
+range1.add(range2); // moment.range(a, d)
 
-const range3 = moment.range(new Date(2012, 3, 1), new Date(2012, 3, 15);
-range.add(range3); // [null]
+const range3 = moment.range(a, b);
+const range4 = moment.range(c, d);
+range3.add(range4); // null
+```
+
+Include adjacent ranges:
+
+``` js
+const range1 = moment.range(a, b);
+const range2 = moment.range(b, c);
+
+range1.add(range2); // null
+range1.add(range2, { adjacent: false }); // null
+range1.add(range2, { adjacent: true }); // moment.range(a, c)
 ```
 
 #### Clone
@@ -276,14 +330,12 @@ range.add(range3); // [null]
 Deep clone a range
 
 ``` js
-const start = new Date(2011, 2, 5);
-const end   = new Date(2011, 3, 5);
-const dr    = moment.range(start, end);
+const range1 = moment.range(a, d);
 
-const dr2 = dr.clone();
-dr2.start.add(2, 'days');
+const range2 = range1.clone();
+range2.start.add(2, 'days');
 
-dr2.start.toDate() === dr.start.toDate() // false
+range1.start.toDate().getTime() === range2.start.toDate().getTime() // false
 ```
 
 #### Subtract
@@ -291,12 +343,19 @@ dr2.start.toDate() === dr.start.toDate() // false
 Subtracting one range from another.
 
 ``` js
-range.subtract(range2); // [moment.range(start, lol)]
+const range_ab = moment.range(a, b);
+const range_bc = moment.range(b, c);
+const range_cd = moment.range(c, d);
+const range_ad = moment.range(a, d);
+range_ad.subtract(range_bc); // [moment.range(a, b) moment.range(c, d)]
+range_ac.subtract(range_bc); // [moment.range(a, b)]
+range_ab.subtract(range_cd); // [moment.range(a, b)]
+range_bc.subtract(range_bd); // [null]
 ```
 
 ### Iteration
 
-Each of the iteration methods return an [Iterable][iterable], providing
+Each of the iteration methods returns an [Iterable][iterable], providing
 a convenient and performant interface to iterating over your ranges by a given
 period.
 
@@ -618,3 +677,4 @@ moment-range is [UNLICENSED][unlicense].
 [moment]: http://momentjs.com/
 [node]: http://nodejs.org/
 [unlicense]: http://unlicense.org/
+[parseZone]: https://momentjs.com/docs/#/parsing/parse-zone/

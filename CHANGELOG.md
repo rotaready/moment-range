@@ -7,8 +7,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [3.1.0]
+### Added
+
+* Added function `isRange` as a simple and clear way to check if a variable is a DateRange
+* Added moment extension `parseZoneRange` to preserve timezone of start/end dates in a new range
+* Added moment extension `rangeFromInterval` to create a range between a date and a specified interval
+
+### Changed
+
+* Changed open-ended ranges to accept any falsy value (except 0)
+* Changed `add` function: now has an option for adding adjacent ranges
+* Changed *README*: tidied documentation examples
+
+### Fixed
+
+* Fixed typo in *README* in method `add`
+* Fixed webpack output path for webpack >2.3.0
+* Fixed linter errors/warnings for development
+* Fixed repository URLs in *CHANGELOG*
+
 ## [3.0.3]
 ### Changed
+
 * 'module' has been replaced with 'jsnext:main' to support both rollup and webpack 2
 
 ## [3.0.2]
@@ -81,8 +102,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Fixed issue with `moment#within` and moment-timezone (#127)
 * Fixed typo in comment (#133)
 
-[Unreleased]: https://github.com/gf3/moment-range/compare/v3.0.3...HEAD
-[3.0.2]: https://github.com/gf3/moment-range/compare/v3.0.2...v3.0.3
-[3.0.2]: https://github.com/gf3/moment-range/compare/v3.0.1...v3.0.2
-[3.0.1]: https://github.com/gf3/moment-range/compare/v3.0.0...v3.0.1
-[3.0.0]: https://github.com/gf3/moment-range/compare/v1.0.5...v3.0.1
+[Unreleased]: https://github.com/rotaready/moment-range/compare/v3.1.0...HEAD
+[3.0.3]: https://github.com/rotaready/moment-range/compare/v3.0.3...v3.1.0
+[3.0.2]: https://github.com/rotaready/moment-range/compare/v3.0.2...v3.0.3
+[3.0.2]: https://github.com/rotaready/moment-range/compare/v3.0.1...v3.0.2
+[3.0.1]: https://github.com/rotaready/moment-range/compare/v3.0.0...v3.0.1
+[3.0.0]: https://github.com/rotaready/moment-range/compare/v1.0.5...v3.0.1
