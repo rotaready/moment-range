@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": ".",
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es2015", "es2015.iterable"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "paths": {
+      "moment-range": ["../lib/moment-range.d.ts", "../lib/moment-range.js"]
+    }
+  },
+  "files": [
+    "../lib/moment-range.d.ts",
+    "./moment-range_test.ts"
+  ],
+  "sourceMap": true,
+  "strict": true,
+  "strictNullChecks": true,
+  "target": "es5"
+}
