@@ -38,14 +38,17 @@
   ],
   "scripts": {
     "build": "webpack -p",
+    "check": "yarn run typescript-test && yarn run flow",
     "doctoc": "doctoc README.md --github",
     "flow": "flow",
     "lint": "eslint ./lib/",
-    "prepublishOnly": "yarn run build && cp ./declarations/moment-range.js.flow ./dist",
-    "preversion": "yarn run flow && yarn run lint && yarn run test",
+    "prepublishOnly": "yarn run build && cp ./declarations/moment-range.* ./lib/*.d.ts ./dist",
+    "preversion": "yarn run flow && yarn run typescript-test && yarn run lint && yarn run test",
     "test": "karma start ./karma.conf.js",
-    "version": "yarn run build && cp ./declarations/moment-range.js.flow ./dist"
+    "typescript-test": "tsc --project typing-tests",
+    "version": "yarn run build && cp ./declarations/moment-range.* ./lib/*.d.ts ./dist"
   },
+  "typings": "./dist/moment-range.d.ts",
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-eslint": "^7.1.1",
@@ -69,6 +72,7 @@
     "karma-webpack": "^2.0.2",
     "mocha": "^2.5.3",
     "moment": "^2.17.1",
+    "typescript": "^2.6.2",
     "webpack": "^2.2.1"
   },
   "peerDependencies": {
