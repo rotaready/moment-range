@@ -37,7 +37,7 @@
     "lib/"
   ],
   "scripts": {
-    "build": "webpack",
+    "build": "webpack -p",
     "doctoc": "doctoc README.md --github",
     "flow": "flow",
     "lint": "eslint ./lib/",
