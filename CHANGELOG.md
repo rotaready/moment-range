@@ -6,11 +6,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Deprecated
+
+* Deprecated `exclusive` option of `contains()` method in favour of new
+  `excludeStart` and `excludeEnd` options
+
 ### Added
 
 * Added Typescript defitions
 * Added Typescript config and tests
 * Added `check`, `typescript-test` npm script
+* Added `excludeStart` and `excludeEnd` to `contains()` method
 
 ### Changed
 
