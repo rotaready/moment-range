@@ -62,9 +62,18 @@ const range007 = new DateRange('year');
 range007.contains(new Date());
 range007.contains(new DateRange('day'));
 range007.contains(moment());
-range007.contains(new Date(), {exclusive: true});
-range007.contains(new DateRange('day'), {exclusive: true});
-range007.contains(moment(), {exclusive: true});
+range007.contains(new Date(), {excludeStart: true});
+range007.contains(new DateRange('day'), {excludeStart: true});
+range007.contains(moment(), {excludeStart: true});
+range007.contains(new Date(), {excludeEnd: true});
+range007.contains(new DateRange('day'), {excludeEnd: true});
+range007.contains(moment(), {excludeEnd: true});
+range007.contains(new Date(), {excludeStart: true, excludeEnd: true});
+range007.contains(new DateRange('day'), {excludeStart: true, excludeEnd: true});
+range007.contains(moment(), {excludeStart: true, excludeEnd: true});
+range007.contains(new Date(), {exclusive: true}); // DEPRECATED
+range007.contains(new DateRange('day'), {exclusive: true}); // DEPRECATED
+range007.contains(moment(), {exclusive: true}); // DEPRECATED
 
 // Diff
 const range008 = new DateRange('year');
