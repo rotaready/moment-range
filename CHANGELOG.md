@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+
+* Changed `build` script to use webpack's production settings for a more
+  optimized build
+* Changed `prepublish` script to `prepublishOnly` so the task isn't run on
+  `install`
+* Changed `prepublishOnly` and `version` scripts to use `&&` instead of `;`
 
 ## [3.1.0]
 ### Added
