@@ -8,3 +8,4 @@ test:
   pre:
     - npm run lint
     - npm run flow
+    - npm run typescript-test
