@@ -27,7 +27,9 @@ declare module 'moment-range' {
 
     clone(): DateRange;
 
+    // @deprecated
     contains(other: Date | DateRange | Moment, options?: { exclusive: bool; }): bool;
+    contains(other: Date | DateRange | Moment, options?: { excludeStart: bool; excludeEnd: bool; }): bool;
 
     diff(unit: ?Shorthand, rounded: ?bool): number;
 

@@ -227,25 +227,42 @@ const dr    = moment.range(start, end);
 dr.center(); // 1300622400000
 ```
 
-
 #### Contains
 
-Check to see if your range contains a date/moment:
+Check to see if your range contains a date/moment. By default the start and end
+dates are included in the search. E.g.:
 
 ``` js
-const range  = moment.range(a, c);
+const range = moment.range(a, c);
 
+range.contains(a); // true
 range.contains(b); // true
+range.contains(c); // true
 range.contains(d); // false
 ```
 
-The `exclusive` options is used to indicate if the end of the range should be
-excluded when testing for inclusion:
+You can also control whether the start or end dates should be excluded from the
+search with the `excludeStart` and `excludeEnd` options:
 
 ``` js
-range.contains(c) // true
-range.contains(c, { exclusive: false }) // true
-range.contains(c, { exclusive: true }) // false
+const range = moment.range(a, c);
+
+range.contains(a); // true
+range.contains(a, { excludeStart: true }); // false
+range.contains(c); // true
+range.contains(c, { excludeEnd: true; }); // false
+```
+
+**DEPRECATED**: The `exclusive` options is used to indicate if the start/end of
+the range should be excluded when testing for inclusion:
+
+**Note**: You can obtain the same functionality by setting `{ excludeStart:
+true, excludeEnd: true }`
+
+``` js
+range.contains(c); // true
+range.contains(c, { exclusive: false }); // true
+range.contains(c, { exclusive: true }); // false
 ```
 
 #### Within

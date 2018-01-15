@@ -23,7 +23,9 @@ export class DateRange {
 
   clone(): DateRange;
 
+  // @deprecated
   contains(other: Date | DateRange | Moment, options?: { exclusive?: boolean; }): boolean;
+  contains(other: Date | DateRange | Moment, options?: { excludeStart?: boolean; excludeEnd?: boolean; }): boolean;
 
   diff(unit?: unitOfTime.Diff, rounded?: boolean): number;
 
