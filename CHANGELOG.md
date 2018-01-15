@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Changed `prepublishOnly` and `version` scripts to use `&&` instead of `;`
 * Changed `prepublish`, `preversion`, `version` scripts to support typescript definitions
 * Changed CircleCI config to also run typescript tests
+* Changed `parseZoneRange` to `rangeFromISOString` to follow naming conventions. Deprecated `parseZoneRange`.
 
 ### Fixed
 
