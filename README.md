@@ -233,30 +233,24 @@ Check to see if your range contains a date/moment. By default the start and end
 dates are included in the search. E.g.:
 
 ``` js
-const start = moment('2017-12-01');
-const end = moment('2017-12-15');
-const inside = moment('2017-12-08');
-const outside = moment('2017-12-25');
-const range = moment.range(start, out);
+const range = moment.range(a, c);
 
-range.contains(start); // true
-range.contains(end); // true
-range.contains(inside); // true
-range.contains(outside); // false
+range.contains(a); // true
+range.contains(b); // true
+range.contains(c); // true
+range.contains(d); // false
 ```
 
 You can also control whether the start or end dates should be excluded from the
 search with the `excludeStart` and `excludeEnd` options:
 
 ``` js
-const start = moment('2017-12-01');
-const end = moment('2017-12-15');
-const range  = moment.range(start, out);
+const range = moment.range(a, c);
 
-range.contains(start); // true
-range.contains(start, { excludeStart: true }); // false
-range.contains(end); // true
-range.contains(end, { excludeEnd: true; }); // false
+range.contains(a); // true
+range.contains(a, { excludeStart: true }); // false
+range.contains(c); // true
+range.contains(c, { excludeEnd: true; }); // false
 ```
 
 **DEPRECATED**: The `exclusive` options is used to indicate if the start/end of
@@ -266,9 +260,9 @@ the range should be excluded when testing for inclusion:
 true, excludeEnd: true }`
 
 ``` js
-range.contains(c) // true
-range.contains(c, { exclusive: false }) // true
-range.contains(c, { exclusive: true }) // false
+range.contains(c); // true
+range.contains(c, { exclusive: false }); // true
+range.contains(c, { exclusive: true }); // false
 ```
 
 #### Within
