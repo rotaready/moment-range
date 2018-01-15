@@ -28,6 +28,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Changed `prepublish`, `preversion`, `version` scripts to support typescript definitions
 * Changed CircleCI config to also run typescript tests
 
+### Fixed
+
+* Fixed `intersect` not creating a new DateRange instance in all cases
+
 ## [3.1.1]
 ### Fixed
 * Fixed intersection rules for zero-length ranges on start/end boundaries
