@@ -241,8 +241,11 @@ declare class moment$Moment {
   range(start: Date, end: Date): DateRange;
   range(start: Moment, end: Moment): DateRange;
   rangeFromInterval(interval: string, count?: number, date?: Date|Moment|string): DateRange;
-  parseZoneRange(isoTimeInterval: string): DateRange;
+  rangeFromISOString(isoTimeInterval: string): DateRange;
   within(range: DateRange): bool;
+
+  // @deprecated
+  parseZoneRange(isoTimeInterval: string): DateRange;
 }
 
 declare module 'moment' {
