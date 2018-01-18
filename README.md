@@ -11,6 +11,7 @@ Fancy date ranges for [Moment.js][moment].
 - [Installation](#installation)
   - [Node / NPM](#node--npm)
   - [Browser](#browser)
+  - [Older browsers and IE11](#older-browsers-and-ie11)
 - [Examples](#examples)
   - [Create](#create)
     - [rangeFromInterval](#rangefrominterval)
@@ -91,6 +92,18 @@ window['moment-range'].extendMoment(moment);
 Thanks to the fine people at [cdnjs][cdnjs], you can link to moment-range from
 the [cdnjs servers][cdnjs-moment-range].
 
+
+### Older browsers and IE11
+
+This library makes use of `Symbol.iterator` to provide the [iteration
+protocols] now that there is [broad support] for them, if you need to support
+older browsers (specifically IE11) you will need to include a polyfill. Any of
+the following should work, depending on your project configuration:
+
+* [babel runtime transform plugin]
+* [babel polyfill]
+* https://github.com/medikoo/es6-iterator
+* https://github.com/zloirock/core-js
 
 
 ## Examples
@@ -711,10 +724,14 @@ yarn run lint
 moment-range is [UNLICENSED][unlicense].
 
 [add]: http://momentjs.com/docs/#/manipulating/add/
+[babel runtime transform plugin]: https://babeljs.io/docs/plugins/transform-runtime
+[babel polyfill]: https://babeljs.io/docs/usage/polyfill
+[broad support]: http://kangax.github.io/compat-table/es6/#test-well-known_symbols_Symbol.iterator,_existence_a_href=_https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator_title=_MDN_documentation_img_src=_../mdn.png_alt=_MDN_(Mozilla_Development_Network)_logo_width=_15_height=_13_/_/a_nbsp;
 [cdnjs]: https://github.com/cdnjs/cdnjs
 [cdnjs-moment-range]: https://cdnjs.com/libraries/moment-range
 [interval]: http://en.wikipedia.org/wiki/ISO_8601#Time_intervals
 [iterable]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#Syntaxes_expecting_iterables
+[iteration protocols]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
 [moment]: http://momentjs.com/
 [node]: http://nodejs.org/
 [unlicense]: http://unlicense.org/
