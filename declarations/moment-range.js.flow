@@ -19,17 +19,21 @@ declare module 'moment-range' {
 
     add(other: DateRange): ?DateRange;
 
+    by(interval: Shorthand, options?: { excludeEnd: bool; step: number; }): Iterable<Moment>;
+    // @deprecated 4.0.0
     by(interval: Shorthand, options?: { exclusive: bool; step: number; }): Iterable<Moment>;
 
+    byRange(interval: DateRange, options?: { excludeEnd: bool; step: number; }): Iterable<Moment>;
+    // @deprecated 4.0.0
     byRange(interval: DateRange, options?: { exclusive: bool; step: number; }): Iterable<Moment>;
 
     center(): Moment;
 
     clone(): DateRange;
 
-    // @deprecated
-    contains(other: Date | DateRange | Moment, options?: { exclusive: bool; }): bool;
     contains(other: Date | DateRange | Moment, options?: { excludeStart: bool; excludeEnd: bool; }): bool;
+    // @deprecated 4.0.0
+    contains(other: Date | DateRange | Moment, options?: { exclusive: bool; }): bool;
 
     diff(unit: ?Shorthand, rounded: ?bool): number;
 
@@ -43,8 +47,12 @@ declare module 'moment-range' {
 
     overlaps(other: DateRange, options: { adjacent: bool; }): bool;
 
+    reverseBy(interval: Shorthand, options?: { excludeStart: bool; step: number; }): Iterable<Moment>;
+    // @deprecated 4.0.0
     reverseBy(interval: Shorthand, options?: { exclusive: bool; step: number; }): Iterable<Moment>;
 
+    reverseByRange(interval: DateRange, options?: { excludeStart: bool; step: number; }): Iterable<Moment>;
+    // @deprecated 4.0.0
     reverseByRange(interval: DateRange, options?: { exclusive: bool; step: number; }): Iterable<Moment>;
 
     subtract(other: DateRange): Array<DateRange>;

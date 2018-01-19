@@ -15,17 +15,21 @@ export class DateRange {
 
   add(other: DateRange): DateRange | undefined;
 
+  by(interval: unitOfTime.Diff, options?: { excludeEnd?: boolean; step?: number; }): Iterable<Moment>;
+  // @deprecated 4.0.0
   by(interval: unitOfTime.Diff, options?: { exclusive?: boolean; step?: number; }): Iterable<Moment>;
 
+  byRange(interval: DateRange, options?: { excludeEnd?: boolean; step?: number; }): Iterable<Moment>;
+  // @deprecated 4.0.0
   byRange(interval: DateRange, options?: { exclusive?: boolean; step?: number; }): Iterable<Moment>;
 
   center(): Moment;
 
   clone(): DateRange;
 
-  // @deprecated
-  contains(other: Date | DateRange | Moment, options?: { exclusive?: boolean; }): boolean;
   contains(other: Date | DateRange | Moment, options?: { excludeStart?: boolean; excludeEnd?: boolean; }): boolean;
+  // @deprecated 4.0.0
+  contains(other: Date | DateRange | Moment, options?: { exclusive?: boolean; }): boolean;
 
   diff(unit?: unitOfTime.Diff, rounded?: boolean): number;
 
@@ -39,8 +43,12 @@ export class DateRange {
 
   overlaps(other: DateRange, options?: { adjacent?: boolean; }): boolean;
 
+  reverseBy(interval: unitOfTime.Diff, options?: { excludeStart?: boolean; step?: number; }): Iterable<Moment>;
+  // @deprecated 4.0.0
   reverseBy(interval: unitOfTime.Diff, options?: { exclusive?: boolean; step?: number; }): Iterable<Moment>;
 
+  reverseByRange(interval: DateRange, options?: { excludeStart?: boolean; step?: number; }): Iterable<Moment>;
+  // @deprecated 4.0.0
   reverseByRange(interval: DateRange, options?: { exclusive?: boolean; step?: number; }): Iterable<Moment>;
 
   subtract(other: DateRange): DateRange[];
