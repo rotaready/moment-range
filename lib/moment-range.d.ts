@@ -70,7 +70,7 @@ export interface MomentRangeStaticMethods {
   rangeFromInterval(interval: unitOfTime.Diff, count?: number, date?: Date | Moment): DateRange;
   rangeFromISOString(isoTimeInterval: string): DateRange;
 
-  // @deprecated
+  // @deprecated 4.0.0
   parseZoneRange(isoTimeInterval: string): DateRange;
 }
 
