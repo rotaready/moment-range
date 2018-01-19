@@ -28,7 +28,7 @@
   "bugs": "https://github.com/rotaready/moment-range/issues",
   "main": "./dist/moment-range",
   "jsnext:main": "lib/moment-range.js",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "engines": {
     "node": "*"
   },
