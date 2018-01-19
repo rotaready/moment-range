@@ -181,7 +181,7 @@ When using a negative interval, the date provided will be set as the end of the 
 
 #### parseZoneRange
 
-**DEPRECATED**: Replaced by `rangeFromISOString` to follow naming conventions.
+**DEPRECATED** in `4.0.0`: Replaced by `rangeFromISOString` to follow naming conventions.
 
 #### rangeFromISOString
 
