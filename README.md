@@ -253,7 +253,7 @@ range.contains(c); // true
 range.contains(c, { excludeEnd: true; }); // false
 ```
 
-**DEPRECATED**: The `exclusive` options is used to indicate if the start/end of
+**DEPRECATED** in `4.0.0`: The `exclusive` options is used to indicate if the start/end of
 the range should be excluded when testing for inclusion:
 
 **Note**: You can obtain the same functionality by setting `{ excludeStart:
@@ -396,14 +396,14 @@ years.map(m => m.format('YYYY')) // ['2010', '2011', '2012', '2013', '2014', '20
 ```
 
 Iteration also supports excluding the end value of the range by setting the
-`exclusive` option to `true`.
+`excludeEnd` option to `true`.
 
 ``` js
 const start  = new Date(2012, 2, 1);
 const end    = new Date(2012, 2, 5);
 const range1 = moment.range(start, end);
 
-const acc = Array.from(range1.by('day', { exclusive: true }));
+const acc = Array.from(range1.by('day', { excludeEnd: true }));
 
 acc.length == 4 // true
 ```
@@ -419,10 +419,16 @@ let acc = Array.from(range1.by('day', { step: 2 }));
 
 acc.map(m => m.format('DD')) // ['02', '04', '06']
 
-acc = Array.from(range1.by('day', { exclusive: true, step: 2 }));
+acc = Array.from(range1.by('day', { excludeEnd: true, step: 2 }));
 
 acc.map(m => m.format('DD')) // ['02', '04']
 ```
+
+**DEPRECATED** in `4.0.0`: The `exclusive` options is used to indicate if the
+end of the range should be excluded when testing for inclusion:
+
+**Note**: You can obtain the same functionality by setting `{ excludeEnd: true }`
+
 
 #### byRange
 
@@ -445,7 +451,7 @@ acc.length == 5 // true
 Exclude the end value:
 
 ``` js
-const acc = Array.from(range1.by(range2, { exclusive: true }));
+const acc = Array.from(range1.by(range2, { excludeEnd: true }));
 
 acc.length == 4 // true
 ```
@@ -457,10 +463,16 @@ let acc = Array.from(range1.by(range2, { step: 2 }));
 
 acc.map(m => m.format('DD')) // ['01', '03', '05']
 
-acc = Array.from(range1.by(range2, { exlusive, true, step: 2 }));
+acc = Array.from(range1.by(range2, { excludeEnd, true, step: 2 }));
 
 acc.map(m => m.format('DD')) // ['01', '03']
 ```
+
+**DEPRECATED** in `4.0.0`: The `exclusive` options is used to indicate if the
+end of the range should be excluded when testing for inclusion:
+
+**Note**: You can obtain the same functionality by setting `{ excludeEnd: true }`
+
 
 #### reverseBy
 
@@ -472,11 +484,11 @@ const acc = Array.from(range.reverseBy('years'));
 acc.map(m => m.format('YYYY')) // ['2015', '2014', '2013', '2012']
 ```
 
-Exclude the end value:
+Exclude the start value:
 
 ``` js
 const range = moment.range('2012-01-01', '2015-01-01');
-const acc = Array.from(range.reverseBy('years', { exclusive: true }));
+const acc = Array.from(range.reverseBy('years', { excludeStart: true }));
 acc.map(m => m.format('YYYY')) // ['2015', '2014', '2013']
 ```
 
@@ -491,10 +503,16 @@ let acc = Array.from(range1.reverseBy('day', { step: 2 }));
 
 acc.map(m => m.format('DD')) // ['06', '04', '02']
 
-acc = Array.from(range1.reverseBy('day', { exclusive: true, step: 2 }));
+acc = Array.from(range1.reverseBy('day', { excludeStart: true, step: 2 }));
 
 acc.map(m => m.format('DD')) // ['06', '04']
 ```
+
+**DEPRECATED** in `4.0.0`: The `exclusive` options is used to indicate if the
+start of the range should be excluded when testing for inclusion:
+
+**Note**: You can obtain the same functionality by setting `{ excludeStart: true }`
+
 
 #### reverseByRange
 
@@ -515,10 +533,10 @@ acc.length == 5 // true
 acc.map(m => m.format('DD')) // ['05', '04', '03', '02', '01']
 ```
 
-Exclude the end value:
+Exclude the start value:
 
 ``` js
-const acc = Array.from(range1.by(range2, { exclusive: true }));
+const acc = Array.from(range1.by(range2, { excludeStart: true }));
 
 acc.length == 4 // true
 acc.map(m => m.format('DD')) // ['05', '04', '03', '02']
@@ -531,10 +549,16 @@ let acc = Array.from(range1.reverseByRange(range2, { step: 2 }));
 
 acc.map(m => m.format('DD')) // ['05', '03', '01']
 
-acc = Array.from(range1.reverseByRange(range2, { exlusive, true, step: 2 }));
+acc = Array.from(range1.reverseByRange(range2, { excludeStart: true, step: 2 }));
 
 acc.map(m => m.format('DD')) // ['05', '03']
 ```
+
+**DEPRECATED** in `4.0.0`: The `exclusive` options is used to indicate if the
+start of the range should be excluded when testing for inclusion:
+
+**Note**: You can obtain the same functionality by setting `{ excludeStart: true }`
+
 
 ### Compare
 

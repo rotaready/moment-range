@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 * Deprecated `exclusive` option of `contains()` method in favour of new
   `excludeStart` and `excludeEnd` options
+* Deprecated `exclusive` option of `by()` method in favour of new `excludeEnd` options
+* Deprecated `exclusive` option of `byRange()` method in favour of new `excludeEnd` options
+* Deprecated `exclusive` option of `reverseBy()` method in favour of new `excludeStart` options
+* Deprecated `exclusive` option of `reverseByRange()` method in favour of new `excludeStart` options
 
 ### Added
 
@@ -17,6 +21,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Added Typescript config and tests
 * Added `check`, `typescript-test` npm script
 * Added `excludeStart` and `excludeEnd` to `contains()` method
+* Added `excludeEnd` to `by()` method
+* Added `excludeEnd` to `byRange()` method
+* Added `excludeStart` to `reverseBy()` method
+* Added `excludeStart` to `reverseByRange()` method
 
 ### Changed
 
