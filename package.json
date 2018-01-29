@@ -79,7 +79,5 @@
     "url": "https://git@github.com/rotaready/moment-range.git"
   },
   "license": "Unlicense",
-  "dependencies": {
-    "es6-symbol": "^3.1.0"
-  }
+  "dependencies": {}
 }
