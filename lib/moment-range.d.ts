@@ -61,8 +61,6 @@ export class DateRange {
 }
 
 export interface MomentRangeStaticMethods {
-  parseZoneRange(isoTimeInterval: string): DateRange;
-
   range(start: Date, end: Date): DateRange;
   range(start: Moment, end: Moment): DateRange;
   range(range: [Date, Date]): DateRange;
@@ -70,6 +68,10 @@ export interface MomentRangeStaticMethods {
   range(range: string): DateRange;
 
   rangeFromInterval(interval: unitOfTime.Diff, count?: number, date?: Date | Moment): DateRange;
+  rangeFromISOString(isoTimeInterval: string): DateRange;
+
+  // @deprecated 4.0.0
+  parseZoneRange(isoTimeInterval: string): DateRange;
 }
 
 export interface MomentRange extends MomentRangeStaticMethods {

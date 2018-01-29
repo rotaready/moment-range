@@ -16,6 +16,7 @@ Fancy date ranges for [Moment.js][moment].
   - [Create](#create)
     - [rangeFromInterval](#rangefrominterval)
     - [parseZoneRange](#parsezonerange)
+    - [rangeFromISOString](#rangefromisostring)
   - [Attributes](#attributes)
   - [Querying](#querying)
     - [Adjacent](#adjacent)
@@ -180,12 +181,16 @@ When using a negative interval, the date provided will be set as the end of the 
 
 #### parseZoneRange
 
-Parses an [ISO 8601 time interval][interval] into a date range while
+**DEPRECATED** in `4.0.0`: Replaced by `rangeFromISOString` to follow naming conventions.
+
+#### rangeFromISOString
+
+Converts an [ISO 8601 time interval string][interval] into a date range while
 preserving the time zones using [moment.parseZone][parseZone].
 
 ``` js
 const interval = '2015-01-17T09:50:00+03:00/2015-04-17T08:29:55-04:00';
-const range = moment.parseZoneRange(interval);
+const range = moment.rangeFromISOString(interval);
 
 range.toString(); // '2015-01-17T09:50:00+03:00/2015-04-17T08:29:55-04:00'
 ```

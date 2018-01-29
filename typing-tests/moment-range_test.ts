@@ -8,8 +8,6 @@ const moment = extendMoment(M);
 // Typescript Tests
 //-----------------------------------------------------------------------------
 
-moment.parseZoneRange('2015-01-17T09:50:04+03:00/2015-04-17T08:29:55-04:00');
-
 moment.range(new Date(), new Date());
 moment.range(moment(), moment());
 moment.range([new Date(), new Date()]);
@@ -19,6 +17,9 @@ moment.range('year');
 moment.rangeFromInterval('day');
 moment.rangeFromInterval('day', 3);
 moment.rangeFromInterval('day', 3, moment());
+
+moment.rangeFromISOString('2015-01-17T09:50:04+03:00/2015-04-17T08:29:55-04:00');
+moment.parseZoneRange('2015-01-17T09:50:04+03:00/2015-04-17T08:29:55-04:00'); // DEPRECATED 4.0.0
 
 moment().isRange(moment.range('hour'));
 

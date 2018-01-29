@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Deprecated `exclusive` option of `byRange()` method in favour of new `excludeEnd` options
 * Deprecated `exclusive` option of `reverseBy()` method in favour of new `excludeStart` options
 * Deprecated `exclusive` option of `reverseByRange()` method in favour of new `excludeStart` options
+* Deprecated `parseZoneRange` in favour of `rangeFromISOString`
 
 ### Added
 
@@ -26,6 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Added `excludeStart` to `reverseBy()` method
 * Added `excludeStart` to `reverseByRange()` method
 * Added note about supporting older browsers with links to polyfills to the README
+* Added moment extension `rangeFromISOString`, changed name from `parseZoneRange`
 
 ### Changed
 
@@ -36,6 +38,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Changed `prepublishOnly` and `version` scripts to use `&&` instead of `;`
 * Changed `prepublish`, `preversion`, `version` scripts to support typescript definitions
 * Changed CircleCI config to also run typescript tests
+* Changed `parseZoneRange` to `rangeFromISOString` to follow naming conventions. Deprecated `parseZoneRange`.
 
 ### Fixed
 
