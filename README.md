@@ -29,6 +29,7 @@ Fancy date ranges for [Moment.js][moment].
   - [Manipulation](#manipulation)
     - [Add](#add)
     - [Clone](#clone)
+    - [snapTo](#snapto)
     - [Subtract](#subtract)
   - [Iteration](#iteration)
     - [by](#by)
