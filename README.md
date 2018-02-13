@@ -29,7 +29,7 @@ Fancy date ranges for [Moment.js][moment].
   - [Manipulation](#manipulation)
     - [Add](#add)
     - [Clone](#clone)
-    - [snapTo](#snapto)
+    - [SnapTo](#snapto)
     - [Subtract](#subtract)
   - [Iteration](#iteration)
     - [by](#by)
@@ -374,7 +374,7 @@ range2.start.add(2, 'days');
 range1.start.toDate().getTime() === range2.start.toDate().getTime() // false
 ```
 
-#### snapTo
+#### SnapTo
 
 Snap the start and end of a range to a given interval.
 
@@ -458,7 +458,7 @@ acc = Array.from(range1.by('day', { excludeEnd: true, step: 2 }));
 acc.map(m => m.format('DD')) // ['02', '04']
 ```
 
-You can iterate over the span of a range for a period that is entered but not complete by using the [snapTo][snapTo] method:
+You can iterate over the span of a range for a period that is entered but not complete by using the [snapTo()](#snapto) method:
 
 ``` js
 const start = moment("2017-01-01T13:30:00");
