@@ -373,6 +373,21 @@ range2.start.add(2, 'days');
 range1.start.toDate().getTime() === range2.start.toDate().getTime() // false
 ```
 
+#### snapTo
+
+Snap the start and end of a range to a given interval.
+
+``` js
+const start = moment('2018-01-25 17:05:33');
+const end = moment('2018-01-28 06:10:00');
+
+const range1 = moment.range(start, end);
+const range2 = range1.snapTo('day'); // 2018-01-25T00:00:00 -> 2018-01-28T23:59:59
+
+range1.diff('days'); // 2
+range2.diff('days'); // 3
+```
+
 #### Subtract
 
 Subtracting one range from another.
@@ -440,6 +455,18 @@ acc.map(m => m.format('DD')) // ['02', '04', '06']
 acc = Array.from(range1.by('day', { excludeEnd: true, step: 2 }));
 
 acc.map(m => m.format('DD')) // ['02', '04']
+```
+
+You can iterate over the span of a range for a period that is entered but not complete by using the [snapTo][snapTo] method:
+
+``` js
+const start = moment("2017-01-01T13:30:00");
+const end = moment("2017-01-05T01:45:12");
+const r1 = moment.range(start, end);
+const r2 = range1.snapTo('day');
+
+Array.from(r1.by('days')).map(m => m.format('MM-DD')); // [ '01-01', '01-02', '01-03', '01-04' ]
+Array.from(r2.by('days')).map(m => m.format('MM-DD')); // [ '01-01', '01-02', '01-03', '01-04', '01-05' ]
 ```
 
 **DEPRECATED** in `4.0.0`: The `exclusive` options is used to indicate if the
