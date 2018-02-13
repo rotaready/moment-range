@@ -55,6 +55,8 @@ declare module 'moment-range' {
     // @deprecated 4.0.0
     reverseByRange(interval: DateRange, options?: { exclusive: bool; step: number; }): Iterable<Moment>;
 
+    snapTo(interval: Shorthand): DateRange;
+
     subtract(other: DateRange): Array<DateRange>;
 
     toDate(): Array<Date>;

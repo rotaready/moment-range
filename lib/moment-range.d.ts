@@ -51,6 +51,8 @@ export class DateRange {
   // @deprecated 4.0.0
   reverseByRange(interval: DateRange, options?: { exclusive?: boolean; step?: number; }): Iterable<Moment>;
 
+  snapTo(interval: unitOfTime.Diff): DateRange;
+
   subtract(other: DateRange): DateRange[];
 
   toDate(): [Date, Date];
