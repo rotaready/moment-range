@@ -466,8 +466,8 @@ const end = moment("2017-01-05T01:45:12");
 const r1 = moment.range(start, end);
 const r2 = range1.snapTo('day');
 
-Array.from(r1.by('days')).map(m => m.format('MM-DD')); // [ '01-01', '01-02', '01-03', '01-04' ]
-Array.from(r2.by('days')).map(m => m.format('MM-DD')); // [ '01-01', '01-02', '01-03', '01-04', '01-05' ]
+Array.from(r1.by('days')).map(m => m.format('DD')); // ['01', '02', '03', '04']
+Array.from(r2.by('days')).map(m => m.format('DD')); // ['01', '02', '03', '04', '05']
 ```
 
 **DEPRECATED** in `4.0.0`: The `exclusive` options is used to indicate if the
