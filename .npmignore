@@ -3,3 +3,9 @@ flow-typed/
 lib/moment-range_test.js
 typing-tests/
 package-lock.json
+karma.conf.js
+circle.yml
+.flowconfig
+.eslintrc
+.tern-project
+webpack.config.js
