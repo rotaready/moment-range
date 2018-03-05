@@ -464,7 +464,7 @@ You can iterate over the span of a range for a period that is entered but not co
 const start = moment("2017-01-01T13:30:00");
 const end = moment("2017-01-05T01:45:12");
 const r1 = moment.range(start, end);
-const r2 = range1.snapTo('day');
+const r2 = r1.snapTo('day');
 
 Array.from(r1.by('days')).map(m => m.format('DD')); // ['01', '02', '03', '04']
 Array.from(r2.by('days')).map(m => m.format('DD')); // ['01', '02', '03', '04', '05']
