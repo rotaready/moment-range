@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-* Added Typescript defitions
+* Added Typescript definitions
 * Added Typescript config and tests
 * Added `check`, `typescript-test` npm script
 * Added `excludeStart` and `excludeEnd` to `contains()` method
@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Added `excludeStart` to `reverseByRange()` method
 * Added note about supporting older browsers with links to polyfills to the README
 * Added moment extension `rangeFromISOString`, changed name from `parseZoneRange`
+* Added `snapTo()` method
 
 ### Changed
 

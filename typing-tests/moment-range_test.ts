@@ -124,20 +124,24 @@ range015.reverseByRange(new DateRange('month'));
 range015.reverseByRange(new DateRange('month'), {excludeStart: true});
 range015.reverseByRange(new DateRange('month'), {exclusive: true}); // DEPRECATED 4.0.0
 
-// Subtract
+// SnapTo
 const range016 = new DateRange('year');
-range016.subtract(new DateRange('month'));
+range016.snapTo('month');
+
+// Subtract
+const range017 = new DateRange('year');
+range017.subtract(new DateRange('month'));
 
 // To Date
-const range017 = new DateRange('year');
-range017.toDate();
+const range018 = new DateRange('year');
+range018.toDate();
 
 // To String
-const range018 = new DateRange('year');
-range018.toString();
-range018 + '';
+const range019 = new DateRange('year');
+range019.toString();
+range019 + '';
 
 // Value Of
-const range019 = new DateRange('year');
-range019.valueOf();
+const range020 = new DateRange('year');
+range020.valueOf();
 // range019 + 1;
