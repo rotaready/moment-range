@@ -2,8 +2,6 @@
 
 Fancy date ranges for [Moment.js][moment].
 
-> Hey there! After 5 months of inactivity, we're reviewing pull requests and issues to bring moment-range up to date. Get in touch with us [in this thread](https://github.com/rotaready/moment-range/issues/177) if you have any feedback.
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
