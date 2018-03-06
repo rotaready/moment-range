@@ -722,6 +722,7 @@ yarn install
 Do all the things!
 
 ``` sh
+yarn run check
 yarn run test
 yarn run lint
 ```

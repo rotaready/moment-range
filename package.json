@@ -33,20 +33,19 @@
     "node": "*"
   },
   "files": [
-    "dist/",
-    "lib/"
+    "dist/"
   ],
   "scripts": {
     "build": "webpack -p",
-    "check": "yarn run typescript-test && yarn run flow",
+    "check": "yarn run check:flow && yarn run check:typescript",
+    "check:flow": "flow",
+    "check:typescript": "tsc --project ./typing-tests/typescript",
     "doctoc": "doctoc README.md --github",
-    "flow": "flow",
     "lint": "eslint ./lib/",
-    "prepublishOnly": "yarn run build && cp ./declarations/moment-range.* ./lib/*.d.ts ./dist",
-    "preversion": "yarn run flow && yarn run typescript-test && yarn run lint && yarn run test",
+    "prepublishOnly": "yarn run build && cp ./lib/*.flow ./lib/*.d.ts ./dist",
+    "preversion": "yarn run check && yarn run lint && yarn run test",
     "test": "karma start ./karma.conf.js",
-    "typescript-test": "tsc --project typing-tests",
-    "version": "yarn run build && cp ./declarations/moment-range.* ./lib/*.d.ts ./dist"
+    "version": "yarn run build && cp ./lib/*.flow ./lib/*.d.ts ./dist"
   },
   "typings": "./dist/moment-range.d.ts",
   "devDependencies": {
@@ -61,7 +60,7 @@
     "eslint": "^3.11.1",
     "eslint-loader": "^1.6.1",
     "expect.js": "^0.3.1",
-    "flow-bin": "^0.36.0",
+    "flow-bin": "0.66.0",
     "karma": "^1.3.0",
     "karma-babel-polyfill": "0.0.5",
     "karma-chrome-launcher": "^2.0.0",

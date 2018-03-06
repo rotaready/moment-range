@@ -1,6 +1,7 @@
 declarations/
 flow-typed/
-lib/moment-range_test.js
+lib/tests/*
+*.test.js
 typing-tests/
 package-lock.json
 karma.conf.js

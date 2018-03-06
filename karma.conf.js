@@ -24,7 +24,7 @@ module.exports = function(config) {
     },
 
     files: [
-      { pattern: 'lib/*_test.js', watched: false }
+      { pattern: 'lib/tests/*\\.test\\.js', watched: false }
     ],
 
     frameworks: ['babel-polyfill', 'mocha', 'expect'],
@@ -42,7 +42,7 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      'lib/*_test.js': ['webpack', 'sourcemap']
+      'lib/tests/*\\.test\\.js': ['webpack', 'sourcemap']
     },
 
     reporters: ['dots'],
