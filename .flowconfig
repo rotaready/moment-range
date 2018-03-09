@@ -1,12 +1,13 @@
 [ignore]
 
 [include]
-declarations/
 
 [libs]
+declarations/
 
 [options]
 esproposal.class_instance_fields=enable
 esproposal.class_static_fields=enable
 suppress_comment=.*\\$FlowFixMe
 suppress_comment=.*\\$FlowIssue
+module.name_mapper='^moment-range$' -> '<PROJECT_ROOT>/lib/moment-range'
