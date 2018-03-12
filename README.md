@@ -659,9 +659,9 @@ const d1 = new Date(Date.UTC(2011, 4, 1));
 const d2 = new Date(Date.UTC(2011, 4, 5, 12));
 const range = moment.range(d1, d2);
 
-dr.diff('days')        // 4
-dr.diff('days', false) // 4
-dr.diff('days', true)  // 4.5
+range.diff('days')        // 4
+range.diff('days', false) // 4
+range.diff('days', true)  // 4.5
 ```
 
 `#duration` is an alias for `#diff` and they may be used interchangeably.
