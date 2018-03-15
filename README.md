@@ -239,9 +239,9 @@ Calculate the center of a range:
 ``` js
 const start = new Date(2011, 2, 5);
 const end   = new Date(2011, 3, 5);
-const dr    = moment.range(start, end);
+const range = moment.range(start, end);
 
-dr.center(); // 1300622400000
+range.center(); // 1300622400000
 ```
 
 #### Contains
@@ -644,11 +644,11 @@ Any of the units accepted by [moment.js' `add` method][add] may be used.
 ``` js
 const start = new Date(2011, 2, 5);
 const end   = new Date(2011, 5, 5);
-const dr    = moment.range(start, end);
+const range = moment.range(start, end);
 
-dr.diff('months'); // 3
-dr.diff('days');   // 92
-dr.diff();         // 7945200000
+range.diff('months'); // 3
+range.diff('days');   // 92
+range.diff();         // 7945200000
 ```
 
 Optionally you may specify if the difference should be rounded, by default it
@@ -675,9 +675,9 @@ Converts the `DateRange` to an `Array` of the start and end `Date` objects.
 ``` js
 const start = new Date(2011, 2, 5);
 const end   = new Date(2011, 5, 5);
-const dr    = moment.range(start, end);
+const range = moment.range(start, end);
 
-dr.toDate(); // [new Date(2011, 2, 5), new Date(2011, 5, 5)]
+range.toDate(); // [new Date(2011, 2, 5), new Date(2011, 5, 5)]
 ```
 
 #### `toString`
