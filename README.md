@@ -374,7 +374,7 @@ for (let month of range.by('month')) {
 }
 
 const years = Array.from(range.by('year'));
-years.length == 5 // true
+years.length == 6 // true
 years.map(m => m.format('YYYY')) // ['2010', '2011', '2012', '2013', '2014', '2015']
 ```
 
