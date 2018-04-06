@@ -56,6 +56,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 * Fixed `intersect` not creating a new DateRange instance in all cases
 * Fixed Flow declaration to provide correct and stricter typings
+* Fixed DateRange constructor poor performance when passed moment objects
 
 ### Removed
 
