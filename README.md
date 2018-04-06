@@ -475,9 +475,9 @@ end of the range should be excluded when testing for inclusion:
 #### byRange
 
 ``` js
-const start = new Date(2012, 2, 1);
-const two   = new Date(2012, 2, 2);
-const end   = new Date(2012, 2, 5);
+const start = new Date(2012, 2, 1); // 1st
+const two   = new Date(2012, 2, 2); // 2nd
+const end   = new Date(2012, 2, 5); // 5th
 const range1 = moment.range(start, end);
 const range2 = moment.range(start, two); // One day
 ```
@@ -485,27 +485,29 @@ const range2 = moment.range(start, two); // One day
 Iterate by another range:
 
 ``` js
-const acc = Array.from(range1.by(range2));
+const acc = Array.from(range1.byRange(range2));
 
 acc.length == 5 // true
+acc.map(m => m.format('DD')) // ['01','02','03','04','05']
 ```
 
-Exclude the end value:
+Exclude the end time slice:
 
 ``` js
-const acc = Array.from(range1.by(range2, { excludeEnd: true }));
+const acc = Array.from(range1.byRange(range2, { excludeEnd: true }));
 
 acc.length == 4 // true
+acc.map(m => m.format('DD')) // ['01','02','03','04']
 ```
 
 By step:
 
 ``` js
-let acc = Array.from(range1.by(range2, { step: 2 }));
+let acc = Array.from(range1.byRange(range2, { step: 2 }));
 
 acc.map(m => m.format('DD')) // ['01', '03', '05']
 
-acc = Array.from(range1.by(range2, { excludeEnd, true, step: 2 }));
+acc = Array.from(range1.byRange(range2, { excludeEnd, true, step: 2 }));
 
 acc.map(m => m.format('DD')) // ['01', '03']
 ```
@@ -526,7 +528,7 @@ const acc = Array.from(range.reverseBy('years'));
 acc.map(m => m.format('YYYY')) // ['2015', '2014', '2013', '2012']
 ```
 
-Exclude the start value:
+Exclude the start time slice:
 
 ``` js
 const range = moment.range('2012-01-01', '2015-01-01');
@@ -569,7 +571,7 @@ const range2 = moment.range(start, two); // One day
 Iterate by another range in reverse:
 
 ``` js
-const acc = Array.from(range1.by(range2));
+const acc = Array.from(range1.reverseByRange(range2));
 
 acc.length == 5 // true
 acc.map(m => m.format('DD')) // ['05', '04', '03', '02', '01']
@@ -578,7 +580,7 @@ acc.map(m => m.format('DD')) // ['05', '04', '03', '02', '01']
 Exclude the start value:
 
 ``` js
-const acc = Array.from(range1.by(range2, { excludeStart: true }));
+const acc = Array.from(range1.reverseByRange(range2, { excludeStart: true }));
 
 acc.length == 4 // true
 acc.map(m => m.format('DD')) // ['05', '04', '03', '02']
