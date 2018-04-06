@@ -423,21 +423,19 @@ for (let month of range.by('month')) {
 }
 
 const years = Array.from(range.by('year'));
-years.length == 5 // true
+years.length == 6 // true
 years.map(m => m.format('YYYY')) // ['2010', '2011', '2012', '2013', '2014', '2015']
 ```
 
-Iteration also supports excluding the end value of the range by setting the
-`excludeEnd` option to `true`.
+Iteration also supports excluding the final time slice of the range by setting the
+`excludeEnd` option to `true`. In the example below, the 5:00 -> 6:00 time slice is omitted.
 
 ``` js
-const start  = new Date(2012, 2, 1);
-const end    = new Date(2012, 2, 5);
-const range1 = moment.range(start, end);
+const range = moment.range('2018-01-01 00:00', '2018-01-01 05:30');
 
-const acc = Array.from(range1.by('day', { excludeEnd: true }));
-
-acc.length == 4 // true
+const hours = Array.from(range.by('hour', { excludeEnd: true }));
+hours.length == 5 // true
+hours.map(m => m.format('HH:mm')) // ['00:00', '01:00', '02:00', '03:00', '04:00']
 ```
 
 Additionally it's possible to iterate by a given step that defaults to `1`:
