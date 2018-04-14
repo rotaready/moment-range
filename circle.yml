@@ -1,10 +1,13 @@
 machine:
   node:
-    version: 6.1.0
+    version: 8.2.0
 dependencies:
-  pre:
-    - npm install --global flow-bin
+  override:
+    - yarn
 test:
+  override:
+    - yarn test
   pre:
-    - npm run lint
-    - npm run flow
+    - yarn lint
+    - yarn check:flow
+    - yarn check:typescript

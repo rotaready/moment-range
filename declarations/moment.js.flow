@@ -235,14 +235,17 @@ declare class moment$Moment {
   fn: Object;
   static range(interval: string): DateRange;
   static range(start: Date, end: Date): DateRange;
-  static range(start: Moment, end: Moment): DateRange;
+  static range(start: moment$Moment, end: moment$Moment): DateRange;
   static isRange(range: any): bool;
   range(interval: string): DateRange;
   range(start: Date, end: Date): DateRange;
-  range(start: Moment, end: Moment): DateRange;
-  rangeFromInterval(interval: string, count?: number, date?: Date|Moment|string): DateRange;
-  parseZoneRange(isoTimeInterval: string): DateRange;
+  range(start: moment$Moment, end: moment$Moment): DateRange;
+  rangeFromInterval(interval: string, count?: number, date?: Date|moment$Moment|string): DateRange;
+  rangeFromISOString(isoTimeInterval: string): DateRange;
   within(range: DateRange): bool;
+
+  // @deprecated
+  parseZoneRange(isoTimeInterval: string): DateRange;
 }
 
 declare module 'moment' {

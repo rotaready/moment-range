@@ -2,8 +2,6 @@
 
 Fancy date ranges for [Moment.js][moment].
 
-> Hey there! After 5 months of inactivity, we're reviewing pull requests and issues to bring moment-range up to date. Get in touch with us [in this thread](https://github.com/rotaready/moment-range/issues/177) if you have any feedback.
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -11,10 +9,12 @@ Fancy date ranges for [Moment.js][moment].
 - [Installation](#installation)
   - [Node / NPM](#node--npm)
   - [Browser](#browser)
+  - [Older browsers and IE11](#older-browsers-and-ie11)
 - [Examples](#examples)
   - [Create](#create)
     - [rangeFromInterval](#rangefrominterval)
     - [parseZoneRange](#parsezonerange)
+    - [rangeFromISOString](#rangefromisostring)
   - [Attributes](#attributes)
   - [Querying](#querying)
     - [Adjacent](#adjacent)
@@ -27,6 +27,7 @@ Fancy date ranges for [Moment.js][moment].
   - [Manipulation](#manipulation)
     - [Add](#add)
     - [Clone](#clone)
+    - [SnapTo](#snapto)
     - [Subtract](#subtract)
   - [Iteration](#iteration)
     - [by](#by)
@@ -91,6 +92,18 @@ window['moment-range'].extendMoment(moment);
 Thanks to the fine people at [cdnjs][cdnjs], you can link to moment-range from
 the [cdnjs servers][cdnjs-moment-range].
 
+
+### Older browsers and IE11
+
+This library makes use of `Symbol.iterator` to provide the [iteration
+protocols] now that there is [broad support] for them, if you need to support
+older browsers (specifically IE11) you will need to include a polyfill. Any of
+the following should work, depending on your project configuration:
+
+* [babel runtime transform plugin]
+* [babel polyfill]
+* https://github.com/medikoo/es6-iterator
+* https://github.com/zloirock/core-js
 
 
 ## Examples
@@ -167,12 +180,16 @@ When using a negative interval, the date provided will be set as the end of the 
 
 #### parseZoneRange
 
-Parses an [ISO 8601 time interval][interval] into a date range while
+**DEPRECATED** in `4.0.0`: Replaced by `rangeFromISOString` to follow naming conventions.
+
+#### rangeFromISOString
+
+Converts an [ISO 8601 time interval string][interval] into a date range while
 preserving the time zones using [moment.parseZone][parseZone].
 
 ``` js
 const interval = '2015-01-17T09:50:00+03:00/2015-04-17T08:29:55-04:00';
-const range = moment.parseZoneRange(interval);
+const range = moment.rangeFromISOString(interval);
 
 range.toString(); // '2015-01-17T09:50:00+03:00/2015-04-17T08:29:55-04:00'
 ```
@@ -222,30 +239,47 @@ Calculate the center of a range:
 ``` js
 const start = new Date(2011, 2, 5);
 const end   = new Date(2011, 3, 5);
-const dr    = moment.range(start, end);
+const range = moment.range(start, end);
 
-dr.center(); // 1300622400000
+range.center(); // 1300622400000
 ```
-
 
 #### Contains
 
-Check to see if your range contains a date/moment:
+Check to see if your range contains a date/moment. By default the start and end
+dates are included in the search. E.g.:
 
 ``` js
-const range  = moment.range(a, c);
+const range = moment.range(a, c);
 
+range.contains(a); // true
 range.contains(b); // true
+range.contains(c); // true
 range.contains(d); // false
 ```
 
-The `exclusive` options is used to indicate if the end of the range should be
-excluded when testing for inclusion:
+You can also control whether the start or end dates should be excluded from the
+search with the `excludeStart` and `excludeEnd` options:
 
 ``` js
-range.contains(c) // true
-range.contains(c, { exclusive: false }) // true
-range.contains(c, { exclusive: true }) // false
+const range = moment.range(a, c);
+
+range.contains(a); // true
+range.contains(a, { excludeStart: true }); // false
+range.contains(c); // true
+range.contains(c, { excludeEnd: true; }); // false
+```
+
+**DEPRECATED** in `4.0.0`: The `exclusive` options is used to indicate if the start/end of
+the range should be excluded when testing for inclusion:
+
+**Note**: You can obtain the same functionality by setting `{ excludeStart:
+true, excludeEnd: true }`
+
+``` js
+range.contains(c); // true
+range.contains(c, { exclusive: false }); // true
+range.contains(c, { exclusive: true }); // false
 ```
 
 #### Within
@@ -338,6 +372,21 @@ range2.start.add(2, 'days');
 range1.start.toDate().getTime() === range2.start.toDate().getTime() // false
 ```
 
+#### SnapTo
+
+Snap the start and end of a range to a given interval.
+
+``` js
+const start = moment('2018-01-25 17:05:33');
+const end = moment('2018-01-28 06:10:00');
+
+const range1 = moment.range(start, end);
+const range2 = range1.snapTo('day'); // 2018-01-25T00:00:00 -> 2018-01-28T23:59:59
+
+range1.diff('days'); // 2
+range2.diff('days'); // 3
+```
+
 #### Subtract
 
 Subtracting one range from another.
@@ -374,21 +423,19 @@ for (let month of range.by('month')) {
 }
 
 const years = Array.from(range.by('year'));
-years.length == 5 // true
+years.length == 6 // true
 years.map(m => m.format('YYYY')) // ['2010', '2011', '2012', '2013', '2014', '2015']
 ```
 
-Iteration also supports excluding the end value of the range by setting the
-`exclusive` option to `true`.
+Iteration also supports excluding the final time slice of the range by setting the
+`excludeEnd` option to `true`. In the example below, the 5:00 -> 6:00 time slice is omitted.
 
 ``` js
-const start  = new Date(2012, 2, 1);
-const end    = new Date(2012, 2, 5);
-const range1 = moment.range(start, end);
+const range = moment.range('2018-01-01 00:00', '2018-01-01 05:30');
 
-const acc = Array.from(range1.by('day', { exclusive: true }));
-
-acc.length == 4 // true
+const hours = Array.from(range.by('hour', { excludeEnd: true }));
+hours.length == 5 // true
+hours.map(m => m.format('HH:mm')) // ['00:00', '01:00', '02:00', '03:00', '04:00']
 ```
 
 Additionally it's possible to iterate by a given step that defaults to `1`:
@@ -402,17 +449,35 @@ let acc = Array.from(range1.by('day', { step: 2 }));
 
 acc.map(m => m.format('DD')) // ['02', '04', '06']
 
-acc = Array.from(range1.by('day', { exclusive: true, step: 2 }));
+acc = Array.from(range1.by('day', { excludeEnd: true, step: 2 }));
 
 acc.map(m => m.format('DD')) // ['02', '04']
 ```
 
+You can iterate over the span of a range for a period that is entered but not complete by using the [snapTo()](#snapto) method:
+
+``` js
+const start = moment("2017-01-01T13:30:00");
+const end = moment("2017-01-05T01:45:12");
+const r1 = moment.range(start, end);
+const r2 = r1.snapTo('day');
+
+Array.from(r1.by('days')).map(m => m.format('DD')); // ['01', '02', '03', '04']
+Array.from(r2.by('days')).map(m => m.format('DD')); // ['01', '02', '03', '04', '05']
+```
+
+**DEPRECATED** in `4.0.0`: The `exclusive` options is used to indicate if the
+end of the range should be excluded when testing for inclusion:
+
+**Note**: You can obtain the same functionality by setting `{ excludeEnd: true }`
+
+
 #### byRange
 
 ``` js
-const start = new Date(2012, 2, 1);
-const two   = new Date(2012, 2, 2);
-const end   = new Date(2012, 2, 5);
+const start = new Date(2012, 2, 1); // 1st
+const two   = new Date(2012, 2, 2); // 2nd
+const end   = new Date(2012, 2, 5); // 5th
 const range1 = moment.range(start, end);
 const range2 = moment.range(start, two); // One day
 ```
@@ -420,30 +485,38 @@ const range2 = moment.range(start, two); // One day
 Iterate by another range:
 
 ``` js
-const acc = Array.from(range1.by(range2));
+const acc = Array.from(range1.byRange(range2));
 
 acc.length == 5 // true
+acc.map(m => m.format('DD')) // ['01','02','03','04','05']
 ```
 
-Exclude the end value:
+Exclude the end time slice:
 
 ``` js
-const acc = Array.from(range1.by(range2, { exclusive: true }));
+const acc = Array.from(range1.byRange(range2, { excludeEnd: true }));
 
 acc.length == 4 // true
+acc.map(m => m.format('DD')) // ['01','02','03','04']
 ```
 
 By step:
 
 ``` js
-let acc = Array.from(range1.by(range2, { step: 2 }));
+let acc = Array.from(range1.byRange(range2, { step: 2 }));
 
 acc.map(m => m.format('DD')) // ['01', '03', '05']
 
-acc = Array.from(range1.by(range2, { exlusive, true, step: 2 }));
+acc = Array.from(range1.byRange(range2, { excludeEnd, true, step: 2 }));
 
 acc.map(m => m.format('DD')) // ['01', '03']
 ```
+
+**DEPRECATED** in `4.0.0`: The `exclusive` options is used to indicate if the
+end of the range should be excluded when testing for inclusion:
+
+**Note**: You can obtain the same functionality by setting `{ excludeEnd: true }`
+
 
 #### reverseBy
 
@@ -455,11 +528,11 @@ const acc = Array.from(range.reverseBy('years'));
 acc.map(m => m.format('YYYY')) // ['2015', '2014', '2013', '2012']
 ```
 
-Exclude the end value:
+Exclude the start time slice:
 
 ``` js
 const range = moment.range('2012-01-01', '2015-01-01');
-const acc = Array.from(range.reverseBy('years', { exclusive: true }));
+const acc = Array.from(range.reverseBy('years', { excludeStart: true }));
 acc.map(m => m.format('YYYY')) // ['2015', '2014', '2013']
 ```
 
@@ -474,10 +547,16 @@ let acc = Array.from(range1.reverseBy('day', { step: 2 }));
 
 acc.map(m => m.format('DD')) // ['06', '04', '02']
 
-acc = Array.from(range1.reverseBy('day', { exclusive: true, step: 2 }));
+acc = Array.from(range1.reverseBy('day', { excludeStart: true, step: 2 }));
 
 acc.map(m => m.format('DD')) // ['06', '04']
 ```
+
+**DEPRECATED** in `4.0.0`: The `exclusive` options is used to indicate if the
+start of the range should be excluded when testing for inclusion:
+
+**Note**: You can obtain the same functionality by setting `{ excludeStart: true }`
+
 
 #### reverseByRange
 
@@ -492,16 +571,16 @@ const range2 = moment.range(start, two); // One day
 Iterate by another range in reverse:
 
 ``` js
-const acc = Array.from(range1.by(range2));
+const acc = Array.from(range1.reverseByRange(range2));
 
 acc.length == 5 // true
 acc.map(m => m.format('DD')) // ['05', '04', '03', '02', '01']
 ```
 
-Exclude the end value:
+Exclude the start value:
 
 ``` js
-const acc = Array.from(range1.by(range2, { exclusive: true }));
+const acc = Array.from(range1.reverseByRange(range2, { excludeStart: true }));
 
 acc.length == 4 // true
 acc.map(m => m.format('DD')) // ['05', '04', '03', '02']
@@ -514,10 +593,16 @@ let acc = Array.from(range1.reverseByRange(range2, { step: 2 }));
 
 acc.map(m => m.format('DD')) // ['05', '03', '01']
 
-acc = Array.from(range1.reverseByRange(range2, { exlusive, true, step: 2 }));
+acc = Array.from(range1.reverseByRange(range2, { excludeStart: true, step: 2 }));
 
 acc.map(m => m.format('DD')) // ['05', '03']
 ```
+
+**DEPRECATED** in `4.0.0`: The `exclusive` options is used to indicate if the
+start of the range should be excluded when testing for inclusion:
+
+**Note**: You can obtain the same functionality by setting `{ excludeStart: true }`
+
 
 ### Compare
 
@@ -559,11 +644,11 @@ Any of the units accepted by [moment.js' `add` method][add] may be used.
 ``` js
 const start = new Date(2011, 2, 5);
 const end   = new Date(2011, 5, 5);
-const dr    = moment.range(start, end);
+const range = moment.range(start, end);
 
-dr.diff('months'); // 3
-dr.diff('days');   // 92
-dr.diff();         // 7945200000
+range.diff('months'); // 3
+range.diff('days');   // 92
+range.diff();         // 7945200000
 ```
 
 Optionally you may specify if the difference should be rounded, by default it
@@ -574,9 +659,9 @@ const d1 = new Date(Date.UTC(2011, 4, 1));
 const d2 = new Date(Date.UTC(2011, 4, 5, 12));
 const range = moment.range(d1, d2);
 
-dr.diff('days')        // 4
-dr.diff('days', false) // 4
-dr.diff('days', true)  // 4.5
+range.diff('days')        // 4
+range.diff('days', false) // 4
+range.diff('days', true)  // 4.5
 ```
 
 `#duration` is an alias for `#diff` and they may be used interchangeably.
@@ -590,9 +675,9 @@ Converts the `DateRange` to an `Array` of the start and end `Date` objects.
 ``` js
 const start = new Date(2011, 2, 5);
 const end   = new Date(2011, 5, 5);
-const dr    = moment.range(start, end);
+const range = moment.range(start, end);
 
-dr.toDate(); // [new Date(2011, 2, 5), new Date(2011, 5, 5)]
+range.toDate(); // [new Date(2011, 2, 5), new Date(2011, 5, 5)]
 ```
 
 #### `toString`
@@ -637,6 +722,7 @@ yarn install
 Do all the things!
 
 ``` sh
+yarn run check
 yarn run test
 yarn run lint
 ```
@@ -670,10 +756,14 @@ yarn run lint
 moment-range is [UNLICENSED][unlicense].
 
 [add]: http://momentjs.com/docs/#/manipulating/add/
+[babel runtime transform plugin]: https://babeljs.io/docs/plugins/transform-runtime
+[babel polyfill]: https://babeljs.io/docs/usage/polyfill
+[broad support]: http://kangax.github.io/compat-table/es6/#test-well-known_symbols_Symbol.iterator,_existence_a_href=_https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator_title=_MDN_documentation_img_src=_../mdn.png_alt=_MDN_(Mozilla_Development_Network)_logo_width=_15_height=_13_/_/a_nbsp;
 [cdnjs]: https://github.com/cdnjs/cdnjs
 [cdnjs-moment-range]: https://cdnjs.com/libraries/moment-range
 [interval]: http://en.wikipedia.org/wiki/ISO_8601#Time_intervals
 [iterable]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#Syntaxes_expecting_iterables
+[iteration protocols]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
 [moment]: http://momentjs.com/
 [node]: http://nodejs.org/
 [unlicense]: http://unlicense.org/

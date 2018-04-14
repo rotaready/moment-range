@@ -6,6 +6,62 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Deprecated
+
+* Deprecated `exclusive` option of `contains()` method in favour of new
+  `excludeStart` and `excludeEnd` options
+* Deprecated `exclusive` option of `by()` method in favour of new `excludeEnd` options
+* Deprecated `exclusive` option of `byRange()` method in favour of new `excludeEnd` options
+* Deprecated `exclusive` option of `reverseBy()` method in favour of new `excludeStart` options
+* Deprecated `exclusive` option of `reverseByRange()` method in favour of new `excludeStart` options
+* Deprecated `parseZoneRange` in favour of `rangeFromISOString`
+
+### Added
+
+* Added Typescript definitions
+* Added Typescript config and tests
+* Added `check`, `typescript-test` npm script
+* Added `excludeStart` and `excludeEnd` to `contains()` method
+* Added `excludeEnd` to `by()` method
+* Added `excludeEnd` to `byRange()` method
+* Added `excludeStart` to `reverseBy()` method
+* Added `excludeStart` to `reverseByRange()` method
+* Added note about supporting older browsers with links to polyfills to the README
+* Added moment extension `rangeFromISOString`, changed name from `parseZoneRange`
+* Added `snapTo()` method
+* Added explicit Flow typing tests
+
+### Changed
+
+* Changed `build` script to use webpack's production settings for a more
+  optimized build
+* Changed `prepublish` script to `prepublishOnly` so the task isn't run on
+  `install`
+* Changed `prepublishOnly` and `version` scripts to use `&&` instead of `;`
+* Changed `prepublish`, `preversion`, `version` scripts to support typescript definitions
+* Changed CircleCI config to also run typescript tests
+* Changed `parseZoneRange` to `rangeFromISOString` to follow naming conventions. Deprecated `parseZoneRange`.
+* Changed typing tests to be grouped by type-checker (flow, typescript)
+* Changed test suffix (`_test.js` → `.test.js`)
+* Changed test file location (`./lib/` → `./lib/tests/`)
+* Changed package json script names:
+    - `flow` → `check:flow`
+    - `typescript-test` → `check:typescript`
+* Changed CircleCI to use Node 8.2.0
+* Changed CircleCI to use Yarn
+* Changed Flow config to find correct declarations
+* Changed location of Flow declaration (`./declarations/` → `./lib/`)
+
+### Fixed
+
+* Fixed `intersect` not creating a new DateRange instance in all cases
+* Fixed Flow declaration to provide correct and stricter typings
+* Fixed DateRange constructor poor performance when passed moment objects
+
+### Removed
+
+* Removed `lib/` from package.json files
+* Removed a bunch of unused Flow types
 
 ## [3.1.1]
 ### Fixed
