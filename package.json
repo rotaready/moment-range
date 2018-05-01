@@ -27,7 +27,7 @@
   "homepage": "https://github.com/rotaready/moment-range",
   "bugs": "https://github.com/rotaready/moment-range/issues",
   "main": "./dist/moment-range",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "engines": {
     "node": "*"
   },
