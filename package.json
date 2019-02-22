@@ -27,7 +27,7 @@
   "homepage": "https://github.com/rotaready/moment-range",
   "bugs": "https://github.com/rotaready/moment-range/issues",
   "main": "./dist/moment-range",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "engines": {
     "node": "*"
   },
@@ -36,7 +36,7 @@
   ],
   "scripts": {
     "build": "webpack -p",
-    "check": "yarn check:flow && yar check:typescript",
+    "check": "yarn check:flow && yarn check:typescript",
     "check:flow": "flow",
     "check:typescript": "tsc --project ./typing-tests/typescript",
     "doctoc": "doctoc README.md --github",
