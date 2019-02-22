@@ -1,7 +1,20 @@
-import type Moment from "moment";
+import type Moment from 'moment';
 
-declare module "moment-range" {
-  declare type Shorthand = 'years' | 'year' | 'quarters' | 'quarter' | 'months' | 'month' | 'weeks' | 'week' | 'days' | 'day' | 'hours' | 'hour' | 'minutes' | 'minute' | 'seconds' | 'second' | 'milliseconds' | 'millisecond';
+declare module 'moment-range' {
+  declare type Base = (
+    'year' | 'years' | 'y' |
+    'month' | 'months' | 'M' |
+    'week' | 'weeks' | 'w' |
+    'day' | 'days' | 'd' |
+    'hour' | 'hours' | 'h' |
+    'minute' | 'minutes' | 'm' |
+    'second' | 'seconds' | 's' |
+    'millisecond' | 'milliseconds' | 'ms'
+  );
+
+  declare type _quarter = 'quarter' | 'quarters' | 'Q';
+
+  declare type UnitOfTimeDiff = Base | _quarter;
 
   declare function extendMoment(moment: Class<Moment>): Class<Moment>;
 
@@ -9,19 +22,18 @@ declare module "moment-range" {
     start: Moment;
     end: Moment;
 
-    constructor(start: Date, end: Date): void;
-    constructor(start: Moment, end: Moment): void;
-    constructor(range: [Date, Date]): void;
-    constructor(range: [Moment, Moment]): void;
+    constructor(start: Date | Moment, end: Date | Moment): void;
+    constructor(range: [Date | Moment, Date | Moment]): void;
     constructor(range: string): void;
+    constructor(): void;
 
     adjacent(other: DateRange): bool;
 
-    add(other: DateRange): ?DateRange;
+    add(other: DateRange, options?: {| adjacent?: bool |}): ?DateRange;
 
-    by(interval: Shorthand, options?: {| excludeEnd?: bool, step?: number, |}): Iterable<Moment>;
+    by(interval: UnitOfTimeDiff, options?: {| excludeEnd?: bool, step?: number, |}): Iterable<Moment>;
     // @deprecated 4.0.0
-    by(interval: Shorthand, options?: {| exclusive?: bool, step?: number, |}): Iterable<Moment>;
+    by(interval: UnitOfTimeDiff, options?: {| exclusive?: bool, step?: number, |}): Iterable<Moment>;
 
     byRange(interval: DateRange, options?: {| excludeEnd?: bool; step?: number, |}): Iterable<Moment>;
     // @deprecated 4.0.0
@@ -35,9 +47,9 @@ declare module "moment-range" {
     // @deprecated 4.0.0
     contains(other: Date | DateRange | Moment, options?: {| exclusive: bool, |}): bool;
 
-    diff(unit: ?Shorthand, rounded: ?bool): number;
+    diff(unit: ?UnitOfTimeDiff, precise: ?bool): number;
 
-    duration(unit: ?Shorthand, rounded: ?bool): number;
+    duration(unit: ?UnitOfTimeDiff, precise: ?bool): number;
 
     intersect(other: DateRange): ?DateRange;
 
@@ -47,19 +59,19 @@ declare module "moment-range" {
 
     overlaps(other: DateRange, options?: {| adjacent: bool, |}): bool;
 
-    reverseBy(interval: Shorthand, options?: {| excludeStart?: bool, step?: number, |}): Iterable<Moment>;
+    reverseBy(interval: UnitOfTimeDiff, options?: {| excludeStart?: bool, step?: number, |}): Iterable<Moment>;
     // @deprecated 4.0.0
-    reverseBy(interval: Shorthand, options?: {| exclusive?: bool, step?: number, |}): Iterable<Moment>;
+    reverseBy(interval: UnitOfTimeDiff, options?: {| exclusive?: bool, step?: number, |}): Iterable<Moment>;
 
     reverseByRange(interval: DateRange, options?: {| excludeStart?: bool, step?: number, |}): Iterable<Moment>;
     // @deprecated 4.0.0
     reverseByRange(interval: DateRange, options?: {| exclusive?: bool, step?: number, |}): Iterable<Moment>;
 
-    snapTo(interval: Shorthand): DateRange;
+    snapTo(interval: UnitOfTimeDiff): DateRange;
 
     subtract(other: DateRange): Array<DateRange>;
 
-    toDate(): Array<Date>;
+    toDate(): [Date, Date];
 
     toString(): string;
 

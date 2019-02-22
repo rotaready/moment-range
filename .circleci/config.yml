@@ -2,7 +2,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: node:8.11
+      - image: circleci/node:8.11-browsers
     working_directory: ~
 
     steps:
@@ -30,4 +30,4 @@ workflows:
   version: 2
   tests:
     jobs:
-      - test:
+      - test

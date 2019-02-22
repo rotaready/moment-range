@@ -11,9 +11,14 @@ const moment = extendMoment(M);
 
 moment.range(new Date(), new Date());
 moment.range(moment(), moment());
+moment.range(moment(), new Date());
+moment.range(new Date(), moment());
 moment.range([new Date(), new Date()]);
 moment.range([moment(), moment()]);
+moment.range([moment(), new Date()]);
+moment.range([new Date(), moment()]);
 moment.range('year');
+moment.range();
 
 moment.rangeFromInterval('day');
 moment.rangeFromInterval('day', 3);
@@ -28,9 +33,14 @@ moment().within(moment.range('hour'));
 
 new DateRange(new Date(), new Date());
 new DateRange(moment(), moment());
+new DateRange(moment(), new Date());
+new DateRange(new Date(), moment());
 new DateRange([new Date(), new Date()]);
 new DateRange([moment(), moment()]);
+new DateRange([moment(), new Date()]);
+new DateRange([new Date(), moment()]);
 new DateRange('year');
+new DateRange();
 
 // Adjacent
 const range001 = new DateRange('year');

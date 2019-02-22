@@ -5,15 +5,14 @@ export class DateRange {
   start: Moment;
   end: Moment;
 
-  constructor(start: Date, end: Date);
-  constructor(start: Moment, end: Moment);
-  constructor(range: [Date, Date]);
-  constructor(range: [Moment, Moment]);
+  constructor(start: Date | Moment, end: Date | Moment);
+  constructor(range: [Date | Moment, Date | Moment]);
   constructor(range: string);
+  constructor();
 
   adjacent(other: DateRange): boolean;
 
-  add(other: DateRange, options?: { adjacent?: boolean; }): DateRange | undefined;
+  add(other: DateRange, options?: { adjacent?: boolean }): DateRange | null;
 
   by(interval: unitOfTime.Diff, options?: { excludeEnd?: boolean; step?: number; }): Iterable<Moment>;
   // @deprecated 4.0.0
@@ -31,11 +30,11 @@ export class DateRange {
   // @deprecated 4.0.0
   contains(other: Date | DateRange | Moment, options?: { exclusive?: boolean; }): boolean;
 
-  diff(unit?: unitOfTime.Diff, rounded?: boolean): number;
+  diff(unit?: unitOfTime.Diff, precise?: boolean): number;
 
-  duration(unit?: unitOfTime.Diff, rounded?: boolean): number;
+  duration(unit?: unitOfTime.Diff, precise?: boolean): number;
 
-  intersect(other: DateRange): DateRange | undefined;
+  intersect(other: DateRange): DateRange | null;
 
   isEqual(other: DateRange): boolean;
 
@@ -63,11 +62,10 @@ export class DateRange {
 }
 
 export interface MomentRangeStaticMethods {
-  range(start: Date, end: Date): DateRange;
-  range(start: Moment, end: Moment): DateRange;
-  range(range: [Date, Date]): DateRange;
-  range(range: [Moment, Moment]): DateRange;
+  range(start: Date | Moment, end: Date | Moment): DateRange;
+  range(range: [Date | Moment, Date | Moment]): DateRange;
   range(range: string): DateRange;
+  range(): DateRange;
 
   rangeFromInterval(interval: unitOfTime.Diff, count?: number, date?: Date | Moment): DateRange;
   rangeFromISOString(isoTimeInterval: string): DateRange;
