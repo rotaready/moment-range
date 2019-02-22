@@ -13,7 +13,7 @@ export class DateRange {
 
   adjacent(other: DateRange): boolean;
 
-  add(other: DateRange): DateRange | undefined;
+  add(other: DateRange, options?: { adjacent?: boolean; }): DateRange | undefined;
 
   by(interval: unitOfTime.Diff, options?: { excludeEnd?: boolean; step?: number; }): Iterable<Moment>;
   // @deprecated 4.0.0
