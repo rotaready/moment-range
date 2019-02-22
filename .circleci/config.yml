@@ -30,4 +30,4 @@ workflows:
   version: 2
   tests:
     jobs:
-      - test:
+      - test
