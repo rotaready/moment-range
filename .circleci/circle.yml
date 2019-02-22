@@ -25,3 +25,9 @@ jobs:
             yarn lint
             yarn check:flow
             yarn check:typescript
+
+workflows:
+  version: 2
+  tests:
+    jobs:
+      - test:
