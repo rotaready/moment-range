@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Changed the `moment.range()` & `DateRange` `constructor` types to allow mixed `Date` & `Moment` parameters
 * Changed the `interval`/`unit` flow parameter types in the `by`, `diff`, `duration`, `reverseBy` & `snapTo` to include all strings allowed by moment
 * Changed internal TypeScript version to `3.3.3333`
+* Changed CircleCI to version `2`
 
 ### Fixed
 * Fixed the return type of `add` and `intersect` to `DateRange | null` as opposed to `DateRange | undefined`
