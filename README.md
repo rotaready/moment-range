@@ -651,8 +651,8 @@ range.diff('days');   // 92
 range.diff();         // 7945200000
 ```
 
-Optionally you may specify if the difference should be rounded, by default it
-mimics moment-js' behaviour and rounds the values:
+Optionally you may specify if the difference should not be truncated. By default it
+mimics moment-js' behaviour and truncates the values:
 
 ``` js
 const d1 = new Date(Date.UTC(2011, 4, 1));
@@ -661,7 +661,7 @@ const range = moment.range(d1, d2);
 
 range.diff('days')        // 4
 range.diff('days', false) // 4
-range.diff('days', true)  // 4.5
+range.diff('days', true)  // 4.75
 ```
 
 `#duration` is an alias for `#diff` and they may be used interchangeably.

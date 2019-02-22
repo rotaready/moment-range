@@ -9,8 +9,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [4.0.2]
 ### Added
+* Added TypeScript & flow types missing options argument for `add` method
+* Added overloaded TypeScript declarations allowing for calling `moment.range()` without arguments
 
-* Added TypeScript missing options argument for add method
+### Changed
+* Changed second parameter of `diff` & `duration` from `rounded` to `precise` to reflect the underlying moment method
+* Changed the `moment.range()` & `DateRange` `constructor` types to allow mixed `Date` & `Moment` parameters
+* Changed the `interval`/`unit` flow parameter types in the `by`, `diff`, `duration`, `reverseBy` & `snapTo` to include all strings allowed by moment
+* Changed internal TypeScript version to 3.3.3333
+
+### Fixed
+* Fixed the return type of `add` and `intersect` to `DateRange | null` as opposed to `DateRange | undefined`
+* Fixed the flow `toDate()` method return type from an array of `Date`s to a `Date` tuple
 
 ## [4.0.1]
 ### Fixed
