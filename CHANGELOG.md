@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.0.2]
+### Added
+
+* Added TypeScript missing options argument for add method
+
 ## [4.0.1]
 ### Fixed
 
