@@ -27,7 +27,7 @@
   "homepage": "https://github.com/rotaready/moment-range",
   "bugs": "https://github.com/rotaready/moment-range/issues",
   "main": "./dist/moment-range",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "engines": {
     "node": "*"
   },
@@ -36,7 +36,7 @@
   ],
   "scripts": {
     "build": "webpack -p",
-    "check": "yarn check:flow && yar check:typescript",
+    "check": "yarn check:flow && yarn check:typescript",
     "check:flow": "flow",
     "check:typescript": "tsc --project ./typing-tests/typescript",
     "doctoc": "doctoc README.md --github",
@@ -55,7 +55,7 @@
     "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-stage-0": "^6.16.0",
-    "doctoc": "^1.2.0",
+    "doctoc": "^1.4.0",
     "eslint": "^3.11.1",
     "eslint-loader": "^1.6.1",
     "expect.js": "^0.3.1",

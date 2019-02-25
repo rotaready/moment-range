@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/node:8.11-browsers
+    working_directory: ~
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+
+      - run: yarn
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+      - run:
+          environment:
+            NODE_ENV: test
+          command: |
+            yarn test
+            yarn lint
+            yarn check:flow
+            yarn check:typescript
+
+workflows:
+  version: 2
+  tests:
+    jobs:
+      - test
