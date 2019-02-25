@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 * Fixed the return type of `add` and `intersect` to `DateRange | null` as opposed to `DateRange | undefined`
 * Fixed the flow `toDate()` method return type from an array of `Date`s to a `Date` tuple
+* Fixed `extendMoment()` typescript declaration to give access to moment namespace variables, e.g. `moment.duration()`, `moment.HTML5_FMT`
 
 ## [4.0.1]
 ### Fixed

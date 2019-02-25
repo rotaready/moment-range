@@ -86,4 +86,4 @@ declare module 'moment' {
   }
 }
 
-export function extendMoment(momentClass: Moment | typeof moment): MomentRange & Moment;
+export function extendMoment(momentClass: typeof moment): MomentRange & typeof moment;
