@@ -155,3 +155,7 @@ range019 + '';
 const range020 = new DateRange('year');
 range020.valueOf();
 // range019 + 1;
+
+// Access to moment methods
+moment.duration();
+moment.HTML5_FMT.DATE;
