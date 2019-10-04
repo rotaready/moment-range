@@ -69,6 +69,15 @@ import { extendMoment } from 'moment-range';
 const moment = extendMoment(Moment);
 ```
 
+**TypeScript:**
+
+``` js
+import * as Moment from 'moment';
+import { extendMoment } from 'moment-range';
+
+const moment = extendMoment(Moment);
+```
+
 **CommonJS:**
 
 ``` js
