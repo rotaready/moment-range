@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.1.0]
+### Added
+* Added support for using `rangeFromISOString` with ISO time intervals containing durations (like "2007-03-01T13:00:00Z/P1Y2M10DT2H30M")
+
 ## [4.0.2]
 ### Added
 * Added TypeScript & flow types missing options argument for `add` method

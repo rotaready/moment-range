@@ -203,6 +203,8 @@ const range = moment.rangeFromISOString(interval);
 range.toString(); // '2015-01-17T09:50:00+03:00/2015-04-17T08:29:55-04:00'
 ```
 
+You can also use ISO strings with a duration for either the start or end of the interval. Such as `2007-03-01T13:00:00Z/P1Y2M10DT2H30M`.
+
 ### Attributes
 
 You can access the start and end moments of the range easily enough:
