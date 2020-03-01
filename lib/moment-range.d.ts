@@ -69,6 +69,8 @@ export interface MomentRangeStaticMethods {
 
   rangeFromInterval(interval: unitOfTime.Diff, count?: number, date?: Date | Moment): DateRange;
   rangeFromISOString(isoTimeInterval: string): DateRange;
+  
+  isRange(range: any): boolean;
 
   // @deprecated 4.0.0
   parseZoneRange(isoTimeInterval: string): DateRange;
@@ -80,7 +82,7 @@ export interface MomentRange extends MomentRangeStaticMethods {
 
 declare module 'moment' {
   export interface Moment {
-    isRange(range: any): boolean;
+    range: MomentRangeStaticMethods['range'];
 
     within(range: DateRange): boolean;
   }
