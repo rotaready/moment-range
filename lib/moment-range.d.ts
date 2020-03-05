@@ -62,7 +62,7 @@ export class DateRange {
 }
 
 export interface MomentRangeStaticMethods {
-  range(start: Date | Moment, end: Date | Moment): DateRange;
+  range(start: Date | Moment | null, end?: Date | Moment | null): DateRange;
   range(range: [Date | Moment, Date | Moment]): DateRange;
   range(range: string): DateRange;
   range(): DateRange;
