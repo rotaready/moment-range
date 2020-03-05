@@ -41,6 +41,7 @@
     "check:typescript": "tsc --project ./typing-tests/typescript",
     "doctoc": "doctoc README.md --github",
     "lint": "eslint ./lib/",
+    "prepare": "webpack -p && cp ./lib/*.flow ./lib/*.d.ts ./dist",
     "prepublishOnly": "yarn build && cp ./lib/*.flow ./lib/*.d.ts ./dist",
     "preversion": "yarn check && yarn lint && yarn test",
     "test": "karma start ./karma.conf.js",
