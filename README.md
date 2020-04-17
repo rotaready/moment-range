@@ -63,10 +63,10 @@ npm install --save moment-range
 **ES6:**
 
 ``` js
-import Moment from 'moment';
-import { extendMoment } from 'moment-range';
+import Moment from 'moment'
+import MomentRange from 'moment-range'
 
-const moment = extendMoment(Moment);
+const moment = MomentRange.extendMoment(Moment);
 ```
 
 **TypeScript:**
