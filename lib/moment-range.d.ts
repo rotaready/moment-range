@@ -7,6 +7,7 @@ export class DateRange {
 
   constructor(start: Date | Moment, end: Date | Moment);
   constructor(range: [Date | Moment, Date | Moment]);
+  constructor(range: (Date | Moment)[]);
   constructor(range: string);
   constructor();
 
