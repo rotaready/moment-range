@@ -408,7 +408,7 @@ const range_ad = moment.range(a, d);
 range_ad.subtract(range_bc); // [moment.range(a, b) moment.range(c, d)]
 range_ac.subtract(range_bc); // [moment.range(a, b)]
 range_ab.subtract(range_cd); // [moment.range(a, b)]
-range_bc.subtract(range_bd); // [null]
+range_bc.subtract(range_ad); // [null]
 ```
 
 ### Iteration
