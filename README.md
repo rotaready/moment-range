@@ -516,7 +516,7 @@ let acc = Array.from(range1.byRange(range2, { step: 2 }));
 
 acc.map(m => m.format('DD')) // ['01', '03', '05']
 
-acc = Array.from(range1.byRange(range2, { excludeEnd, true, step: 2 }));
+acc = Array.from(range1.byRange(range2, { excludeEnd: true, step: 2 }));
 
 acc.map(m => m.format('DD')) // ['01', '03']
 ```
