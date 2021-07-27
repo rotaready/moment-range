@@ -1,5 +1,5 @@
-import * as moment from 'moment';
-import {Moment, unitOfTime} from 'moment';
+import * as momentNs from 'moment';
+import moment, {Moment, unitOfTime} from 'moment';
 
 export class DateRange {
   start: Moment;
@@ -86,4 +86,5 @@ declare module 'moment' {
   }
 }
 
+export function extendMoment(momentClass: typeof momentNs): MomentRange & typeof momentNs;
 export function extendMoment(momentClass: typeof moment): MomentRange & typeof moment;
