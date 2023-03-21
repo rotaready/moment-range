@@ -72,6 +72,8 @@ export interface MomentRangeStaticMethods {
 
   // @deprecated 4.0.0
   parseZoneRange(isoTimeInterval: string): DateRange;
+
+  isRange(range: any): boolean;
 }
 
 export interface MomentRange extends MomentRangeStaticMethods {
@@ -80,8 +82,6 @@ export interface MomentRange extends MomentRangeStaticMethods {
 
 declare module 'moment' {
   export interface Moment {
-    isRange(range: any): boolean;
-
     within(range: DateRange): boolean;
   }
 }
